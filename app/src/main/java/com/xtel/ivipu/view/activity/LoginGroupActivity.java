@@ -25,8 +25,8 @@ import com.xtel.sdk.callback.DialogListener;
 public class LoginGroupActivity extends BasicActivity implements ILoginGroup, View.OnClickListener {
 
     private EditText edt_user, edt_pass;
-    private Button btn_login;
-    private TextView tv_register, tv_reset, tv_active;
+    private TextView tv_reset;
+    private TextView tv_register;
 
 
     private LoginGroupPresenter presenter;
@@ -37,30 +37,30 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         setContentView(R.layout.activity_login_group);
         presenter = new LoginGroupPresenter(this);
         presenter.createCallbackManager();
-//        initToolbars();
         initView();
     }
 
     private void initView() {
         edt_user = (EditText) findViewById(R.id.edt_login_phone);
         edt_pass = (EditText) findViewById(R.id.edt_login_password);
-        btn_login = (Button) findViewById(R.id.btn_login_tonip);
+        Button btn_login = (Button) findViewById(R.id.btn_login_tonip);
 
-//        tv_register = (TextView) findViewById(R.id.tv_signup);
-        tv_active = (TextView) findViewById(R.id.tv_re_active);
+        tv_register = (TextView) findViewById(R.id.tv_signup);
+//        tv_active = (TextView) findViewById(R.id.tv_re_active);
         tv_reset = (TextView) findViewById(R.id.tv_reset);
 
-//        tv_register.setOnClickListener(this);
+        tv_register.setOnClickListener(this);
         tv_reset.setOnClickListener(this);
-        tv_active.setOnClickListener(this);
+//        tv_active.setOnClickListener(this);
 
         btn_login.setOnClickListener(this);
         setUnderLine();
     }
 
     private void setUnderLine() {
-        WidgetHelper.getInstance().setUnderLine("Kích hoạt tài khoản?", tv_active);
-        WidgetHelper.getInstance().setUnderLine("Quên mật khẩu?", tv_reset);
+//        WidgetHelper.getInstance().setUnderLine(getString(R.string.action_active_account), tv_active);
+        WidgetHelper.getInstance().setUnderLine(getString(R.string.action_recover_password), tv_reset);
+        WidgetHelper.getInstance().setUnderLine(getString(R.string.tv_do_not_have_an_acc), tv_register);
     }
 
     @Override
@@ -148,12 +148,17 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
             onLoginToNIP();
         } else if (id == R.id.tv_reset) {
             onReset();
-        } else if (id == R.id.tv_re_active) {
-            onReActive();
         }
-//        else if (id == R.id.tv_signup) {
-//            onSignup();
+//        else if (id == R.id.tv_re_active) {
+//            onReActive();
 //        }
+        else if (id == R.id.tv_signup) {
+            onSignup();
+        }
+    }
+
+    private void onSignup() {
+        startActivity(RegisterPhone.class);
     }
 
     private void onReActive() {
@@ -168,6 +173,10 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         String user = edt_user.getText().toString();
         String pass = edt_pass.getText().toString();
 
-        presenter.onLoginNip(user, pass, true);
+        if (user.isEmpty() || pass.isEmpty()) {
+            showShortToast(getString(R.string.please_enter_name_or_password));
+        } else {
+            presenter.onLoginNip(user, pass, true);
+        }
     }
 }
