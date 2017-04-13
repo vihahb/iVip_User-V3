@@ -98,6 +98,8 @@
     <string name="rate_news">Đánh giá bản tin</string>
     <string name="rate_action">Đánh giá</string>
     <string name="rate_action_success">Cám ơn bạn đã đánh giá bản tin.</string>
+    <string name="action_active_account">Kích hoạt tài khoản?</string>
+    <string name="action_recover_password">Quên mật khẩu?</string>
 
     <!-- Message App -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -152,12 +154,32 @@
     <string name="btn_logout">Đăng xuất</string>
     <string name="btn_login">Đăng nhập</string>
     <string name="need_login">Vui lòng đăng nhập</string>
+    <string name="action_login_with_phone">Đăng nhập bằng số điện thoại</string>
+    <string name="action_login_with_facebook">Facebook</string>
+    <string name="action_login_with_twitter">Twitter</string>
+    <string name="tv_or">Hoặc</string>
+    <string name="tv_do_not_have_an_acc">Bạn chưa có tài khoản?</string>
+    <string name="tv_have_an_acc">Bạn đã có tài khoản?</string>
+    <string name="err_phone_number_type">Sai định dạng số điện thoại.</string>
+    <string name="please_enter_a_password">Vui lòng nhập mật khẩu</string>
+    <string name="please_enter_name_or_password">Vui lòng nhập tên hoặc mật khẩu</string>
+    <string name="name_not_null">Tên không được để trống</string>
+    <string name="pass_not_null">Mật khẩu không được để trống</string>
+    <string name="please_fill_pass">Vui lòng nhập mật khẩu</string>
 
     <array name="gender_profile">
         <item>Nữ</item>
         <item>Nam</item>
         <item>Khác</item>
     </array>
+
+    <!-- Status -->
+    <string name="check_ok">Done</string>
+    <string name="do_you_have_an_acc">Bạn chưa có tài khoản?</string>
+    <string name="recovery_password">Quên mật khẩu?</string>
+    <string name="pass_word">Mật khẩu</string>
+    <string name="phone">Số điện thoại</string>
+
 
     <!-- Menu -->
     <string name="nav_news_category">Danh mục bản tin</string>
@@ -170,7 +192,7 @@
     <string name="nav_toys_and_games">Đồ chơi và trò chơi</string>
     <string name="nav_other_services">Các dịch vụ khác</string>
     <string name="nav_around_here">Xung quanh đây</string>
-    
+
     <string name="nav_home">Trang chủ</string>
     <string name="nav_voucher">Thẻ giảm giá</string>
     <string name="nav_member">Thành viên</string>

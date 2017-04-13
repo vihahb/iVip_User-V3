@@ -321,10 +321,9 @@ public class WidgetHelper {
     }
 
     public void setUnderLine(String content, TextView textView) {
-        String mystring = new String(content);
-        SpannableString underLineString = new SpannableString(mystring);
-        underLineString.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
-        textView.setText(content);
+        SpannableString underLineString = new SpannableString(content);
+        underLineString.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        textView.setText(underLineString);
     }
 
     public void comparingTime(TextView textView, long time_get) {

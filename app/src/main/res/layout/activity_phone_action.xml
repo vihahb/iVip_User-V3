@@ -1,213 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/backgroud_main"
-    android:fillViewport="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/size_32"
-            tools:ignore="NestedWeights">
-
-            <ImageView
-                android:layout_marginTop="@dimen/size_48"
-                android:layout_width="@dimen/size_120"
-                android:layout_height="@dimen/size_120"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:src="@mipmap/logo" />
-
-        </LinearLayout>
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/size_30"
-            android:paddingRight="@dimen/size_30">>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_48"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <FrameLayout
-                    android:layout_width="@dimen/size_48"
-                    android:layout_height="@dimen/size_48">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.7"
-                        android:background="@color/edit_text_left" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/size_8"
-                        android:src="@drawable/ic_btn_login_phone" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.4"
-                        android:background="@color/edit_text_main" />
-
-                    <EditText
-                        android:id="@+id/edt_user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="Số điện thoại"
-                        android:inputType="phone"
-                        android:paddingLeft="@dimen/size_16"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
-                </FrameLayout>
+                <ImageView
+                    android:layout_width="@dimen/size_160"
+                    android:layout_height="@dimen/size_160"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"
+                    android:src="@mipmap/ivip_logo" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_48"
-                android:layout_marginTop="@dimen/size_8"
-                android:orientation="horizontal">
-
-                <FrameLayout
-                    android:layout_width="@dimen/size_48"
-                    android:layout_height="@dimen/size_48">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.7"
-                        android:background="@color/edit_text_left" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/size_8"
-                        android:src="@drawable/ic_edit_lock" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.4"
-                        android:background="@color/edit_text_main" />
-
-                    <EditText
-                        android:id="@+id/edt_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="Mật khẩu"
-                        android:inputType="textPassword"
-                        android:paddingLeft="@dimen/size_16"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_48"
-                android:layout_marginTop="@dimen/size_8"
-                android:orientation="horizontal">
-
-                <FrameLayout
-                    android:layout_width="@dimen/size_48"
-                    android:layout_height="@dimen/size_48">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.7"
-                        android:background="@color/edit_text_left" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/size_8"
-                        android:src="@drawable/ic_edit_lock" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.4"
-                        android:background="@color/edit_text_main" />
-
-                    <EditText
-                        android:id="@+id/edt_re_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="Nhập lại mật khẩu"
-                        android:inputType="textPassword"
-                        android:paddingLeft="@dimen/size_16"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_48"
-                android:layout_marginTop="@dimen/size_16">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/btn_reg"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:background="@drawable/btn_out_line_white"
-                        android:text="@string/action_reg"
-                        android:textColor="@android:color/white" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_callback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_8"
-                android:gravity="center"
-                android:text="Đã có tài khoản?"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/size_32"
+                android:paddingLeft="@dimen/size_30"
+                android:paddingRight="@dimen/size_30">
 
-</ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/size_48"
+                        android:layout_height="@dimen/size_48"
+                        android:background="@color/overlay_icon_right">
+
+                        <ImageView
+                            style="@style/ic_edit_text_login"
+                            android:src="@drawable/ic_btn_login_phone" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/overlay_edit_text_right">
+
+                        <EditText
+                            android:id="@+id/edt_user_name"
+                            style="@style/edittext_style_login"
+                            android:background="@android:color/transparent"
+                            android:hint="Số điện thoại"
+                            android:inputType="phone" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/size_48"
+                        android:layout_height="@dimen/size_48"
+                        android:background="@color/overlay_icon_right">
+
+                        <ImageView
+                            style="@style/ic_edit_text_login"
+                            android:src="@drawable/ic_edit_lock" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/overlay_edit_text_right">
+
+                        <EditText
+                            android:id="@+id/edt_password"
+                            style="@style/edittext_style_login"
+                            android:background="@android:color/transparent"
+                            android:hint="Mật khẩu"
+                            android:inputType="textPassword" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/size_48"
+                        android:layout_height="@dimen/size_48"
+                        android:background="@color/overlay_icon_right">
+
+                        <ImageView
+                            style="@style/ic_edit_text_login"
+                            android:src="@drawable/ic_edit_lock" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/overlay_edit_text_right">
+
+                        <EditText
+                            android:id="@+id/edt_re_password"
+                            style="@style/edittext_style_login"
+                            android:background="@android:color/transparent"
+                            android:hint="Nhập lại mật khẩu"
+                            android:inputType="textPassword" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48"
+                    android:layout_marginTop="@dimen/size_16">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btn_reg"
+                            style="@style/btn_out_line_login"
+                            android:text="@string/action_reg" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_callback"
+                    style="@style/textView_style_login"
+                    android:paddingTop="@dimen/size_16"
+                    android:text="@string/tv_have_an_acc"
+                    android:textStyle="italic" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

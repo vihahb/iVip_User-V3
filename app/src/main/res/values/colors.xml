@@ -50,7 +50,8 @@
     <color name="left_btn_login_facebook">#3b5998</color>
 
     <!-- Edit Text form -->
-    <color name="edit_text_left">#02576b</color>
+    <color name="overlay_edit_text_right">#66191919</color>
+    <color name="overlay_icon_right">#99050505</color>
     <color name="edit_text_main">#000000</color>
 
     <!-- Rating bar color -->

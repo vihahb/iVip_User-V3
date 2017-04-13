@@ -64,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:alpha="0.7"
-                        android:background="@color/edit_text_left" />
+                        android:background="@color/overlay_edit_text_right" />
 
                     <ImageView
                         android:layout_width="match_parent"

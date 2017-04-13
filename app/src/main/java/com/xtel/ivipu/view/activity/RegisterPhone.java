@@ -38,8 +38,6 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
 
         presenter = new RegisterPhonePresenter(this);
         presenter.createCallbackManager();
-
-//        initToolbars();
         initView();
     }
 
@@ -48,8 +46,8 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
         edt_password = (EditText) findViewById(R.id.edt_password);
         edt_re_password = (EditText) findViewById(R.id.edt_re_password);
 
-//        tv_callback = (TextView) findViewById(R.id.tv_callback);
-//        tv_callback.setOnClickListener(this);
+        tv_callback = (TextView) findViewById(R.id.tv_callback);
+        tv_callback.setOnClickListener(this);
 
         btn_reg = (Button) findViewById(R.id.btn_reg);
 
@@ -66,16 +64,13 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
         re_password = edt_re_password.getText().toString();
 
         if (user_name.isEmpty()) {
-            mes = "So dien thoai khong duoc de trong";
-            showShortToast(mes);
+            showShortToast(getString(R.string.name_not_null));
             return false;
         } else if (password.isEmpty()) {
-            mes = "Mat khau khong duoc de trong";
-            showShortToast(mes);
+            showShortToast(getString(R.string.pass_not_null));
             return false;
         } else if (re_password.isEmpty()) {
-            mes = "Vui long nhap lai mat khau tren";
-            showShortToast(mes);
+            showShortToast(getString(R.string.please_fill_pass));
             return false;
         } else {
             mes = "OK, PHONE";
@@ -89,34 +84,15 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
      **/
     private boolean checkPassword() {
         if (!re_password.equals(password)) {
-            String mes = "Vui long nhap dung mat khau";
+            String mes = getString(R.string.please_enter_a_password);
             showShortToast(mes);
             return false;
         } else {
-            String mes = "Check password pased";
+            String mes = getString(R.string.check_ok);
             showShortToast(mes);
             return true;
         }
     }
-
-//    private boolean checkIsPhone(String number){
-//        boolean checkNumber = true;
-//        try {
-//        long longNumber = Long.parseLong(number);
-//        } catch (Exception e){
-//            checkNumber = false;
-//        }
-//
-//        if (!checkNumber){
-//            String mes = "Day la email";
-//            showShortToast(mes);
-//            return false;
-//        } else {
-//            String mes = "Day la sdt";
-//            showShortToast(mes);
-//            return true;
-//        }
-//    }
 
     /**
      * Step 4
@@ -135,10 +111,10 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
         if (ValidData()) {
             if (checkPassword()) {
                 if (!checkPhone()) {
-                    String mes = "Sai dinh dang so dien thoai.";
+                    String mes = getString(R.string.err_phone_number_type);
                     showShortToast(mes);
                 } else {
-                    String mes = "Phone number: " + user_name;
+                    String mes = "Phone: " + user_name;
                     showShortToast(mes);
                     presenter.onRegisterPhone(user_name, password);
                 }
@@ -215,10 +191,9 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
 
         if (id == R.id.btn_reg) {
             checkDataInput();
+        } else if (id == R.id.tv_callback) {
+            startActivity(LoginActivity.class);
         }
-//        else if (id == R.id.tv_callback) {
-//            finishActivity();
-//        }
     }
 
     @Override
