@@ -33,8 +33,6 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         presenter = new LoginPresenter(this);
-        presenter.createCallBackManager();
-        presenter.createNipCallbackManager();
         initView();
         getData();
     }
@@ -46,6 +44,7 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
         btn_login_facebook.setOnClickListener(this);
         btn_login_account_kit.setOnClickListener(this);
         tv_Signup.setOnClickListener(this);
+        WidgetHelper.getInstance().setUnderLine(getString(R.string.do_you_have_an_acc), tv_Signup);
     }
 
     private void onSignup() {

@@ -43,9 +43,11 @@ public class LoginPresenter {
 
     public LoginPresenter(ILoginView view) {
         this.view = view;
+        createCallBackManager();
+        createNipCallbackManager();
     }
 
-    public void createNipCallbackManager() {
+    private void createNipCallbackManager() {
         nipCallbackManager = com.xtel.nipservicesdk.CallbackManager.create(view.getActivity());
     }
 
@@ -53,7 +55,7 @@ public class LoginPresenter {
         nipCallbackManager.onRequestPermissionsResult(requestCode, permission, grantResult);
     }
 
-    public void createCallBackManager() {
+    private void createCallBackManager() {
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

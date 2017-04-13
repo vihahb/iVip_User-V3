@@ -10,6 +10,7 @@ import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 import com.xtel.ivipu.view.activity.HomeActivity;
+import com.xtel.ivipu.view.activity.LoginGroupActivity;
 import com.xtel.ivipu.view.activity.ResetActivity;
 import com.xtel.ivipu.view.activity.inf.ILoginGroup;
 import com.xtel.nipservicesdk.CallbackManager;
@@ -96,7 +97,9 @@ public class LoginGroupPresenter {
                         AccountKitActivity.ResponseType.CODE); // or .ResponseType.TOKEN
         // ... perform additional configuration ...
         configurationBuilder.setTitleType(AccountKitActivity.TitleType.APP_NAME);
-        configurationBuilder.setInitialPhoneNumber(new PhoneNumber("VN", phone_number));
+        if (phone_number != null && !phone_number.isEmpty()) {
+            configurationBuilder.setInitialPhoneNumber(new PhoneNumber("VN", phone_number));
+        }
         configurationBuilder.setDefaultCountryCode("VN");
         intent.putExtra(
                 AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
@@ -267,7 +270,7 @@ public class LoginGroupPresenter {
             @Override
             public void onSuccess() {
                 view.showShortToast("Reactive success!");
-                view.finishActivity();
+                view.startActivity(LoginGroupActivity.class);
             }
 
             @Override

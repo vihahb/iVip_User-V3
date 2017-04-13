@@ -4,141 +4,125 @@
     android:layout_height="match_parent"
     android:background="@mipmap/backgroud_main"
     android:fitsSystemWindows="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView style="@style/img_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/size_30"
+        android:paddingRight="@dimen/size_30">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:layout_height="@dimen/size_48"
                 android:orientation="horizontal">
 
-                <ImageView style="@style/img_logo" />
+                <FrameLayout
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:background="@color/overlay_icon_right">
+
+                    <ImageView
+                        style="@style/ic_edit_text_login"
+                        android:src="@drawable/ic_btn_login_phone" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/overlay_edit_text_right">
+
+                    <EditText
+                        android:id="@+id/edt_login_phone"
+                        style="@style/edittext_style_login"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/phone"
+                        android:inputType="phone" />
+                </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/size_30"
-                android:paddingRight="@dimen/size_30">
+                android:layout_height="@dimen/size_48"
+                android:layout_marginTop="@dimen/size_8"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <FrameLayout
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:background="@color/overlay_icon_right">
+
+                    <ImageView
+                        style="@style/ic_edit_text_login"
+                        android:src="@drawable/ic_edit_lock" />
+                </FrameLayout>
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:background="@color/overlay_edit_text_right">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:orientation="horizontal">
-
-                        <FrameLayout
-                            android:layout_width="@dimen/size_48"
-                            android:layout_height="@dimen/size_48">
-
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-
-                                android:background="@color/overlay_icon_right" />
-
-                            <ImageView
-                                style="@style/ic_edit_text_login"
-                                android:src="@drawable/ic_btn_login_phone" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/overlay_edit_text_right">
-
-                            <EditText
-                                android:id="@+id/edt_login_phone"
-                                style="@style/edittext_style_login"
-                                android:background="@android:color/transparent"
-                                android:hint="@string/phone"
-                                android:inputType="phone" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:layout_marginTop="@dimen/size_8"
-                        android:orientation="horizontal">
-
-                        <FrameLayout
-                            android:layout_width="@dimen/size_48"
-                            android:layout_height="@dimen/size_48"
-                            android:background="@color/overlay_icon_right">
-
-                            <ImageView
-                                style="@style/ic_edit_text_login"
-                                android:src="@drawable/ic_edit_lock" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/overlay_edit_text_right">
-
-                            <EditText
-                                android:id="@+id/edt_login_password"
-                                style="@style/edittext_style_login"
-                                android:background="@android:color/transparent"
-                                android:hint="@string/pass_word"
-                                android:inputType="textPassword" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_48"
-                        android:layout_marginTop="@dimen/size_16">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <Button
-                                android:id="@+id/btn_login_tonip"
-                                style="@style/btn_out_line_login"
-                                android:text="@string/action_login" />
-                        </FrameLayout>
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_reset"
-                        style="@style/textView_style_login"
-                        android:text="@string/recovery_password" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/size_32"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_signup"
-                        style="@style/textView_style_login"
-                        android:text="@string/do_you_have_an_acc" />
-                </LinearLayout>
-
+                    <EditText
+                        android:id="@+id/edt_login_password"
+                        style="@style/edittext_style_login"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/pass_word"
+                        android:inputType="textPassword" />
+                </FrameLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginTop="@dimen/size_16">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/btn_login_tonip"
+                        style="@style/btn_out_line_login"
+                        android:text="@string/action_login" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_reset"
+                style="@style/textView_style_login"
+                android:text="@string/recovery_password" />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_32"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_signup"
+                style="@style/textView_style_login"
+                android:text="@string/do_you_have_an_acc" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
