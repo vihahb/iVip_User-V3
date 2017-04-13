@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Vũ Hà Vi on 12/27/2016.
+ * Created by Vũ Hà Vi on 12/27/2016
  */
 
 public class Constants {
