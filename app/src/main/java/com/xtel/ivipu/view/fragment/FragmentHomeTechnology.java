@@ -43,6 +43,11 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeTechnology newInstance() {
+        FragmentHomeTechnology fragment = new FragmentHomeTechnology();
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +63,7 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
     }
 
     private void initRecylerView(View view) {
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_navigationView);
+        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_bottom_navigation);
         ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcl_new_list = (RecyclerView) view.findViewById(R.id.rcl_ivip);

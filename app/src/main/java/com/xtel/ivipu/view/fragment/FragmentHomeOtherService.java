@@ -43,6 +43,11 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeOtherService newInstance() {
+        FragmentHomeOtherService fragment = new FragmentHomeOtherService();
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

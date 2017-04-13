@@ -2,7 +2,6 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_progress_view"
     android:layout_width="match_parent"
-    android:background="@mipmap/bgr_app"
     android:layout_height="match_parent">
 
     <FrameLayout
@@ -10,11 +9,9 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcl_ivip"
+            android:id="@+id/recyclerview_progress_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="@dimen/size_175" />
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/layout_progress_view_data"
@@ -34,14 +31,13 @@
 
             <TextView
                 android:id="@+id/txt_progress_view_data"
-                android:layout_width="280dp"
+                android:layout_width="match_parent"
+                android:paddingLeft="36dp"
+                android:paddingRight="36dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
+                android:textSize="13sp"/>
         </LinearLayout>
-
     </FrameLayout>
-
 </android.support.v4.widget.SwipeRefreshLayout>

@@ -28,6 +28,8 @@ import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
 import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
 import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
+import com.xtel.ivipu.view.fragment.ListVoucherFragment;
+import com.xtel.ivipu.view.fragment.ProfileFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
 import java.lang.reflect.Field;
@@ -72,14 +74,14 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
+//        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.home_navigationView);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     /**
-     * Khởi tạo tab chức năng bên dưới
+     * Khởi tạo tab chức năng phía dưới
      * Lắng nghe sự kiện khi item cửa tab được chọn
      */
     public void initBottomNavigation() {
@@ -95,7 +97,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
                                 break;
                             case R.id.nav_home_voucher:
-
+                                replaceListVoucher();
                                 break;
                             case R.id.nav_home_member:
                                 replaceMember();
@@ -104,7 +106,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
                                 break;
                             case R.id.nav_home_account:
-
+                                replaceProfile();
                                 break;
                             default:
                                 break;
@@ -114,6 +116,9 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                 });
     }
 
+    /**
+    * Loại bỏ animation của bottom navigation view
+    * */
     private void removeShiftMode() {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) nav_bottom_home.getChildAt(0);
         try {
@@ -128,9 +133,9 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                 item.setChecked(item.getItemData().isChecked());
             }
         } catch (NoSuchFieldException e) {
-            Log.e("ERROR NO SUCH FIELD", "Unable to get shift mode field");
+            Log.e(TAG, "Unable to get shift mode field");
         } catch (IllegalAccessException e) {
-            Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode");
+            Log.e(TAG, "Unable to change value of shift mode");
         }
     }
 
@@ -159,7 +164,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
     /**
      * Đổi tiêu đề của toolbar
-     *
      * @param StringResource id of string
      */
     private void renameToolbar(int StringResource) {
@@ -167,27 +171,27 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     private void replaceListNews() {
-        replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "LATEST_NEW");
+        replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(), "LATEST_NEW");
         renameToolbar(R.string.nav_new_list);
     }
 
     private void replaceCuisine() {
-        replaceFragment(R.id.home_frame, new FragmentHomeFood(), "CUISINE");
+        replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");
         renameToolbar(R.string.nav_cuisine_and_eating);
     }
 
     private void replaceFashion() {
-        replaceFragment(R.id.home_frame, new FragmentHomeFashionMakeUp(), "FASHION");
+        replaceFragment(R.id.home_frame, FragmentHomeFashionMakeUp.newInstance(), "FASHION");
         renameToolbar(R.string.nav_fashion_and_beautify);
     }
 
     private void replaceElectronic() {
-        replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "ELECTRONIC");
+        replaceFragment(R.id.home_frame, FragmentHomeTechnology.newInstance(), "ELECTRONIC");
         renameToolbar(R.string.nav_electronics_and_technology);
     }
 
     private void replaceHealth() {
-        replaceFragment(R.id.home_frame, new FragmentHomeHealth(), "HEALTH");
+        replaceFragment(R.id.home_frame, FragmentHomeHealth.newInstance(), "HEALTH");
         renameToolbar(R.string.nav_health_and_life);
     }
 
@@ -202,20 +206,29 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     private void replaceOtherService() {
-        replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "OTHER_SERVICE");
+        replaceFragment(R.id.home_frame, FragmentHomeOtherService.newInstance(), "OTHER_SERVICE");
         renameToolbar(R.string.nav_other_services);
     }
 
     private void replaceNewsAround() {
-        replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS_AROUND");
+        replaceFragment(R.id.home_frame, FragmentHomeNewsForMe.newInstance(), "NEWS_AROUND");
         renameToolbar(R.string.nav_news_for_me);
     }
 
     private void replaceMember() {
-        replaceFragment(R.id.home_frame, new FragmentMemberCard(), "MEMBER");
+        replaceFragment(R.id.home_frame, FragmentMemberCard.newInstance(), "MEMBER");
         renameToolbar(R.string.fragment_member_card_content);
     }
 
+    private void replaceListVoucher() {
+        replaceFragment(R.id.home_frame, ListVoucherFragment.newInstance(), "LIST_VOUCHER");
+        renameToolbar(R.string.title_list_voucher);
+    }
+
+    private void replaceProfile() {
+        replaceFragment(R.id.home_frame, ProfileFragment.newInstance(), "PROFILE");
+        renameToolbar(R.string.title_list_voucher);
+    }
 
     @Override
     public void startActivityFinish(Class clazz) {

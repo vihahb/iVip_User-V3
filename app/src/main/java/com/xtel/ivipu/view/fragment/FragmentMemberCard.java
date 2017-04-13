@@ -51,6 +51,11 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     private int current_point;
     private TextView tv_store_name, tv_level, tv_current_point, tv_date_create, tv_card_total_point, tv_action_view_his, tv_store;
 
+    public static FragmentMemberCard newInstance() {
+        FragmentMemberCard fragment = new FragmentMemberCard();
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

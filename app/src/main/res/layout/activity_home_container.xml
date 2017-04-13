@@ -53,7 +53,7 @@
         app:itemIconTint="@drawable/bottom_navigation_item"
         app:itemTextAppearance="?android:attr/textAppearanceSmall"
         app:itemTextColor="@drawable/bottom_navigation_item"
-        design:menu="@menu/nav_bottom_navigation" />
+        app:menu="@menu/nav_bottom_navigation" />
 
     <!--</FrameLayout>-->
     <!--/>-->

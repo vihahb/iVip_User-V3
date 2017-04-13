@@ -44,6 +44,11 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeFashionMakeUp newInstance() {
+        FragmentHomeFashionMakeUp fragment = new FragmentHomeFashionMakeUp();
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

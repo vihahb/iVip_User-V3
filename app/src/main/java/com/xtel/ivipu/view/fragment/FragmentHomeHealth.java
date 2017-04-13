@@ -44,6 +44,11 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeHealth newInstance() {
+        FragmentHomeHealth fragment = new FragmentHomeHealth();
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

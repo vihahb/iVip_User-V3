@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
+import com.xtel.nipservicesdk.callback.ICmd;
 
 /**
  * Created by vihahb on 1/12/2017.
@@ -23,6 +24,8 @@ public interface IProfileActivityView {
     void finishActivity();
 
     void setProfileSuccess(UserInfo profile);
+
+    void getNewSession(ICmd iCmd, Object... params);
 
     void reloadProfile(RESP_Profile profile);
 

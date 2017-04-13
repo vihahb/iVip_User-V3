@@ -43,6 +43,11 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeFood newInstance() {
+        FragmentHomeFood fragment = new FragmentHomeFood();
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

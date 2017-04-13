@@ -46,6 +46,10 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private BottomNavigationView nav_home;
 //    private LinearLayout ln_new_slider;
 
+    public static FragmentHomeNewsList newInstance() {
+        FragmentHomeNewsList fragment = new FragmentHomeNewsList();
+        return fragment;
+    }
 
     @Nullable
     @Override

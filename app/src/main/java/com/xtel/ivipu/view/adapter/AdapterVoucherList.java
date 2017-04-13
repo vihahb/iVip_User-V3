@@ -1,35 +1,32 @@
 package com.xtel.ivipu.view.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.VoucherListObj;
-import com.xtel.ivipu.view.fragment.inf.IFragmentHomeVoucherListView;
+import com.xtel.ivipu.view.fragment.inf.IListVoucherView;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
 import java.util.ArrayList;
 
 /**
- * Created by vivhp on 4/5/2017.
+ * Created by vivhp on 4/5/2017
  */
 
 public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private IFragmentHomeVoucherListView view;
+    private IListVoucherView view;
     private ArrayList<VoucherListObj> arrayList;
     private boolean isLoadMore = false;
     private int TYPE_VIEW = 1, TYPE_LOAD = 2;
-    private int state;
 
-    public AdapterVoucherList(ArrayList<VoucherListObj> arrayList, IFragmentHomeVoucherListView view) {
+    public AdapterVoucherList(ArrayList<VoucherListObj> arrayList, IListVoucherView view) {
         this.arrayList = arrayList;
         this.view = view;
     }
@@ -55,12 +52,12 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             VoucherListObj obj = arrayList.get(position);
             Log.e("Arr voucher adapter", arrayList.toString());
-            state = obj.getState();
-            if (state == 0) {
+
+            if (obj.getState() == 0) {
                 WidgetHelper.getInstance().setViewBackground(viewHolder.ln_state, R.color.color_unused);
-            } else if (state == 1) {
+            } else if (obj.getState() == 1) {
                 WidgetHelper.getInstance().setViewBackground(viewHolder.ln_state, R.color.color_used);
-            } else if (state == 2) {
+            } else if (obj.getState() == 2) {
                 WidgetHelper.getInstance().setViewBackground(viewHolder.ln_state, R.color.color_expired);
             }
 
@@ -69,7 +66,7 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
             viewProgressBar.progressBar.getIndeterminateDrawable()
                     .setColorFilter(
-                            Color.WHITE,
+                            view.getActivity().getResources().getColor(R.color.colorPrimary),
                             android.graphics.PorterDuff.Mode.MULTIPLY
                     );
         }
@@ -93,19 +90,14 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public void onSetLoadMore(boolean isLoadMore) {
-        this.isLoadMore = isLoadMore;
-    }
-
     private class ViewHolder extends RecyclerView.ViewHolder {
-
         private ImageView img_voucher_banner;
-        private LinearLayout ln_state;
+        private View ln_state;
 
         public ViewHolder(View itemView) {
             super(itemView);
             img_voucher_banner = (ImageView) itemView.findViewById(R.id.img_voucher_banner);
-            ln_state = (LinearLayout) itemView.findViewById(R.id.ln_state);
+            ln_state = itemView.findViewById(R.id.ln_state);
         }
     }
 
@@ -116,5 +108,9 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.item_progress_bar);
         }
+    }
+
+    public void setLoadMore(boolean isLoadMore) {
+        this.isLoadMore = isLoadMore;
     }
 }
