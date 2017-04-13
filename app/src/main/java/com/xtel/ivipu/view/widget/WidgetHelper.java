@@ -78,7 +78,8 @@ public class WidgetHelper {
         Picasso.with(MyApplication.context)
                 .load(finalUrl)
                 .noPlaceholder()
-                .fit().centerInside()
+                .fit()
+                .centerCrop()
                 .error(R.color.colorPrimary)
                 .into(view, new Callback() {
                     @Override
@@ -174,6 +175,11 @@ public class WidgetHelper {
 
     public void setViewBackground(View view, int resource) {
         view.setBackgroundResource(resource);
+    }
+
+    public void setViewBackgroundDrawable(View view, int drawable) {
+        //noinspection deprecation
+        view.setBackground(MyApplication.context.getResources().getDrawable(drawable));
     }
 
     public void setEditTextNoResult(EditText view, String content) {

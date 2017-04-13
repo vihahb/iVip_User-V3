@@ -76,9 +76,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
         progressView.onLayoutClicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressView.setRefreshing(true);
-                progressView.hideData();
-                presenter.getVoucher(true);
+                getDataAgain();
             }
         });
 
@@ -92,9 +90,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
         progressView.onSwipeLayoutPost(new Runnable() {
             @Override
             public void run() {
-                progressView.setRefreshing(true);
-                progressView.hideData();
-                presenter.getVoucher(true);
+                getDataAgain();
             }
         });
     }
@@ -108,7 +104,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
         adapter.setLoadMore(false);
         adapter.notifyDataSetChanged();
         progressView.setRefreshing(true);
-        progressView.hideData();
+        progressView.showData();
         presenter.getVoucher(true);
     }
 
@@ -214,6 +210,9 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
         });
     }
 
+    /**
+    * Sụ kiện khi người dùng chưa đăng nhập
+    * */
     @Override
     public void onNotLogged() {
         showShortToast(getString(R.string.need_login_to_action));

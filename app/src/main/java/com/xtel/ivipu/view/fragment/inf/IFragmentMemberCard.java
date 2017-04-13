@@ -24,7 +24,6 @@ public interface IFragmentMemberCard {
     void showShortToast(String mes);
     void startActivityAndFinish(Class clazz);
     void onLoadMore();
-    void onClickCardItem(int position, MemberObj memberObj, View view);
     void onNotLogged();
     Fragment getFragment();
     Activity getActivity();

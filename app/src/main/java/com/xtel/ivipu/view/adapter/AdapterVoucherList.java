@@ -54,14 +54,14 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
             Log.e("Arr voucher adapter", arrayList.toString());
 
             if (obj.getState() == 0) {
-                WidgetHelper.getInstance().setViewBackground(viewHolder.ln_state, R.color.color_unused);
+                WidgetHelper.getInstance().setViewBackgroundDrawable(viewHolder.ln_state, R.drawable.background_color_unused);
             } else if (obj.getState() == 1) {
-                WidgetHelper.getInstance().setViewBackground(viewHolder.ln_state, R.color.color_used);
+                WidgetHelper.getInstance().setViewBackgroundDrawable(viewHolder.ln_state, R.drawable.background_color_used);
             } else if (obj.getState() == 2) {
-                WidgetHelper.getInstance().setViewBackground(viewHolder.ln_state, R.color.color_expired);
+                WidgetHelper.getInstance().setViewBackgroundDrawable(viewHolder.ln_state, R.drawable.background_color_expired);
             }
 
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_voucher_banner, obj.getBanner());
+            WidgetHelper.getInstance().setImageURL(viewHolder.img_voucher_banner, obj.getBanner());
         } else {
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
             viewProgressBar.progressBar.getIndeterminateDrawable()

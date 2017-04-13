@@ -59,8 +59,8 @@
     <color name="rating_checked">@android:color/white</color>
 
     <!-- Bottom Navigation -->
-    <color name="bottom_navigatin_default">#585858</color>
-    <color name="bottom_navigatin_selected">#673AB7</color>
+    <color name="bottom_navigatin_default">#8C000000</color>
+    <color name="bottom_navigatin_selected">#9C27B0</color>
 
     <!-- White -->
     <color name="white_10">#4DFFFFFF</color>

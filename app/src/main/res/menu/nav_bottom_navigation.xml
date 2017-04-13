@@ -17,11 +17,11 @@
 
     <item
         android:id="@+id/nav.home.favorite"
-        android:icon="@mipmap/ic_favorite_2"
+        android:icon="@mipmap/ic_tab_favorite"
         android:title="@string/nav_favorite"/>
 
     <item
         android:id="@+id/nav.home.account"
-        android:icon="@mipmap/ic_user_2"
+        android:icon="@mipmap/ic_tab_user"
         android:title="@string/nav_account"/>
 </menu>

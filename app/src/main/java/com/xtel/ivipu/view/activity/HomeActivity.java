@@ -8,6 +8,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -44,7 +45,12 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     protected HomePresenter presenter;
     protected BottomNavigationView nav_bottom_home;
     protected DrawerLayout drawer;
+
+    protected ActionBarDrawerToggle toggle;
+    protected Toolbar toolbar;
     protected ActionBar actionBar;
+
+    protected int fragmentExists = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         presenter = new HomePresenter(this);
 
         initNavigation();
+        initTablayout();
         initBottomNavigation();
         replaceListNews();
 
@@ -65,19 +72,46 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
      */
     @SuppressWarnings("deprecation")
     private void initNavigation() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.home_toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 //        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.home_navigationView);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initTablayout() {
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_home));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_voucher));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_member_card));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_favorite));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_user));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     /**
@@ -94,7 +128,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.nav_home_home:
-
+                                replaceHome();
                                 break;
                             case R.id.nav_home_voucher:
                                 replaceListVoucher();
@@ -103,7 +137,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                                 replaceMember();
                                 break;
                             case R.id.nav_home_favorite:
-
+                                replaceFavorite();
                                 break;
                             case R.id.nav_home_account:
                                 replaceProfile();
@@ -170,65 +204,141 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         actionBar.setTitle(getString(StringResource));
     }
 
+    /**
+     * Khóa navigationview
+     */
+    private void lockDrawer() {
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
+        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
+    }
+
+    /**
+     * Mở khóa navigationview
+     */
+    private void unLockDrawer() {
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+
+
+
+
     private void replaceListNews() {
         replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(), "LATEST_NEW");
         renameToolbar(R.string.nav_new_list);
+        fragmentExists = 1;
     }
 
     private void replaceCuisine() {
         replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");
         renameToolbar(R.string.nav_cuisine_and_eating);
+        fragmentExists = 2;
     }
 
     private void replaceFashion() {
         replaceFragment(R.id.home_frame, FragmentHomeFashionMakeUp.newInstance(), "FASHION");
         renameToolbar(R.string.nav_fashion_and_beautify);
+        fragmentExists = 3;
     }
 
     private void replaceElectronic() {
         replaceFragment(R.id.home_frame, FragmentHomeTechnology.newInstance(), "ELECTRONIC");
         renameToolbar(R.string.nav_electronics_and_technology);
+        fragmentExists = 4;
     }
 
     private void replaceHealth() {
         replaceFragment(R.id.home_frame, FragmentHomeHealth.newInstance(), "HEALTH");
         renameToolbar(R.string.nav_health_and_life);
+        fragmentExists = 5;
     }
 
     private void replaceHousehold() {
 
         renameToolbar(R.string.nav_household_goods_and_consumer_goods);
+        fragmentExists = 6;
     }
 
     private void replaceToy() {
 
         renameToolbar(R.string.nav_toys_and_games);
+        fragmentExists = 7;
     }
 
     private void replaceOtherService() {
         replaceFragment(R.id.home_frame, FragmentHomeOtherService.newInstance(), "OTHER_SERVICE");
         renameToolbar(R.string.nav_other_services);
+        fragmentExists = 8;
     }
 
     private void replaceNewsAround() {
         replaceFragment(R.id.home_frame, FragmentHomeNewsForMe.newInstance(), "NEWS_AROUND");
         renameToolbar(R.string.nav_news_for_me);
+        fragmentExists = 9;
     }
 
     private void replaceMember() {
         replaceFragment(R.id.home_frame, FragmentMemberCard.newInstance(), "MEMBER");
-        renameToolbar(R.string.fragment_member_card_content);
+        renameToolbar(R.string.title_list_member_card);
+        lockDrawer();
     }
 
     private void replaceListVoucher() {
         replaceFragment(R.id.home_frame, ListVoucherFragment.newInstance(), "LIST_VOUCHER");
         renameToolbar(R.string.title_list_voucher);
+        lockDrawer();
+    }
+
+    private void replaceFavorite() {
+
+        renameToolbar(R.string.title_list_favorite);
+        lockDrawer();
     }
 
     private void replaceProfile() {
         replaceFragment(R.id.home_frame, ProfileFragment.newInstance(), "PROFILE");
-        renameToolbar(R.string.title_list_voucher);
+        renameToolbar(R.string.title_profile);
+        lockDrawer();
     }
+
+    private void replaceHome() {
+        switch (fragmentExists) {
+            case 1:
+                replaceListNews();
+                break;
+            case 2:
+                replaceCuisine();
+                break;
+            case 3:
+                replaceFashion();
+                break;
+            case 4:
+                replaceElectronic();
+                break;
+            case 5:
+                replaceHealth();
+                break;
+            case 6:
+                replaceHousehold();
+                break;
+            case 7:
+                replaceToy();
+                break;
+            case 8:
+                replaceOtherService();
+                break;
+            case 9:
+                replaceNewsAround();
+                break;
+            default:
+                break;
+        }
+
+        unLockDrawer();
+    }
+
 
     @Override
     public void startActivityFinish(Class clazz) {
