@@ -101,126 +101,126 @@ public class HomePresenter {
 //        });
 //    }
 
-    public void onGetUserNip() {
+//    public void onGetUserNip() {
+//
+//        if (session != null) {
+//            if (!NetWorkInfo.isOnline(view.getActivity())) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        view.onNetworkDisable();
+//                    }
+//                }, 500);
+//                return;
+//            } else {
+//                String url_profile = Constants.SERVER_IVIP + Constants.GET_USER_IVIP_FULL;
+//                Log.e(TAG + "url", url_profile);
+//                LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Profile>(RESP_Profile.class) {
+//                    @Override
+//                    public void onSuccess(RESP_Profile obj) {
+//                        Log.d(TAG + "succ", JsonHelper.toJson(obj));
+//                        saveData2Share(
+//                                obj.getFullname(),
+//                                obj.getGender(),
+//                                obj.getBirthday(),
+//                                obj.getEmail(),
+//                                obj.getPhonenumber(),
+//                                obj.getAddress(),
+//                                obj.getAvatar(),
+//                                obj.getQr_code(),
+//                                obj.getBar_code(),
+//                                obj.getStatus(),
+//                                obj.getGeneral_point(),
+//                                obj.getLevel(),
+//                                obj.getJoin_date()
+//                        );
+//                        view.getSuccessUser(obj.getAvatar(), obj.getQr_code(), obj.getFullname());
+//                    }
+//
+//                    @Override
+//                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+//                        if (error != null) {
+//                            int code = error.getCode();
+//                            if (code == 2) {
+//                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+//                                    @Override
+//                                    public void onSuccess(RESP_Login success) {
+//                                        onGetUserNip();
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(Error error) {
+//                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+//                                        view.startActivityFinish(LoginActivity.class);
+//                                    }
+//                                });
+//                            } else {
+//                                Log.e(TAG + "err", error.getMessage());
+//                                view.showShortToast(parseMessage(error.getCode()));
+//                            }
+//                        }
+//
+//                    }
+//                });
+//            }
+//        } else {
+//            return;
+//        }
+//    }
 
-        if (session != null) {
-            if (!NetWorkInfo.isOnline(view.getActivity())) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.onNetworkDisable();
-                    }
-                }, 500);
-                return;
-            } else {
-                String url_profile = Constants.SERVER_IVIP + Constants.GET_USER_IVIP_FULL;
-                Log.e(TAG + "url", url_profile);
-                LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Profile>(RESP_Profile.class) {
-                    @Override
-                    public void onSuccess(RESP_Profile obj) {
-                        Log.d(TAG + "succ", JsonHelper.toJson(obj));
-                        saveData2Share(
-                                obj.getFullname(),
-                                obj.getGender(),
-                                obj.getBirthday(),
-                                obj.getEmail(),
-                                obj.getPhonenumber(),
-                                obj.getAddress(),
-                                obj.getAvatar(),
-                                obj.getQr_code(),
-                                obj.getBar_code(),
-                                obj.getStatus(),
-                                obj.getGeneral_point(),
-                                obj.getLevel(),
-                                obj.getJoin_date()
-                        );
-                        view.getSuccessUser(obj.getAvatar(), obj.getQr_code(), obj.getFullname());
-                    }
-
-                    @Override
-                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                        if (error != null) {
-                            int code = error.getCode();
-                            if (code == 2) {
-                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                    @Override
-                                    public void onSuccess(RESP_Login success) {
-                                        onGetUserNip();
-                                    }
-
-                                    @Override
-                                    public void onError(Error error) {
-                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                        view.startActivityFinish(LoginActivity.class);
-                                    }
-                                });
-                            } else {
-                                Log.e(TAG + "err", error.getMessage());
-                                view.showShortToast(parseMessage(error.getCode()));
-                            }
-                        }
-
-                    }
-                });
-            }
-        } else {
-            return;
-        }
-    }
-
-    public void onGetShortUser() {
-
-        if (session != null) {
-            if (!NetWorkInfo.isOnline(view.getActivity())) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.onNetworkDisable();
-                    }
-                }, 500);
-                return;
-            } else {
-
-                String url_profile = Constants.SERVER_IVIP + Constants.GET_USER_IVIP_SORT;
-                Log.e(TAG + "url", url_profile);
-
-                LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Short>(RESP_Short.class) {
-                    @Override
-                    public void onSuccess(RESP_Short obj) {
-                        int notification = obj.getNew_notify();
-                        Log.e("New notification", String.valueOf(notification));
-                        view.getShortUser(obj);
-                    }
-
-                    @Override
-                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                        if (error != null) {
-                            int code_err = error.getCode();
-                            if (code_err == 2) {
-                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                    @Override
-                                    public void onSuccess(RESP_Login success) {
-                                        onGetShortUser();
-                                    }
-
-                                    @Override
-                                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                        int code = error.getCode();
-                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                                        view.startActivityFinish(LoginActivity.class);
-                                    }
-                                });
-                            } else {
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code_err, null));
-                            }
-                        }
-                    }
-                });
-            }
-        } else {
-            return;
-        }
-    }
+//    public void onGetShortUser() {
+//
+//        if (session != null) {
+//            if (!NetWorkInfo.isOnline(view.getActivity())) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        view.onNetworkDisable();
+//                    }
+//                }, 500);
+//                return;
+//            } else {
+//
+//                String url_profile = Constants.SERVER_IVIP + Constants.GET_USER_IVIP_SORT;
+//                Log.e(TAG + "url", url_profile);
+//
+//                LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Short>(RESP_Short.class) {
+//                    @Override
+//                    public void onSuccess(RESP_Short obj) {
+//                        int notification = obj.getNew_notify();
+//                        Log.e("New notification", String.valueOf(notification));
+//                        view.getShortUser(obj);
+//                    }
+//
+//                    @Override
+//                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+//                        if (error != null) {
+//                            int code_err = error.getCode();
+//                            if (code_err == 2) {
+//                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+//                                    @Override
+//                                    public void onSuccess(RESP_Login success) {
+//                                        onGetShortUser();
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+//                                        int code = error.getCode();
+//                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+//                                        view.startActivityFinish(LoginActivity.class);
+//                                    }
+//                                });
+//                            } else {
+//                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code_err, null));
+//                            }
+//                        }
+//                    }
+//                });
+//            }
+//        } else {
+//            return;
+//        }
+//    }
 
     private String parseMessage(int code) {
         String mess = JsonParse.getCodeMessage(view.getActivity(), code, "");
@@ -257,58 +257,58 @@ public class HomePresenter {
         Log.e(TAG + " share", full_name);
     }
 
-    public void showQrCode(String url_qr) {
-        if (url_qr != null) {
-            view.onShowQrCode(url_qr);
-        }
-    }
+//    public void showQrCode(String url_qr) {
+//        if (url_qr != null) {
+//            view.onShowQrCode(url_qr);
+//        }
+//    }
 
-    public void getNewHotSales() {
-        if (!NetWorkInfo.isOnline(view.getActivity())) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.onNetworkDisable();
-                }
-            }, 500);
-            return;
-        } else {
-            String url_shop = Constants.SERVER_IVIP + "v0.1/manual_news?type=1";
-            Log.e("Url hot_new_sale", url_shop);
-            HomeModel.getInstance().getNews(url_shop, null, new ResponseHandle<RESP_NewsHotSales>(RESP_NewsHotSales.class) {
-                @Override
-                public void onSuccess(RESP_NewsHotSales obj) {
-                    Log.e("Arr Hot new", String.valueOf(obj.getData()));
-                    view.onGetNew(obj.getData());
-                }
-
-                @Override
-                public void onError(Error error) {
-                    int code = error.getCode();
-                    if (String.valueOf(code) != null) {
-                        if (code == 2) {
-                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                @Override
-                                public void onSuccess(RESP_Login success) {
-                                    getNewHotSales();
-                                }
-
-                                @Override
-                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityFinish(LoginActivity.class);
-                                }
-                            });
-                        } else {
-                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                            Log.e("Code err shop", String.valueOf(code));
-                        }
-                    } else {
-                        Log.e(TAG, "Err " + JsonHelper.toJson(error));
-                        view.showShortToast("Co loi");
-                    }
-                }
-            });
-        }
-    }
+//    public void getNewHotSales() {
+//        if (!NetWorkInfo.isOnline(view.getActivity())) {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    view.onNetworkDisable();
+//                }
+//            }, 500);
+//            return;
+//        } else {
+//            String url_shop = Constants.SERVER_IVIP + "v0.1/manual_news?type=1";
+//            Log.e("Url hot_new_sale", url_shop);
+//            HomeModel.getInstance().getNews(url_shop, null, new ResponseHandle<RESP_NewsHotSales>(RESP_NewsHotSales.class) {
+//                @Override
+//                public void onSuccess(RESP_NewsHotSales obj) {
+//                    Log.e("Arr Hot new", String.valueOf(obj.getData()));
+//                    view.onGetNew(obj.getData());
+//                }
+//
+//                @Override
+//                public void onError(Error error) {
+//                    int code = error.getCode();
+//                    if (String.valueOf(code) != null) {
+//                        if (code == 2) {
+//                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+//                                @Override
+//                                public void onSuccess(RESP_Login success) {
+//                                    getNewHotSales();
+//                                }
+//
+//                                @Override
+//                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+//                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+//                                    view.startActivityFinish(LoginActivity.class);
+//                                }
+//                            });
+//                        } else {
+//                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+//                            Log.e("Code err shop", String.valueOf(code));
+//                        }
+//                    } else {
+//                        Log.e(TAG, "Err " + JsonHelper.toJson(error));
+//                        view.showShortToast("Co loi");
+//                    }
+//                }
+//            });
+//        }
+//    }
 }

@@ -12,7 +12,7 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
 /**
- * Created by vivhp on 1/24/2017.
+ * Created by vivhp on 1/24/2017
  */
 
 public abstract class IActivity extends BasicActivity {

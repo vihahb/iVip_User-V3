@@ -59,7 +59,7 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
 
     private void initRecyclerView(View view) {
         arraylist_service = new ArrayList<>();
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_bottom_navigation);
         ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         Log.e("arr food object ", arraylist_service.toString());
 
@@ -70,22 +70,22 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
         adapter = new AdapterRecyclerService(arraylist_service, this);
 
         rcl_service.setAdapter(adapter);
-        rcl_service.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onScrollUp() {
-                hideBottomNavigation();
-            }
-
-            @Override
-            public void onScrollDown() {
-                showBottomNavigation();
-            }
-
-            @Override
-            public void onLoadMore() {
-                showBottomNavigation();
-            }
-        });
+//        rcl_service.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
+//            @Override
+//            public void onScrollUp() {
+//                hideBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onScrollDown() {
+//                showBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//                showBottomNavigation();
+//            }
+//        });
     }
 
     private void hideBottomNavigation() {

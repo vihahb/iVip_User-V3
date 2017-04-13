@@ -44,7 +44,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private ProgressView progressView;
     private RecyclerView.LayoutManager layoutManager;
     private BottomNavigationView nav_home;
-    private LinearLayout ln_new_slider;
+//    private LinearLayout ln_new_slider;
 
 
     @Nullable
@@ -109,40 +109,40 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 
 
     private void initRecylerView(View view) {
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_bottom_navigation);
         rcl_new_list = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_new_list.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         rcl_new_list.setLayoutManager(layoutManager);
-        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
+//        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
 
         arrayListNewsList = new ArrayList<>();
         adapter = new AdapterRecycleNewsList(arrayListNewsList, this);
         rcl_new_list.setAdapter(adapter);
-        rcl_new_list.addOnScrollListener(new RecyclerOnScrollListener((LinearLayoutManager) layoutManager) {
-            @Override
-            public void onScrollUp() {
-                hideBottomNavigation();
-            }
-
-            @Override
-            public void onScrollDown() {
-                showBottomNavigation();
-            }
-
-            @Override
-            public void onLoadMore() {
-            }
-        });
+//        rcl_new_list.addOnScrollListener(new RecyclerOnScrollListener((LinearLayoutManager) layoutManager) {
+//            @Override
+//            public void onScrollUp() {
+//                hideBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onScrollDown() {
+//                showBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//            }
+//        });
     }
 
-    private void hideBottomNavigation() {
-        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
-    }
+//    private void hideBottomNavigation() {
+//        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
+//    }
 
-    private void showBottomNavigation() {
-        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
-    }
+//    private void showBottomNavigation() {
+//        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
+//    }
 
     private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {
         arrayListNewsList.addAll(newEntities);

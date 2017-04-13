@@ -58,7 +58,7 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
     }
 
     private void initRecylerView(View view) {
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_navigationView);
         ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rcl_new_list = (RecyclerView) view.findViewById(R.id.rcl_ivip);
@@ -68,22 +68,22 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
         arrayListNewsList = new ArrayList<>();
         adapter = new AdapterRecycleTechnology(arrayListNewsList, this);
         rcl_new_list.setAdapter(adapter);
-        rcl_new_list.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onScrollUp() {
-                hideBottomNavigation();
-            }
-
-            @Override
-            public void onScrollDown() {
-                showBottomNavigation();
-            }
-
-            @Override
-            public void onLoadMore() {
-                showBottomNavigation();
-            }
-        });
+//        rcl_new_list.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
+//            @Override
+//            public void onScrollUp() {
+//                hideBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onScrollDown() {
+//                showBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//                showBottomNavigation();
+//            }
+//        });
     }
 
     private void hideBottomNavigation() {
