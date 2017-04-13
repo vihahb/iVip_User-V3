@@ -24,6 +24,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.view.MyApplication;
+import com.xtel.sdk.callback.DialogListener;
 import com.xtel.sdk.utils.PicassoImageGetter;
 import com.xtel.sdk.utils.TimeUtil;
 
@@ -297,6 +298,28 @@ public class WidgetHelper {
             @Override
             public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                 // TODO Auto-generated method stub
+            }
+        });
+        dialog.show();
+    }
+
+    public void showAlertMessage(Context context, String title, String message, String contentPositiveBtn, String contentNegativeBtn, final DialogListener dialogListener) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context, R.style.TimePicker);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setPositiveButton(contentPositiveBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                dialogListener.onClicked(null);
+            }
+        });
+        dialog.setNegativeButton(contentNegativeBtn, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                dialogListener.onCancel();
             }
         });
         dialog.show();

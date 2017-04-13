@@ -24,9 +24,11 @@ import com.xtel.sdk.callback.DialogListener;
 
 public class LoginGroupActivity extends BasicActivity implements ILoginGroup, View.OnClickListener {
 
+    String user;
     private EditText edt_user, edt_pass;
     private TextView tv_reset;
     private TextView tv_register;
+    private String phone_number;
 
 
     private LoginGroupPresenter presenter;
@@ -63,6 +65,53 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         WidgetHelper.getInstance().setUnderLine(getString(R.string.tv_do_not_have_an_acc), tv_register);
     }
 
+    /**
+     * Step 1
+     **/
+    private void checkDataInput() {
+        if (ValidData()) {
+            if (!checkPhone()) {
+                String mes = "Sai dinh dang so dien thoai.";
+                showShortToast(mes);
+            } else {
+                String mes = "Phone number: " + phone_number;
+                phone_number = edt_user.getText().toString();
+                showShortToast(mes);
+                presenter.onReactiveAccount(phone_number);
+            }
+        }
+    }
+
+
+    /**
+     * Step 2
+     **/
+    private boolean ValidData() {
+        String mes;
+        phone_number = edt_user.getText().toString();
+        if (phone_number.isEmpty()) {
+            mes = "So dien thoai khong duoc de trong";
+            showShortToast(mes);
+            return false;
+        } else {
+            mes = "OK, PHONE";
+            showShortToast(mes);
+            return true;
+        }
+
+    }
+
+    /**
+     * Step 3
+     * if true
+     * return step 1 request
+     **/
+    private boolean checkPhone() {
+        return !(phone_number.length() < 10 || phone_number.length() > 11);
+    }
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -81,6 +130,26 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         presenter.onActivityResultAccountKit(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void forceActiveAccount() {
+        WidgetHelper.getInstance()
+                .showAlertMessage(this,
+                        "Thông báo!", "Tài khoản này chưa được kích hoạt. Bạn có muốn kích hoạt tài khoản?",
+                        "Kích hoạt",
+                        "Hủy",
+                        new DialogListener() {
+                            @Override
+                            public void onClicked(Object object) {
+                                onReActive();
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                showShortToast("Hủy kích hoạt");
+                            }
+                        });
     }
 
     @Override
@@ -133,6 +202,7 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         showMaterialDialog(true, true, "Thông báo", "Kết nối thất bai.\nVui lòng kiểm tra kết nối internet.", null, "OK", new DialogListener() {
             @Override
             public void onClicked(Object object) {
+                onReActive();
             }
 
             @Override
@@ -162,15 +232,15 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     }
 
     private void onReActive() {
-        startActivity(ReactiveAccountActivity.class);
+        checkDataInput();
     }
 
     private void onReset() {
-        presenter.onLoginAccountKit();
+        presenter.onRequestAccountKit(2, user);
     }
 
     private void onLoginToNIP() {
-        String user = edt_user.getText().toString();
+        user = edt_user.getText().toString();
         String pass = edt_pass.getText().toString();
 
         if (user.isEmpty() || pass.isEmpty()) {

@@ -10,6 +10,8 @@ import android.content.Intent;
 
 public interface ILoginGroup {
 
+    void forceActiveAccount();
+
     void onSuccess();
 
     void onError();
