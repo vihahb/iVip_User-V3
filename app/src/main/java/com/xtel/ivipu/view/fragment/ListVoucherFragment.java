@@ -31,13 +31,13 @@ import java.util.ArrayList;
  */
 
 public class ListVoucherFragment extends BasicFragment implements IListVoucherView {
+    protected CallbackManager callbackManager;
     protected ListVoucherPresenter presenter;
 
     protected AdapterVoucherList adapter;
     protected ArrayList<VoucherListObj> listData;
     protected NewProgressView progressView;
     protected boolean isClearData = false;
-    protected CallbackManager callbackManager;
 
     public static ListVoucherFragment newInstance() {
         return new ListVoucherFragment();
@@ -52,8 +52,8 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         callbackManager = CallbackManager.create(getActivity());
+
         presenter = new ListVoucherPresenter(this);
         initProgressView(view);
     }
@@ -167,7 +167,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
             showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error)));
         else {
             progressView.setRefreshing(false);
-            progressView.updateData(R.mipmap.ic_error_network, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_try_again)));
+            progressView.updateData(R.mipmap.ic_error_network, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
             progressView.hideData();
 
             listData.clear();
@@ -203,7 +203,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
         callbackManager.getNewSesion(new CallbacListener() {
             @Override
             public void onSuccess(RESP_Login success) {
-                iCmd.execute(1);
+                iCmd.execute();
             }
 
             @Override
@@ -212,6 +212,12 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
                 startActivityAndFinish(LoginActivity.class);
             }
         });
+    }
+
+    @Override
+    public void onNotLogged() {
+        showShortToast(getString(R.string.need_login_to_action));
+        startActivityAndFinish(LoginActivity.class);
     }
 
     @Override

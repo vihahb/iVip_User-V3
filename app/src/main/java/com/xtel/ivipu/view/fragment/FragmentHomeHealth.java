@@ -45,8 +45,7 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
     private LinearLayout ln_new_slider;
 
     public static FragmentHomeHealth newInstance() {
-        FragmentHomeHealth fragment = new FragmentHomeHealth();
-        return fragment;
+        return new FragmentHomeHealth();
     }
 
     @Nullable

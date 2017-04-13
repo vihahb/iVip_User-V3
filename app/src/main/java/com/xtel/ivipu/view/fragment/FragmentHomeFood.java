@@ -44,8 +44,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     private LinearLayout ln_new_slider;
 
     public static FragmentHomeFood newInstance() {
-        FragmentHomeFood fragment = new FragmentHomeFood();
-        return fragment;
+        return new FragmentHomeFood();
     }
 
     @Nullable

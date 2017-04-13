@@ -47,8 +47,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 //    private LinearLayout ln_new_slider;
 
     public static FragmentHomeNewsList newInstance() {
-        FragmentHomeNewsList fragment = new FragmentHomeNewsList();
-        return fragment;
+        return new FragmentHomeNewsList();
     }
 
     @Nullable

@@ -3,6 +3,7 @@ package com.xtel.ivipu.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,10 +16,17 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.MemberObj;
 import com.xtel.ivipu.presenter.FragmentNavMemberCardPresenter;
 import com.xtel.ivipu.view.activity.HistoryTransactionsActivity;
+import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.adapter.AdapterCard;
 import com.xtel.ivipu.view.fragment.inf.IFragmentMemberCard;
 import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.CallbackManager;
+import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ICmd;
+import com.xtel.nipservicesdk.model.entity.Error;
+import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonHelper;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.commons.Constants;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.Pivot;
@@ -27,18 +35,19 @@ import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 import java.util.ArrayList;
 
 /**
- * Created by vuhavi on 07/03/2017.
+ * Created by vuhavi on 07/03/2017
  */
 
 public class FragmentMemberCard extends BasicFragment implements IFragmentMemberCard, View.OnClickListener, DiscreteScrollView.ScrollListener {
+    protected CallbackManager callbackManager;
 
     DiscreteScrollView scrollView;
     AdapterCard pagerAdapter;
     long date_create;
     int id_Card;
     //    PagerContainer mContainer;
-//    ViewPager viewPager;
-    private int page = 1, pagesize = 5;
+    //    ViewPager viewPager;
+//    private int page = 1, pagesize = 5;
     private FragmentNavMemberCardPresenter presenter;
     //    private RecyclerView rcl_member_card;
     private ArrayList<MemberObj> cardArraylist;
@@ -52,8 +61,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     private TextView tv_store_name, tv_level, tv_current_point, tv_date_create, tv_card_total_point, tv_action_view_his, tv_store;
 
     public static FragmentMemberCard newInstance() {
-        FragmentMemberCard fragment = new FragmentMemberCard();
-        return fragment;
+        return new FragmentMemberCard();
     }
 
     @Nullable
@@ -65,16 +73,17 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        callbackManager = CallbackManager.create(getActivity());
+
         presenter = new FragmentNavMemberCardPresenter(this);
 //        initRecyclerView(view);
 //        initProgressView(view);
 //        initializeViews(view);
         initView(view);
-        getData();
+        presenter.getMemberCard(true);
     }
 
     private void initView(View view) {
-
         tv_store_name = (TextView) view.findViewById(R.id.tv_card_store_name);
         tv_level = (TextView) view.findViewById(R.id.tv_card_level);
         tv_card_total_point = (TextView) view.findViewById(R.id.tv_card_total_point);
@@ -149,27 +158,36 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
 //        });
 //    }
 
-    private void getData() {
-//        progressView.setRefreshing(true);
-        initDataMemberCard();
-    }
-
-    private void initDataMemberCard() {
-        presenter.getMemberCard(page, pagesize);
-    }
-
     @Override
     public void onGetMemberCardSuccess(final ArrayList<MemberObj> arrayList) {
         Log.e("arr news member", arrayList.toString());
-//        if (cardArraylist.size() < 10) {
-//            adapter.onSetLoadMore(false);
-//        }
         cardArraylist.addAll(arrayList);
         pagerAdapter.notifyDataSetChanged();
 //        scrollView.setOffscreenItems(this.cardArraylist.size());
 //        adapter.notifyDataSetChanged();
 //        checkListData();
         onStateChangeListener();
+    }
+
+    @Override
+    public void onGetMemberCardError(Error error) {
+        showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_try_again)));
+    }
+
+    @Override
+    public void getNewSession(final ICmd iCmd) {
+        callbackManager.getNewSesion(new CallbacListener() {
+            @Override
+            public void onSuccess(RESP_Login success) {
+                iCmd.execute();
+            }
+
+            @Override
+            public void onError(Error error) {
+                showShortToast(getString(R.string.error_end_of_session));
+                startActivityAndFinish(LoginActivity.class);
+            }
+        });
     }
 
     private void onStateChangeListener() {
@@ -212,13 +230,8 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     }
 
     @Override
-    public void onGetMemberCardError() {
-
-    }
-
-    @Override
     public void onNetworkDisable() {
-
+        showShortToast(getString(R.string.error_no_internet));
     }
 
     @Override
@@ -243,6 +256,17 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     }
 
     @Override
+    public void onNotLogged() {
+        showShortToast(getString(R.string.need_login_to_action));
+        startActivityAndFinish(LoginActivity.class);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return null;
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_action_view_his) {
@@ -255,18 +279,17 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
 
     }
 
-//    @Override
-//    public void onNetworkDisable(){
-//        progressView.setRefreshing(false);
-//        progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_internet), getString(R.string.try_again));
-//        progressView.showData();
-//    }
-
 
     @Override
     public void onResume() {
         super.onResume();
         Log.e("Resume", "Da resume");
         onStateChangeListener();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        callbackManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

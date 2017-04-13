@@ -44,8 +44,7 @@ public class FragmentHomeTechnology extends BasicFragment implements IFragmentTe
     private LinearLayout ln_new_slider;
 
     public static FragmentHomeTechnology newInstance() {
-        FragmentHomeTechnology fragment = new FragmentHomeTechnology();
-        return fragment;
+        return new FragmentHomeTechnology();
     }
 
     @Nullable

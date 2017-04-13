@@ -20,6 +20,7 @@ public interface IListVoucherView {
     void onGetVoucherError(Error error);
     void onNoNetwork();
     void getNewSession(ICmd iCmd);
+    void onNotLogged();
     Fragment getFragment();
     Activity getActivity();
 }

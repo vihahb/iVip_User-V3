@@ -208,7 +208,8 @@
     <string name="message_no_voucher">Danh sách thẻ giảm giá của bạn đang trống\nBạn có thể lấy thẻ giảm giá từ các bản tin cho phép lấy mã giảm giá</string>
 
     <!-- Error -->
-    <string name="error_try_again">Có lỗi xảy ra\nChạm vào để thử lại</string>
+    <string name="error_try_again">Có lỗi xảy ra, vui lòng thử lại</string>
+    <string name="error_touch_to_try_again">Có lỗi xảy ra\nChạm vào để thử lại</string>
     <string name="error_no_internet">Không có kết nối mạng</string>
     <string name="error_end_of_session">Bạn đã hết phiên làm việc</string>
 </resources>

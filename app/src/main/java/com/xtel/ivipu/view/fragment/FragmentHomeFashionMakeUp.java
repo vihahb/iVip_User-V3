@@ -45,8 +45,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     private LinearLayout ln_new_slider;
 
     public static FragmentHomeFashionMakeUp newInstance() {
-        FragmentHomeFashionMakeUp fragment = new FragmentHomeFashionMakeUp();
-        return fragment;
+        return new FragmentHomeFashionMakeUp();
     }
 
     @Nullable

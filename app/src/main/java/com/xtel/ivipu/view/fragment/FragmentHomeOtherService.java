@@ -44,8 +44,7 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
     private LinearLayout ln_new_slider;
 
     public static FragmentHomeOtherService newInstance() {
-        FragmentHomeOtherService fragment = new FragmentHomeOtherService();
-        return fragment;
+        return new FragmentHomeOtherService();
     }
 
     @Nullable
