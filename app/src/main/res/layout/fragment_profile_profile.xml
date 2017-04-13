@@ -73,7 +73,7 @@
                             android:layout_marginLeft="-30dp"
                             android:layout_marginTop="@dimen/size_30"
                             android:background="@drawable/bg_red_selecter"
-                            app:elevation="@dimen/size_8"
+                            android:elevation="@dimen/size_8"
                             tool:ignore="UnusedAttribute">
 
                             <ImageView

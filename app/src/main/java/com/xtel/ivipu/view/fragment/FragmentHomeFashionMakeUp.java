@@ -44,6 +44,10 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeFashionMakeUp newInstance() {
+        return new FragmentHomeFashionMakeUp();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +64,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
 
     private void initView(View view) {
         ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_bottom_navigation);
         rcl_fashion = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_fashion.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -69,22 +73,22 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
 
         adapter = new AdapterRecyclerFashion(arrayList_fashion, this);
         rcl_fashion.setAdapter(adapter);
-        rcl_fashion.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onScrollUp() {
-                hideBottomNavigation();
-            }
-
-            @Override
-            public void onScrollDown() {
-                showBottomNavigation();
-            }
-
-            @Override
-            public void onLoadMore() {
-                showBottomNavigation();
-            }
-        });
+//        rcl_fashion.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
+//            @Override
+//            public void onScrollUp() {
+//                hideBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onScrollDown() {
+//                showBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//                showBottomNavigation();
+//            }
+//        });
     }
 
     private void hideBottomNavigation() {

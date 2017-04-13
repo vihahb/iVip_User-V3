@@ -1,260 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context="com.xtel.ivipu.view.activity.HomeActivity">
+    android:orientation="vertical">
 
-    <FrameLayout
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorPrimary">-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:alpha="0.5"-->
+    <!--android:background="@color/colorPrimary" />-->
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:alpha="0.5"
-            android:background="@color/colorPrimary" />
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:elevation="0dp"
-            tools:targetApi="lollipop">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/button_transparent"
-                android:elevation="@dimen/size_6"
-                android:minHeight="?attr/actionBarSize"
-                android:padding="0dp"
-                app:popupTheme="@style/AppTheme.AppBarOverlay">
-
-                <com.xtel.ivipu.view.widget.RoundImage
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
-    </FrameLayout>
-    <!--/>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <FrameLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/home.toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/home_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_3"
+        android:background="@drawable/shadow_on_top" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.5" />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/home.bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        android:background="@android:color/white"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:itemIconTint="@drawable/bottom_navigation_item"
+        app:itemTextAppearance="?android:attr/textAppearanceSmall"
+        app:itemTextColor="@drawable/bottom_navigation_item"
+        app:menu="@menu/nav_bottom_navigation" />
 
-                    <FrameLayout
-                        android:id="@+id/home_frame"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+    <!--</FrameLayout>-->
+    <!--/>-->
 
-                    <FrameLayout
-                        android:id="@+id/fr_home_overlay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.7"
-                        android:background="@android:color/black"
-                        android:visibility="invisible" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
-                    <com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom
-                        android:id="@+id/ln_popup_item"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:orientation="horizontal"
-                        android:paddingBottom="@dimen/size_56">
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1">-->
 
-                        <LinearLayout
-                            android:id="@+id/ln_layout_transparent"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:alpha="0.6"
-                            android:orientation="vertical"
-                            android:visibility="invisible" />
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/white"-->
+    <!--android:orientation="vertical">-->
 
-                        <LinearLayout
-                            android:id="@+id/ln_layout_nav_item"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:background="@color/nav_item"
-                            android:orientation="vertical">
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1">-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/size_56"
-                                android:orientation="horizontal">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:alpha="0.5" />-->
 
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+    <!--<FrameLayout-->
+    <!--android:id="@+id/home_frame"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1" />-->
 
-                                    <Button
-                                        android:id="@+id/btn_health"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/nav_item_background"
-                                        android:elevation="0dp"
-                                        android:gravity="center"
-                                        android:paddingLeft="@dimen/size_16"
-                                        android:text="Sức khỏe"
-                                        android:textAllCaps="false"
-                                        android:textColor="@android:color/white" />
+    <!--<FrameLayout-->
+    <!--android:id="@+id/fr_home_overlay"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:alpha="0.7"-->
+    <!--android:background="@android:color/black"-->
+    <!--android:visibility="invisible" />-->
 
-                                    <FrameLayout
-                                        android:layout_width="@dimen/size_48"
-                                        android:layout_height="match_parent"
-                                        android:background="@android:color/transparent"
-                                        android:elevation="@dimen/size_10">
+    <!--<com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom-->
+    <!--android:id="@+id/ln_popup_item"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="@dimen/size_56">-->
 
-                                        <ImageView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:padding="@dimen/size_10"
-                                            android:src="@mipmap/ic_health" />
-                                    </FrameLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/ln_layout_transparent"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:alpha="0.6"-->
+    <!--android:orientation="vertical"-->
+    <!--android:visibility="invisible" />-->
 
-                                </FrameLayout>
-                            </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:id="@+id/ln_layout_nav_item"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1.5"-->
+    <!--android:background="@color/nav_item"-->
+    <!--android:orientation="vertical">-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/size_56"
-                                android:orientation="horizontal">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_56"-->
+    <!--android:orientation="horizontal">-->
 
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-                                    <Button
-                                        android:id="@+id/btn_service"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/nav_item_background"
-                                        android:elevation="0dp"
-                                        android:gravity="center"
-                                        android:paddingLeft="@dimen/size_16"
-                                        android:text="Dịch vụ khác"
-                                        android:textAllCaps="false"
-                                        android:textColor="@android:color/white" />
+    <!--<Button-->
+    <!--android:id="@+id/btn_health"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/nav_item_background"-->
+    <!--android:elevation="0dp"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingLeft="@dimen/size_16"-->
+    <!--android:text="Sức khỏe"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:textColor="@android:color/white" />-->
 
-                                    <FrameLayout
-                                        android:layout_width="@dimen/size_48"
-                                        android:layout_height="match_parent"
-                                        android:background="@android:color/transparent"
-                                        android:elevation="@dimen/size_10">
+    <!--<FrameLayout-->
+    <!--android:layout_width="@dimen/size_48"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:elevation="@dimen/size_10">-->
 
-                                        <ImageView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:padding="@dimen/size_10"
-                                            android:src="@mipmap/ic_another_service" />
-                                    </FrameLayout>
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_health" />-->
+    <!--</FrameLayout>-->
 
-                                </FrameLayout>
-                            </LinearLayout>
+    <!--</FrameLayout>-->
+    <!--</LinearLayout>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/size_56"
-                                android:orientation="horizontal">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_56"-->
+    <!--android:orientation="horizontal">-->
 
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-                                    <Button
-                                        android:id="@+id/btn_news_for_locations"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/nav_item_background"
-                                        android:elevation="0dp"
-                                        android:gravity="center"
-                                        android:paddingLeft="@dimen/size_16"
-                                        android:text="Tin Quanh đây"
-                                        android:textAllCaps="false"
-                                        android:textColor="@android:color/white" />
+    <!--<Button-->
+    <!--android:id="@+id/btn_service"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/nav_item_background"-->
+    <!--android:elevation="0dp"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingLeft="@dimen/size_16"-->
+    <!--android:text="Dịch vụ khác"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:textColor="@android:color/white" />-->
 
-                                    <FrameLayout
-                                        android:layout_width="@dimen/size_48"
-                                        android:layout_height="match_parent"
-                                        android:background="@android:color/transparent"
-                                        android:elevation="@dimen/size_10">
+    <!--<FrameLayout-->
+    <!--android:layout_width="@dimen/size_48"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:elevation="@dimen/size_10">-->
 
-                                        <ImageView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:padding="@dimen/size_10"
-                                            android:src="@mipmap/ic_location" />
-                                    </FrameLayout>
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_another_service" />-->
+    <!--</FrameLayout>-->
 
-                                </FrameLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom>
-                </FrameLayout>
-            </LinearLayout>
+    <!--</FrameLayout>-->
+    <!--</LinearLayout>-->
 
-            <include
-                layout="@layout/new_slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottom_navigation_item"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_56"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:itemBackground="@color/colorPrimary"
-                app:itemIconTint="@android:color/white"
-                app:itemTextColor="@android:color/white"
-                app:menu="@menu/bottom_nav_home"/>
-        </FrameLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_56"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/home_bottom_navigation_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/size_56"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:background="@color/colorPrimary"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay"-->
-        <!--app:itemIconTint="@color/colorAccent"-->
-        <!--app:itemTextColor="@color/colorAccent"-->
-        <!--design:menu="@menu/home_bottom_navigation" />-->
-    </LinearLayout>
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_news_for_locations"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/nav_item_background"-->
+    <!--android:elevation="0dp"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingLeft="@dimen/size_16"-->
+    <!--android:text="Tin Quanh đây"-->
+    <!--android:textAllCaps="false"-->
+    <!--android:textColor="@android:color/white" />-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="@dimen/size_48"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:elevation="@dimen/size_10">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/size_10"-->
+    <!--android:src="@mipmap/ic_location" />-->
+    <!--</FrameLayout>-->
+
+    <!--</FrameLayout>-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom>-->
+    <!--</FrameLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<include-->
+    <!--layout="@layout/new_slider"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<android.support.design.widget.BottomNavigationView-->
+    <!--android:id="@+id/bottom_navigation_item"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_56"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay"-->
+    <!--app:itemBackground="@color/colorPrimary"-->
+    <!--app:itemIconTint="@android:color/white"-->
+    <!--app:itemTextColor="@android:color/white"-->
+    <!--app:menu="@menu/bottom_nav_home"/>-->
+    <!--</FrameLayout>-->
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+    <!--android:id="@+id/home_bottom_navigation_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_56"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay"-->
+    <!--app:itemIconTint="@color/colorAccent"-->
+    <!--app:itemTextColor="@color/colorAccent"-->
+    <!--design:menu="@menu/home_bottom_navigation" />-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

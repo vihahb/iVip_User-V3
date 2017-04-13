@@ -1,11 +1,14 @@
 package com.xtel.ivipu.model;
 
+import android.util.Log;
+
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
+import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.sdk.commons.Constants;
 
 /**
- * Created by vivhp on 2/14/2017.
+ * Created by vivhp on 2/14/2017
  */
 
 public class HomeModel extends Model {
@@ -76,7 +79,23 @@ public class HomeModel extends Model {
         requestServer.getApi(url, session, responseHandle);
     }
 
+    public void getMemberCard(int page, ResponseHandle responseHandle){
+        String url = Constants.SERVER_IVIP + "v0.1/user/member_card?page=" + page + "&pagesize=" + 10;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getMemberCard", "url " + url + "  session " + session);
+        requestServer.getApi(url, session, responseHandle);
+    }
+
     public void getHistoryTransactionMemberCard(String url, String session, ResponseHandle responseHandle){
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getListVoucher(int page, ResponseHandle responseHandle){
+        String url = Constants.SERVER_IVIP + "v0.1/user/vouchers?page=" + page + "&pagesize=" + 10;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getListVoucher", "url " + url + "  session " + session);
         requestServer.getApi(url, session, responseHandle);
     }
 

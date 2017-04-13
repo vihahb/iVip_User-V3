@@ -15,21 +15,17 @@ public interface IHome {
 
     void showShortToast(String mes);
 
-    void onGetNew(ArrayList<HotSaleNewsObj> arrayList);
-
     void showLongToast(String mes);
 
-    void startActivty(Class clazz);
+//    void startActivty(Class clazz);
 
     void startActivityFinish(Class clazz);
 
-    void getShortUser(RESP_Short userShort);
-
-    void getSuccessUser(String avatar, String qr_code, String fullname);
+//    void getShortUser(RESP_Short userShort);
 
     void onNetworkDisable();
 
-    void onShowQrCode(String url);
+//    void onShowQrCode(String url);
 
     Activity getActivity();
 }

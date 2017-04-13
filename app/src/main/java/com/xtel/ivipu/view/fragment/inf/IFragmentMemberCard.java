@@ -2,9 +2,12 @@ package com.xtel.ivipu.view.fragment.inf;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.xtel.ivipu.model.entity.MemberObj;
+import com.xtel.nipservicesdk.callback.ICmd;
+import com.xtel.nipservicesdk.model.entity.Error;
 
 import java.util.ArrayList;
 
@@ -15,13 +18,15 @@ import java.util.ArrayList;
 public interface IFragmentMemberCard {
 
     void onGetMemberCardSuccess(ArrayList<MemberObj> arrayList);
-    void onGetMemberCardError();
+    void onGetMemberCardError(Error error);
+    void getNewSession(ICmd iCmd);
     void onNetworkDisable();
     void showShortToast(String mes);
     void startActivityAndFinish(Class clazz);
     void onLoadMore();
     void onClickCardItem(int position, MemberObj memberObj, View view);
-
+    void onNotLogged();
+    Fragment getFragment();
     Activity getActivity();
     Context getContext();
 }

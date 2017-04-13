@@ -37,7 +37,13 @@ import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
 import com.xtel.ivipu.view.widget.RoundImage;
 import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.CallbackManager;
+import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ICmd;
+import com.xtel.nipservicesdk.model.entity.Error;
+import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonHelper;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.nipservicesdk.utils.SharedUtils;
 import com.xtel.sdk.commons.Constants;
@@ -55,11 +61,11 @@ import java.util.TimeZone;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * Created by vihahb on 1/13/2017.
+ * Created by vihahb on 1/13/2017
  */
 
 public class ProfileFragment extends BasicFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, IProfileActivityView {
-
+    protected CallbackManager callbackManager;
     public static final String TAG = "Profile frag ";
     public static String[] gender_spinner;
     private final int CAMERA_REQUEST_CODE = 1002;
@@ -83,6 +89,11 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private Date date;
     private String gender_set;
 
+    public static ProfileFragment newInstance() {
+        ProfileFragment fragment = new ProfileFragment();
+        return fragment;
+    }
+
     //    Profile profile;
     @Nullable
     @Override
@@ -93,6 +104,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        callbackManager = CallbackManager.create(getActivity());
         presenter = new ProfilePresenter(this);
         initView(view);
     }
@@ -232,6 +244,23 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     @Override
+    public void getNewSession(final ICmd iCmd, final Object... params) {
+        callbackManager.getNewSesion(new CallbacListener() {
+            @Override
+            public void onSuccess(RESP_Login success) {
+                iCmd.execute(params);
+            }
+
+            @Override
+            public void onError(Error error) {
+                showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), null));
+                startActivity(LoginActivity.class);
+                finishActivity();
+            }
+        });
+    }
+
+    @Override
     public void reloadProfile(RESP_Profile profile) {
         UserInfo userInfo = new UserInfo();
         userInfo.setFullname(profile.getFullname());
@@ -317,6 +346,8 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initCamera();
             }
+        } else {
+            callbackManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

@@ -44,7 +44,7 @@
     <!-- Nav title -->
     <string name="nav_Profile">Thông tin cá nhân</string>
     <string name="nav_history">Lịch sử</string>
-    <string name="nav_favorite">Yêu thích</string>
+    <!--<string name="nav_favorite">Yêu thích</string>-->
     <string name="nav_voucher_user">Thẻ giảm giá</string>
     <string name="nav_notify">Thông báo</string>
     <string name="nav_user">Người dùng</string>
@@ -180,4 +180,36 @@
     <string name="pass_word">Mật khẩu</string>
     <string name="phone">Số điện thoại</string>
 
+    <!-- Lê Công Long Vũ -->
+    
+    <!-- Title -->
+    <string name="title.list_voucher">Danh sách thẻ giảm giá</string>
+    
+    <!-- Menu -->
+    <string name="nav_news_category">Danh mục bản tin</string>
+    <string name="nav_latest_news">Bản tin mới nhất</string>
+    <string name="nav_cuisine_and_eating">Ẩm thực và ăn uống</string>
+    <string name="nav_fashion_and_beautify">Thời trang và làm đẹp</string>
+    <string name="nav_electronics_and_technology">Điện tử và công nghệ</string>
+    <string name="nav_health_and_life">Sức khỏe và cuộc sống</string>
+    <string name="nav_household_goods_and_consumer_goods">Đồ gia dụng và tiêu dùng</string>
+    <string name="nav_toys_and_games">Đồ chơi và trò chơi</string>
+    <string name="nav_other_services">Các dịch vụ khác</string>
+    <string name="nav_around_here">Xung quanh đây</string>
+
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_voucher">Thẻ giảm giá</string>
+    <string name="nav_member">Thành viên</string>
+    <string name="nav_favorite">Yêu thích</string>
+    <string name="nav_account">Tài khoản</string>
+    
+    <!-- Message -->
+    <string name="message_no_internet_click_to_try_again">Kết nối mạng của bạn không ổn định\nchạm vào để thử lại</string>
+    <string name="message_no_voucher">Danh sách thẻ giảm giá của bạn đang trống\nBạn có thể lấy thẻ giảm giá từ các bản tin cho phép lấy mã giảm giá</string>
+
+    <!-- Error -->
+    <string name="error_try_again">Có lỗi xảy ra, vui lòng thử lại</string>
+    <string name="error_touch_to_try_again">Có lỗi xảy ra\nChạm vào để thử lại</string>
+    <string name="error_no_internet">Không có kết nối mạng</string>
+    <string name="error_end_of_session">Bạn đã hết phiên làm việc</string>
 </resources>

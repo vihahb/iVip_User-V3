@@ -43,6 +43,10 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     private BottomNavigationView nav_home;
     private LinearLayout ln_new_slider;
 
+    public static FragmentHomeFood newInstance() {
+        return new FragmentHomeFood();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
         arraylist_food = new ArrayList<>();
 
         Log.e("arr food object ", arraylist_food.toString());
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_bottom_navigation);
         ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         rcl_food = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_food.setHasFixedSize(true);
@@ -70,21 +74,21 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
         adapter = new AdapterRecycleFood(arraylist_food, this);
 
         rcl_food.setAdapter(adapter);
-        rcl_food.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
-            @Override
-            public void onScrollUp() {
-                hideBottomNavigation();
-            }
-
-            @Override
-            public void onScrollDown() {
-                showBottomNavigation();
-            }
-
-            @Override
-            public void onLoadMore() {
-            }
-        });
+//        rcl_food.addOnScrollListener(new RecyclerOnScrollListener(layoutManager) {
+//            @Override
+//            public void onScrollUp() {
+//                hideBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onScrollDown() {
+//                showBottomNavigation();
+//            }
+//
+//            @Override
+//            public void onLoadMore() {
+//            }
+//        });
     }
 
     private void hideBottomNavigation() {

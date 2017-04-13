@@ -46,7 +46,6 @@ import static android.Manifest.permission.CAMERA;
  */
 
 public class QrCheckIn extends BasicActivity implements ZXingScannerView.ResultHandler, IScannerView {
-
     private static final int REQUEST_PERMISSION_ALL = 2;
     double latitude_location, longitude_location;
     boolean isGPSEnabled = true;

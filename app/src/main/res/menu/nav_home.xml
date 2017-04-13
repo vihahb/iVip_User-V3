@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/nav.home.group_1">
+        <item
+            android:id="@+id/nav.home.category"
+            android:icon="@mipmap/ic_logo_tool_bar"
+            android:title="@string/nav_news_category" />
+    </group>
+
+    <group
+        android:id="@+id/nav.home.group_2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav.home.latest_news"
+            android:icon="@mipmap/ic_new_nav"
+            android:checked="true"
+            android:title="@string/nav_latest_news" />
+
+        <item
+            android:id="@+id/nav.home.cuisine"
+            android:icon="@mipmap/ic_food_drink_nav"
+            android:title="@string/nav_cuisine_and_eating" />
+
+        <item
+            android:id="@+id/nav.home.fashion"
+            android:icon="@mipmap/ic_clothes_nav"
+            android:title="@string/nav_fashion_and_beautify" />
+
+        <item
+            android:id="@+id/nav.home.electronic"
+            android:icon="@mipmap/ic_techology_nav"
+            android:title="@string/nav_electronics_and_technology" />
+
+        <item
+            android:id="@+id/nav.home.health"
+            android:icon="@mipmap/ic_heath_nav"
+            android:title="@string/nav_health_and_life" />
+
+        <item
+            android:id="@+id/nav.home.household"
+            android:icon="@mipmap/ic_cooking_tool_nav"
+            android:title="@string/nav_household_goods_and_consumer_goods" />
+
+        <item
+            android:id="@+id/nav.home.toy"
+            android:icon="@mipmap/ic_toy_nav"
+            android:title="@string/nav_toys_and_games" />
+
+        <item
+            android:id="@+id/nav.home.other"
+            android:icon="@mipmap/ic_other_service_2"
+            android:title="@string/nav_other_services" />
+
+        <item
+            android:id="@+id/nav.home.around"
+            android:icon="@mipmap/ic_near_by_nav"
+            android:title="@string/nav_around_here" />
+    </group>
+</menu>

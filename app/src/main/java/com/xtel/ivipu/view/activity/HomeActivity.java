@@ -1,41 +1,25 @@
 package com.xtel.ivipu.view.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.RESP.RESP_Short;
-import com.xtel.ivipu.model.entity.HotSaleNewsObj;
-import com.xtel.ivipu.model.entity.UserShort;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
-import com.xtel.ivipu.view.adapter.AdapterNewPlugin;
-import com.xtel.ivipu.view.fragment.FavoriteFragment;
 import com.xtel.ivipu.view.fragment.FragmentHomeFashionMakeUp;
 import com.xtel.ivipu.view.fragment.FragmentHomeFood;
 import com.xtel.ivipu.view.fragment.FragmentHomeHealth;
@@ -43,175 +27,88 @@ import com.xtel.ivipu.view.fragment.FragmentHomeNewsForMe;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
 import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
 import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
-import com.xtel.ivipu.view.fragment.FragmentHomeVoucherList;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
-import com.xtel.ivipu.view.fragment.FragmentMyShop;
-import com.xtel.ivipu.view.fragment.HistoryFragment;
-import com.xtel.ivipu.view.fragment.NotifyFragment;
-import com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom;
+import com.xtel.ivipu.view.fragment.ListVoucherFragment;
+import com.xtel.ivipu.view.fragment.ProfileFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
-import com.xtel.nipservicesdk.LoginManager;
-import com.xtel.sdk.commons.Constants;
-import com.xtel.sdk.commons.NetWorkInfo;
-import com.yarolegovich.discretescrollview.DiscreteScrollView;
 
-import java.util.ArrayList;
-
-import me.leolin.shortcutbadger.ShortcutBadger;
+import java.lang.reflect.Field;
 
 /**
- * Created by vivhp on 12/29/2016.
+ * Created by vivhp on 12/29/2016
  */
 
-public class HomeActivity extends IActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener {
-    HomePresenter presenter;
-    Toolbar toolbar;
-    LinearLayout ln_layout_transparent, ln_layout_nav_item, ln_count;
-    LinearLayoutAnimationSlideBottom ln_popup_item;
-    BottomNavigationView nav_bottom_home;
-    FrameLayout fr_home_overlay;
-    LoginActivity loginActivity;
-    boolean isChecked = false;
-    AdapterNewPlugin newPluginAdapter;
-    HotSaleNewsObj newsObj;
-    private DrawerLayout drawer;
-    private NavigationView navigationView;
-    private ActionBar actionBar;
-    private MenuItem mMenuItem;
-    private LinearLayout mLinearLayout;
-    private Context mContext;
-    private int notifications;
-    private String avatar;
-    private String session = LoginManager.getCurrentSession();
-    private Button btn_health, btn_service, btn_news_for_location;
-    private boolean isShowing = false;
-    private boolean item_health_selected = false;
-    private boolean item_service_selected = false;
-    private boolean item_news_for_me_selected = false;
-    private ImageView im_drawer_avatar, im_drawer_qr_code, im_drawer_background;
-    private TextView tv_drawer_fullname;
-    private String TAG = "Home Activity";
-    private int notificationId = R.id.nav_notify;
-    private int toProfile = 1, toNotification = 2;
-    private ArrayList<HotSaleNewsObj> newArrayList;
-    private TabLayout tabDots;
-    private DiscreteScrollView scrollNew;
-    private LinearLayout ln_new_slider;
+public class HomeActivity extends IActivity implements NavigationView.OnNavigationItemSelectedListener, IHome {
+    protected final String TAG = "HomeActivity";
+
+    protected HomePresenter presenter;
+    protected BottomNavigationView nav_bottom_home;
+    protected DrawerLayout drawer;
+    protected ActionBar actionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         presenter = new HomePresenter(this);
-//        presenter.onGetUserNip();
-        mContext = HomeActivity.this;
-        initView();
+
         initNavigation();
-        initNavigationWidget();
         initBottomNavigation();
-        initPlugin();
+        replaceListNews();
+
         presenter.postFCMKey();
-        presenter.onGetShortUser();
-        presenter.onGetUserNip();
-        presenter.getNewHotSales();
-        loginActivity = new LoginActivity();
-        getData();
     }
 
-    private void initPlugin() {
+    /**
+     * Khởi tạo menu bên trái
+     * Lắng nghe sự kiện khi item trong navigation được chọn
+     */
+    @SuppressWarnings("deprecation")
+    private void initNavigation() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
 
-        //Init TabLayout
-        tabDots = (TabLayout) findViewById(R.id.tabDots);
-        scrollNew = (DiscreteScrollView) findViewById(R.id.scrollNew);
-        ln_new_slider = (LinearLayout) findViewById(R.id.ln_new_slider);
-        newArrayList = new ArrayList<>();
-        newPluginAdapter = new AdapterNewPlugin(newArrayList);
-        scrollNew.setAdapter(newPluginAdapter);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+//        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.home_navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initNavigationWidget() {
-        View view = navigationView.getHeaderView(0);
-        im_drawer_avatar = (ImageView) view.findViewById(R.id.im_avatar);
-        im_drawer_qr_code = (ImageView) view.findViewById(R.id.im_qr_code);
-        im_drawer_background = (ImageView) view.findViewById(R.id.im_background);
-        tv_drawer_fullname = (TextView) view.findViewById(R.id.tv_user_name);
-        im_drawer_avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pushData(toProfile);
-            }
-        });
-    }
-
+    /**
+     * Khởi tạo tab chức năng phía dưới
+     * Lắng nghe sự kiện khi item cửa tab được chọn
+     */
     public void initBottomNavigation() {
-        nav_bottom_home = (BottomNavigationView) findViewById(R.id.bottom_navigation_item);
-        initMenuSelected();
-        replaceDefaultFragment();
-    }
+        nav_bottom_home = (BottomNavigationView) findViewById(R.id.home_bottom_navigation);
+        removeShiftMode();
 
-    private void initMenuSelected() {
         nav_bottom_home.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.nav_news:
-                                btn_health.setPressed(false);
-                                btn_service.setPressed(false);
-                                btn_news_for_location.setPressed(false);
-                                btn_health.setActivated(false);
-                                btn_news_for_location.setActivated(false);
-                                btn_service.setActivated(false);
-                                disableItem();
-                                replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
-                                renameToolbar(R.string.nav_new_list);
-                                break;
-                            case R.id.nav_fashion:
-                                btn_health.setPressed(false);
-                                btn_service.setPressed(false);
-                                btn_news_for_location.setPressed(false);
-                                btn_health.setActivated(false);
-                                btn_news_for_location.setActivated(false);
-                                btn_service.setActivated(false);
-                                disableItem();
-                                replaceFragment(R.id.home_frame, new FragmentHomeFashionMakeUp(), "FASHION");
-                                renameToolbar(R.string.nav_fashion);
-                                break;
-                            case R.id.nav_food:
-                                btn_health.setPressed(false);
-                                btn_service.setPressed(false);
-                                btn_news_for_location.setPressed(false);
-                                btn_health.setActivated(false);
-                                btn_news_for_location.setActivated(false);
-                                btn_service.setActivated(false);
-                                disableItem();
-                                replaceFragment(R.id.home_frame, new FragmentHomeFood(), "FOOD");
-                                renameToolbar(R.string.nav_food);
-                                break;
-                            case R.id.nav_technology:
-                                btn_health.setPressed(false);
-                                btn_service.setPressed(false);
-                                btn_news_for_location.setPressed(false);
-                                btn_health.setActivated(false);
-                                btn_news_for_location.setActivated(false);
-                                btn_service.setActivated(false);
-                                disableItem();
-                                replaceFragment(R.id.home_frame, new FragmentHomeTechnology(), "TECHNOLOGY");
-                                renameToolbar(R.string.nav_technology);
-                                break;
-                            case R.id.nav_list_item:
-                                isShowing = true;
+                            case R.id.nav_home_home:
 
-                                if (isChecked) {
-                                    mLinearLayout.setVisibility(View.GONE);
-                                    ln_popup_item.setVisibility(View.GONE);
-                                    fr_home_overlay.setVisibility(View.GONE);
-                                } else {
-                                    mLinearLayout.setVisibility(View.VISIBLE);
-                                    ln_popup_item.setVisibility(View.VISIBLE);
-                                    fr_home_overlay.setVisibility(View.VISIBLE);
-                                }
-                                selectedItem();
+                                break;
+                            case R.id.nav_home_voucher:
+                                replaceListVoucher();
+                                break;
+                            case R.id.nav_home_member:
+                                replaceMember();
+                                break;
+                            case R.id.nav_home_favorite:
+
+                                break;
+                            case R.id.nav_home_account:
+                                replaceProfile();
+                                break;
+                            default:
                                 break;
                         }
                         return true;
@@ -219,283 +116,118 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                 });
     }
 
-    @SuppressLint("CutPasteId")
-    private void initView() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        mLinearLayout = (LinearLayout) findViewById(R.id.ln_layout_transparent);
-        ln_layout_transparent = (LinearLayout) findViewById(R.id.ln_layout_transparent);
-        ln_layout_nav_item = (LinearLayout) findViewById(R.id.ln_layout_nav_item);
-        ln_popup_item = (LinearLayoutAnimationSlideBottom) findViewById(R.id.ln_popup_item);
-        ln_popup_item.setVisibility(View.GONE);
-        ln_layout_transparent.setOnClickListener(this);
-
-        btn_health = (Button) findViewById(R.id.btn_health);
-        btn_health.setOnClickListener(this);
-        btn_service = (Button) findViewById(R.id.btn_service);
-        btn_service.setOnClickListener(this);
-        btn_news_for_location = (Button) findViewById(R.id.btn_news_for_locations);
-        btn_news_for_location.setOnClickListener(this);
-        fr_home_overlay = (FrameLayout) findViewById(R.id.fr_home_overlay);
-        fr_home_overlay.setOnClickListener(this);
-        drawer.setOnClickListener(this);
-    }
-
-    private void disableItem() {
-        isShowing = false;
-        mLinearLayout.setVisibility(View.INVISIBLE);
-        ln_popup_item.setVisibility(View.GONE);
-        fr_home_overlay.setVisibility(View.GONE);
-    }
-
-    private void replaceHealth() {
-        item_health_selected = true;
-        item_news_for_me_selected = false;
-        item_service_selected = false;
-        btn_health.setPressed(true);
-        btn_service.setPressed(false);
-        btn_news_for_location.setPressed(false);
-        btn_health.setActivated(true);
-        btn_news_for_location.setActivated(false);
-        btn_service.setActivated(false);
-        disableItem();
-        replaceFragment(R.id.home_frame, new FragmentHomeHealth(), "HEALTH");
-        renameToolbar(R.string.nav_health);
-    }
-
-    private void replaceService() {
-        item_health_selected = false;
-        item_news_for_me_selected = false;
-        item_service_selected = true;
-        btn_health.setPressed(false);
-        btn_service.setPressed(true);
-        btn_news_for_location.setPressed(false);
-        btn_health.setActivated(false);
-        btn_news_for_location.setActivated(false);
-        btn_service.setActivated(true);
-        disableItem();
-        replaceFragment(R.id.home_frame, new FragmentHomeOtherService(), "SERVICE");
-        renameToolbar(R.string.nav_services);
-    }
-
-    private void replaceNewsForLocation() {
-        item_health_selected = false;
-        item_news_for_me_selected = true;
-        item_service_selected = false;
-        btn_health.setPressed(false);
-        btn_service.setPressed(false);
-        btn_news_for_location.setPressed(true);
-        btn_health.setActivated(false);
-        btn_news_for_location.setActivated(true);
-        btn_service.setActivated(false);
-        disableItem();
-        replaceFragment(R.id.home_frame, new FragmentHomeNewsForMe(), "NEWS_FOR_LOCATION");
-        renameToolbar(R.string.nav_news_for_me);
-    }
-
-    @SuppressWarnings("deprecation")
-    private void initNavigation() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        actionBar = getSupportActionBar();
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-//        toggle.setDrawerIndicatorEnabled(false);
-        toggle.syncState();
-        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
-//        toolbar.setNavigationOnClickListener(this);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void setNotificationMenuCounter(int count) {
-        TextView view = (TextView) navigationView.getMenu().findItem(notificationId).getActionView().findViewById(R.id.nav_tv_count);
-        ln_count = (LinearLayout) navigationView.getMenu().findItem(notificationId).getActionView().findViewById(R.id.ln_count);
-        if (count > 0) {
-            ln_count.setBackgroundResource(R.drawable.notification_count_circle);
-            if (count < 100)
-                view.setText(String.valueOf(count));
-            else
-                view.setText("99+");
-        }
-//        view.setText(count > 0 ? String.valueOf(count) : null);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else if (isShowing) {
-            disableItem();
-        } else {
-            showConfirmExitApp();
+    /**
+    * Loại bỏ animation của bottom navigation view
+    * */
+    private void removeShiftMode() {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) nav_bottom_home.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.e(TAG, "Unable to get shift mode field");
+        } catch (IllegalAccessException e) {
+            Log.e(TAG, "Unable to change value of shift mode");
         }
     }
 
-    private void selectedItem() {
-        if (item_health_selected) {
-            btn_health.setPressed(true);
-            btn_service.setPressed(false);
-            btn_news_for_location.setPressed(false);
-        } else if (item_service_selected) {
-            btn_health.setPressed(false);
-            btn_service.setPressed(true);
-            btn_news_for_location.setPressed(false);
-        } else if (item_news_for_me_selected) {
-            btn_health.setPressed(false);
-            btn_service.setPressed(false);
-            btn_news_for_location.setPressed(true);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-//        mMenuItem = menu.findItem(R.id.action_user);
-//        if (avatar != null) {
-////            setDrawableResource(userShort.getAvatar(), mMenuItem);
+//    /**
+//     * Kiểm tra dữ liệu truyền vào
+//     */
+//    private void getData() {
+//        String data = null;
+//        try {
+//            data = getIntent().getStringExtra(Constants.NOTIFY_KEY);
+//            if (data.equals("news")) {
+//                replaceListNews();
+//            } else if (data.equals("location")) {
+//                replaceNewsAround();
+//                actionBar.setTitle(getString(R.string.nav_news_for_me));
+//                isChecked = true;
+//                nav_bottom_home.setSelectedItemId(R.id.nav_list_item);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
 //        }
-        return true;
-    }
-
-//    private void setImgUser2Toolbar(String avatar_url) {
-//        final ImageView imageView = new ImageView(this);
-//        imageView.setVisibility(View.GONE);
-//        Picasso.with(getApplicationContext())
-//                .load(avatar_url)
-//                .noPlaceholder()
-//                .transform(new CircleTransform())
-//                .error(R.mipmap.ic_launcher)
-//                .into(imageView);
+//
+//        if (data == null)
+//            replaceListNews();
 //    }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
+    /**
+     * Đổi tiêu đề của toolbar
+     * @param StringResource id of string
+     */
+    private void renameToolbar(int StringResource) {
+        actionBar.setTitle(getString(StringResource));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_user) {
-//            pushData();
-//            return true;
-//        } else
-        if (id == R.id.action_qr) {
-            checkInQrBar();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void checkInQrBar() {
-        disableItem();
-        startActivty(QrCheckIn.class);
-    }
-
-//    @SuppressLint("ObsoleteSdkInt")
-//    private void onCreteBadgeItem(int paramsInt) {
-//        if (Build.VERSION.SDK_INT <= 15) {
-//            return;
-//        }
-//        LayerDrawable layerDrawable = (LayerDrawable) mMenuItem.getIcon();
-//        Drawable userBadgeDrawable = layerDrawable.findDrawableByLayerId(R.id.action_user);
-//        BadgeIcon badgeIcon;
-//        if ((userBadgeDrawable != null)
-//                && ((userBadgeDrawable instanceof BadgeIcon))
-//                && (paramsInt < 0)) {
-//            badgeIcon = (BadgeIcon) userBadgeDrawable;
-//        } else {
-//            badgeIcon = new BadgeIcon(this);
-//        }
-//        badgeIcon.setCount(paramsInt);
-//        layerDrawable.mutate();
-//        layerDrawable.setDrawableByLayerId(R.id.action_user, badgeIcon);
-//        mMenuItem.setIcon(layerDrawable);
-//    }
-
-    private void replaceDefaultFragment() {
-        replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
+    private void replaceListNews() {
+        replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(), "LATEST_NEW");
         renameToolbar(R.string.nav_new_list);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        disableItem();
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-            ln_new_slider.setVisibility(View.VISIBLE);
-            nav_bottom_home.setVisibility(View.VISIBLE);
-            replaceDefaultFragment();
-        } else if (id == R.id.nav_my_shop) {
-            if (session != null) {
-                replaceMyShopFragment();
-            } else {
-                alertLogin();
-            }
-        } else if (id == R.id.nav_member_card) {
-            if (session != null) {
-                replaceMemberCardFragment();
-            } else {
-                alertLogin();
-            }
-        } else if (id == R.id.nav_notify) {
-            pushData(toNotification);
-        } else if (id == R.id.nav_news_history) {
-            disableItem();
-            ln_new_slider.setVisibility(View.GONE);
-            nav_bottom_home.setVisibility(View.GONE);
-            replaceFragment(R.id.home_frame, new HistoryFragment(), "HISTORY");
-            renameToolbar(R.string.nav_history);
-        } else if (id == R.id.nav_news_favorite) {
-            disableItem();
-            ln_new_slider.setVisibility(View.GONE);
-            nav_bottom_home.setVisibility(View.GONE);
-            replaceFragment(R.id.home_frame, new FavoriteFragment(), "FAVORITE");
-            renameToolbar(R.string.nav_favorite);
-        } else if (id == R.id.nav_faq) {
-            ln_new_slider.setVisibility(View.GONE);
-        } else if (id == R.id.nav_voucher_user) {
-            if (session != null) {
-                disableItem();
-                nav_bottom_home.setVisibility(View.GONE);
-                ln_new_slider.setVisibility(View.GONE);
-                replaceFragment(R.id.home_frame, new FragmentHomeVoucherList(), "USER_VOUCHER");
-                renameToolbar(R.string.nav_voucher_user);
-            } else {
-                alertLogin();
-            }
-        } else if (id == R.id.nav_about) {
-        } else if (id == R.id.nav_exit) {
-            exitApp();
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    private void replaceCuisine() {
+        replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");
+        renameToolbar(R.string.nav_cuisine_and_eating);
     }
 
-    private void replaceMyShopFragment() {
-        disableItem();
-        nav_bottom_home.setVisibility(View.GONE);
-        ln_new_slider.setVisibility(View.GONE);
-        replaceFragment(R.id.home_frame, new FragmentMyShop(), "MYSHOP");
-        renameToolbar(R.string.fragment_myshop_content);
+    private void replaceFashion() {
+        replaceFragment(R.id.home_frame, FragmentHomeFashionMakeUp.newInstance(), "FASHION");
+        renameToolbar(R.string.nav_fashion_and_beautify);
     }
 
-    private void replaceMemberCardFragment() {
-        disableItem();
-        nav_bottom_home.setVisibility(View.GONE);
-        ln_new_slider.setVisibility(View.GONE);
-        replaceFragment(R.id.home_frame, new FragmentMemberCard(), "MEMBER");
+    private void replaceElectronic() {
+        replaceFragment(R.id.home_frame, FragmentHomeTechnology.newInstance(), "ELECTRONIC");
+        renameToolbar(R.string.nav_electronics_and_technology);
+    }
+
+    private void replaceHealth() {
+        replaceFragment(R.id.home_frame, FragmentHomeHealth.newInstance(), "HEALTH");
+        renameToolbar(R.string.nav_health_and_life);
+    }
+
+    private void replaceHousehold() {
+
+        renameToolbar(R.string.nav_household_goods_and_consumer_goods);
+    }
+
+    private void replaceToy() {
+
+        renameToolbar(R.string.nav_toys_and_games);
+    }
+
+    private void replaceOtherService() {
+        replaceFragment(R.id.home_frame, FragmentHomeOtherService.newInstance(), "OTHER_SERVICE");
+        renameToolbar(R.string.nav_other_services);
+    }
+
+    private void replaceNewsAround() {
+        replaceFragment(R.id.home_frame, FragmentHomeNewsForMe.newInstance(), "NEWS_AROUND");
+        renameToolbar(R.string.nav_news_for_me);
+    }
+
+    private void replaceMember() {
+        replaceFragment(R.id.home_frame, FragmentMemberCard.newInstance(), "MEMBER");
         renameToolbar(R.string.fragment_member_card_content);
     }
 
-    @Override
-    public void startActivty(Class clazz) {
-        super.startActivity(clazz);
+    private void replaceListVoucher() {
+        replaceFragment(R.id.home_frame, ListVoucherFragment.newInstance(), "LIST_VOUCHER");
+        renameToolbar(R.string.title_list_voucher);
+    }
+
+    private void replaceProfile() {
+        replaceFragment(R.id.home_frame, ProfileFragment.newInstance(), "PROFILE");
+        renameToolbar(R.string.title_list_voucher);
     }
 
     @Override
@@ -504,53 +236,8 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    public void getShortUser(RESP_Short profile) {
-        UserShort userShort = new UserShort();
-        userShort.setAvatar(profile.getAvatar());
-        userShort.setFullname(profile.getFullname());
-        userShort.setNew_notify(profile.getNew_notify());
-        notifications = userShort.getNew_notify();
-        avatar = userShort.getAvatar();
-        Log.e("Avatar Home", avatar);
-//            setDrawableResource(userShort.getAvatar(), mMenuItem);
-//        setImgUser2Toolbar(avatar);
-        setNotificationMenuCounter(notifications);
-//        if (notifications != 0) {
-////            onCreteBadgeItem(notifications);
-////            ShortcutBadger.applyCount(getBaseContext(), notifications);
-//        } else {
-//            ShortcutBadger.applyCount(getBaseContext(), 0);
-//        }
-    }
-
-    @Override
-    public void getSuccessUser(String avatar, final String qr_code, String fullname) {
-        Log.e(TAG, "name: " + fullname + ", Avatar: " + avatar + ", Qr: " + qr_code);
-        WidgetHelper.getInstance().setAvatarImageURL(im_drawer_avatar, avatar);
-        WidgetHelper.getInstance().setAvatarImageURL(im_drawer_background, avatar);
-        WidgetHelper.setContent2TextView(fullname, tv_drawer_fullname);
-        final String qr_code_uer = qr_code;
-        im_drawer_qr_code.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.showQrCode(qr_code_uer);
-            }
-        });
-    }
-
-
-    @Override
     public void onNetworkDisable() {
         WidgetHelper.getInstance().showAlertNetwork(this);
-    }
-
-    @Override
-    public void onShowQrCode(String url) {
-        if (NetWorkInfo.isOnline(this)) {
-            showQrCode(url);
-        } else {
-            showShortToast(getString(R.string.no_connection));
-        }
     }
 
     @Override
@@ -569,145 +256,64 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.ln_layout_transparent) {
-            disableItem();
-        } else if (id == R.id.btn_health) {
-            replaceHealth();
-        } else if (id == R.id.btn_service) {
-            replaceService();
-        } else if (id == R.id.btn_news_for_locations) {
-            replaceNewsForLocation();
-        } else if (id == R.id.fr_home_overlay) {
-            disableItem();
-        } else if (id == android.R.id.home) {
-            disableItem();
-        } else if (id == R.id.drawer_layout) {
-            disableItem();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.nav_home_latest_news:
+                replaceListNews();
+                break;
+            case R.id.nav_home_cuisine:
+                replaceCuisine();
+                break;
+            case R.id.nav_home_fashion:
+                replaceFashion();
+                break;
+            case R.id.nav_home_electronic:
+                replaceElectronic();
+                break;
+            case R.id.nav_home_health:
+                replaceHealth();
+                break;
+            case R.id.nav_home_household:
+                replaceHousehold();
+                break;
+            case R.id.nav_home_toy:
+                replaceToy();
+                break;
+            case R.id.nav_home_other:
+                replaceOtherService();
+                break;
+            case R.id.nav_home_around:
+                replaceNewsAround();
+                break;
+            default:
+                break;
         }
-    }
 
-    private void pushData(int type) {
-        if (session != null) {
-            if (type == 1) {
-                disableItem();
-                drawer.closeDrawer(GravityCompat.START);
-                Intent intent = new Intent(this, ProfileActivity.class);
-                startActivity(intent);
-            } else if (type == 2) {
-                disableItem();
-                drawer.closeDrawer(GravityCompat.START);
-                nav_bottom_home.setVisibility(View.GONE);
-                ln_new_slider.setVisibility(View.GONE);
-                replaceFragment(R.id.home_frame, new NotifyFragment(), "NOTIFY");
-                renameToolbar(R.string.action_notify);
-            }
-        } else {
-            alertLogin();
-        }
-    }
-
-    private void alertLogin() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.TimePicker);
-        dialog.setTitle("Thông báo");
-        dialog.setMessage("Chức năng này cần phải đăng nhập để sử dụng. Bạn có muốn đăng nhập?");
-        dialog.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                loginActivity.setIsPassed(true);
-                startActivity(intent);
-            }
-        });
-        dialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                // TODO Auto-generated method stub
-            }
-        });
-        dialog.show();
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
-    public void onGetNew(ArrayList<HotSaleNewsObj> arrayList) {
-        newArrayList.addAll(arrayList);
-        Log.e("Arr New Plugin", newArrayList.toString());
-        newPluginAdapter.notifyDataSetChanged();
-        onStateListener();
-        for (int i = 0; i < newArrayList.size(); i++) {
-            TabLayout.Tab dots = tabDots.newTab();
-            tabDots.addTab(dots, i);
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            showConfirmExitApp();
         }
-    }
-
-    private void onStateListener() {
-        scrollNew.getCurrentItem();
-        scrollNew.scrollToPosition(0);
-        scrollNew.smoothScrollToPosition(0);
-        scrollNew.setHasFixedSize(true);
-
-        newsObj = new HotSaleNewsObj();
-
-        scrollNew.setOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
-            @Override
-            public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
-                //noinspection ConstantConditions
-                tabDots.getTabAt(adapterPosition).select();
-            }
-        });
-    }
-
-    private void renameToolbar(int StringResource) {
-        toolbar.setTitle(StringResource);
     }
 
     @Override
-    protected void onResume() {
-        presenter.onGetShortUser();
-        presenter.onGetUserNip();
-        if (notifications != 0) {
-//            onCreteBadgeItem(notifications);
-            ShortcutBadger.applyCount(getBaseContext(), notifications);
-        } else {
-            ShortcutBadger.applyCount(getBaseContext(), 0);
-        }
-        super.onResume();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
     }
 
     @Override
-    protected void onPause() {
-        if (notifications != 0) {
-//            onCreteBadgeItem(notifications);
-            ShortcutBadger.applyCount(getBaseContext(), notifications);
-        } else {
-            ShortcutBadger.applyCount(getBaseContext(), 0);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_home_scan_qr) {
+            startActivity(QrCheckIn.class);
         }
-        super.onPause();
-    }
-
-    private void getData() {
-        String data = null;
-        try {
-            data = getIntent().getStringExtra(Constants.NOTIFY_KEY);
-            if (data.equals("news")) {
-                replaceDefaultFragment();
-//                replaceDefaultFragment();
-            } else if (data.equals("location")) {
-                replaceNewsForLocation();
-                toolbar.setTitle(getString(R.string.nav_news_for_me));
-                isChecked = true;
-                nav_bottom_home.setSelectedItemId(R.id.nav_list_item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        Log.e("Data.....", data);
-
-        if (data == null)
-            replaceDefaultFragment();
+        return super.onOptionsItemSelected(item);
     }
 }

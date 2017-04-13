@@ -23,7 +23,13 @@ import com.xtel.ivipu.view.fragment.HistoryFragment;
 import com.xtel.ivipu.view.fragment.NotifyFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
+import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ICmd;
+import com.xtel.nipservicesdk.model.entity.Error;
+import com.xtel.nipservicesdk.model.entity.RESP_Login;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.commons.Constants;
 
 /**
@@ -31,7 +37,7 @@ import com.xtel.sdk.commons.Constants;
  */
 
 public class ProfileActivity extends BasicActivity implements IProfileActivityView {
-
+    protected CallbackManager callbackManager;
     BottomNavigationView bottom_nav_profile;
     private ActionBar actionBar;
     private Toolbar toolbar;
@@ -42,6 +48,8 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        callbackManager = CallbackManager.create(this);
+
         initToolbar();
         initBottomNav();
         getData();
@@ -167,6 +175,23 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
     }
 
     @Override
+    public void getNewSession(final ICmd iCmd, final Object... params) {
+        callbackManager.getNewSesion(new CallbacListener() {
+            @Override
+            public void onSuccess(RESP_Login success) {
+                iCmd.execute(params);
+            }
+
+            @Override
+            public void onError(Error error) {
+                showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), null));
+                startActivity(LoginActivity.class);
+                finishActivity();
+            }
+        });
+    }
+
+    @Override
     public void reloadProfile(RESP_Profile profile) {
     }
 
@@ -263,7 +288,13 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
         dialog.show();
     }
 
-//    public void replaceNotify() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        callbackManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    //    public void replaceNotify() {
 ////        replaceFragment(R.id.detail_frame, new NotifyFragment(), "NOTIFY");
 ////        renameToolbar(R.string.nav_notify);
 //        tabLayout.getTabAt(3).select();
