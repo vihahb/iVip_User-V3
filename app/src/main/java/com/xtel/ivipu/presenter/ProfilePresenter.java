@@ -23,7 +23,6 @@ import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.callback.RequestWithStringListener;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
-import com.xtel.sdk.utils.SharedPreferencesUtils;
 import com.xtel.sdk.utils.Task;
 
 /**
@@ -34,11 +33,6 @@ public class ProfilePresenter {
     public static final String TAG = "Profile_presenter";
     String session = LoginManager.getCurrentSession();
     private IProfileActivityView view;
-
-    public ProfilePresenter(IProfileActivityView view) {
-        this.view = view;
-    }
-
     private ICmd iCmd = new ICmd() {
         @Override
         public void execute(final Object... params) {
@@ -59,7 +53,7 @@ public class ProfilePresenter {
                             if (error.getCode() == 2) {
                                 view.getNewSession(iCmd, params);
                             } else {
-                                Log.e(TAG + "err", error.getMessage());
+//                                Log.e(TAG + "err", error.getType());
                                 view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), ""));
                             }
                         }
@@ -68,6 +62,10 @@ public class ProfilePresenter {
             }
         }
     };
+
+    public ProfilePresenter(IProfileActivityView view) {
+        this.view = view;
+    }
 
     public void getProfileData() {
         if (session != null) {

@@ -48,19 +48,16 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         Button btn_login = (Button) findViewById(R.id.btn_login_tonip);
 
         tv_register = (TextView) findViewById(R.id.tv_signup);
-//        tv_active = (TextView) findViewById(R.id.tv_re_active);
         tv_reset = (TextView) findViewById(R.id.tv_reset);
 
         tv_register.setOnClickListener(this);
         tv_reset.setOnClickListener(this);
-//        tv_active.setOnClickListener(this);
 
         btn_login.setOnClickListener(this);
         setUnderLine();
     }
 
     private void setUnderLine() {
-//        WidgetHelper.getInstance().setUnderLine(getString(R.string.action_active_account), tv_active);
         WidgetHelper.getInstance().setUnderLine(getString(R.string.action_recover_password), tv_reset);
         WidgetHelper.getInstance().setUnderLine(getString(R.string.tv_do_not_have_an_acc), tv_register);
     }
@@ -71,7 +68,7 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     private void checkDataInput() {
         if (ValidData()) {
             if (!checkPhone()) {
-                String mes = "Sai dinh dang so dien thoai.";
+                String mes = getString(R.string.error_phone_number_wrong);
                 showShortToast(mes);
             } else {
                 String mes = "Phone number: " + phone_number;
@@ -90,7 +87,7 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         String mes;
         phone_number = edt_user.getText().toString();
         if (phone_number.isEmpty()) {
-            mes = "So dien thoai khong duoc de trong";
+            mes = getString(R.string.phone_not_null);
             showShortToast(mes);
             return false;
         } else {
@@ -136,9 +133,9 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     public void forceActiveAccount() {
         WidgetHelper.getInstance()
                 .showAlertMessage(this,
-                        "Thông báo!", "Tài khoản này chưa được kích hoạt. Bạn có muốn kích hoạt tài khoản?",
-                        "Kích hoạt",
-                        "Hủy",
+                        getString(R.string.alert), getString(R.string.account_not_acttive),
+                        getString(R.string.active),
+                        getString(R.string.cancel_action),
                         new DialogListener() {
                             @Override
                             public void onClicked(Object object) {
@@ -147,7 +144,7 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
 
                             @Override
                             public void onCancel() {
-                                showShortToast("Hủy kích hoạt");
+                                showShortToast(getString(R.string.cancel_active));
                             }
                         });
     }
@@ -199,7 +196,12 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
 
     @Override
     public void onNetworkDisable() {
-        showMaterialDialog(true, true, "Thông báo", "Kết nối thất bai.\nVui lòng kiểm tra kết nối internet.", null, "OK", new DialogListener() {
+
+        WidgetHelper.getInstance().showAlertMessage(this,
+                "Thông báo",
+                "Kết nối thất bai. Vui lòng kiểm tra kết nối internet.",
+                "Cài đặt", "Hủy",
+                new DialogListener() {
             @Override
             public void onClicked(Object object) {
                 onReActive();
@@ -207,8 +209,20 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
 
             @Override
             public void onCancel() {
+                showShortToast("Hủy");
             }
         });
+
+//        showMaterialDialog(true, true, "Thông báo", , null, "OK", new DialogListener() {
+//            @Override
+//            public void onClicked(Object object) {
+//                onReActive();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//            }
+//        });
     }
 
     @Override
@@ -217,11 +231,14 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         if (id == R.id.btn_login_tonip) {
             onLoginToNIP();
         } else if (id == R.id.tv_reset) {
-            onReset();
+            user = edt_user.getText().toString();
+            if (user.isEmpty()) {
+//                showShortToast(getString(R.string.phone_not_null));
+                onReset("");
+            } else {
+                onReset(user);
+            }
         }
-//        else if (id == R.id.tv_re_active) {
-//            onReActive();
-//        }
         else if (id == R.id.tv_signup) {
             onSignup();
         }
@@ -235,8 +252,8 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         checkDataInput();
     }
 
-    private void onReset() {
-        presenter.onRequestAccountKit(2, user);
+    private void onReset(String phome_number) {
+        presenter.onRequestAccountKit(2, phome_number);
     }
 
     private void onLoginToNIP() {

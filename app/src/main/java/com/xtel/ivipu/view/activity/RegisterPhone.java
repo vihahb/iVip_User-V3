@@ -52,6 +52,7 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
         btn_reg = (Button) findViewById(R.id.btn_reg);
 
         btn_reg.setOnClickListener(this);
+        WidgetHelper.getInstance().setUnderLine(getString(R.string.tv_do_not_have_an_acc), tv_callback);
     }
 
     /**

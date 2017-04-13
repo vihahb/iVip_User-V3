@@ -164,6 +164,7 @@
     <string name="please_enter_a_password">Vui lòng nhập mật khẩu</string>
     <string name="please_enter_name_or_password">Vui lòng nhập tên hoặc mật khẩu</string>
     <string name="name_not_null">Tên không được để trống</string>
+    <string name="phone_not_null">Số điện thoại không được để trống</string>
     <string name="pass_not_null">Mật khẩu không được để trống</string>
     <string name="please_fill_pass">Vui lòng nhập mật khẩu</string>
 
@@ -212,4 +213,9 @@
     <string name="error_touch_to_try_again">Có lỗi xảy ra\nChạm vào để thử lại</string>
     <string name="error_no_internet">Không có kết nối mạng</string>
     <string name="error_end_of_session">Bạn đã hết phiên làm việc</string>
+    <string name="account_not_acttive">Tài khoản này chưa được kích hoạt</string>
+    <string name="alert">Thông báo!</string>
+    <string name="active">Kích hoạt</string>
+    <string name="cancel_action">Hủy</string>
+    <string name="cancel_active">Hủy kích hoạt</string>
 </resources>

@@ -100,7 +100,7 @@
         <item name="com_accountkit_button_disabled_background_color">@android:color/transparent
         </item>
         <item name="com_accountkit_button_disabled_border_color">#A6FFFFFF</item>
-        <item name="com_accountkit_background">@mipmap/backgroud_main</item>
+        <item name="com_accountkit_background">@drawable/bg_acitve_otp</item>
     </style>
 
     <style name="Theme_Activity_Transparent" parent="@style/AppTheme">
@@ -171,6 +171,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingLeft">@dimen/size_16</item>
         <item name="android:textColorHint">@android:color/white</item>
+        <item name="android:colorControlHighlight" tools:ignore="NewApi">#ffffff</item>
     </style>
 
     <style name="ic_edit_text_login">
@@ -185,7 +186,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:paddingTop">@dimen/size_16</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@drawable/tv_action</item>
+        <item name="android:clickable">true</item>
         <item name="android:textStyle">italic</item>
     </style>
 
