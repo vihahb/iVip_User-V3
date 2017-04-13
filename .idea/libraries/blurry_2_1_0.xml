@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="blurry-2.1.0">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/475af03498552e79fb9b893507b98fdbca42a4dc/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/475af03498552e79fb9b893507b98fdbca42a4dc/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/0776ed92c52eb578661b39f6cacefd8871f4c288/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/0776ed92c52eb578661b39f6cacefd8871f4c288/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
