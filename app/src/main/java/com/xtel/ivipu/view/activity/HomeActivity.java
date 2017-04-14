@@ -8,7 +8,6 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -59,7 +58,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         presenter = new HomePresenter(this);
 
         initNavigation();
-        initTablayout();
         initBottomNavigation();
         replaceListNews();
 
@@ -85,33 +83,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.home_navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void initTablayout() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
-
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_home));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_voucher));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_member_card));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_favorite));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.ic_tab_user));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     /**
@@ -217,6 +188,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
      */
     private void unLockDrawer() {
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START);
+        //noinspection deprecation
         drawer.setDrawerListener(toggle);
         toggle.syncState();
     }

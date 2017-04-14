@@ -220,6 +220,11 @@ public class WidgetHelper {
         view.setText(Html.fromHtml(content));
     }
 
+    public void setTextViewHtml(TextView view, String content) {
+        //noinspection deprecation
+        view.setText(Html.fromHtml(content));
+    }
+
     public void setTextViewFromHtmlWithImage(TextView view, String content) {
         String content_replace = content.replace("\\\"", "\"");
         view.setText(Html.fromHtml(content_replace, new PicassoImageGetter(view), null));

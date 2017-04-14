@@ -91,6 +91,14 @@ public class HomeModel extends Model {
         requestServer.getApi(url, session, responseHandle);
     }
 
+    public void getHistoryTransaction(int id, int page, ResponseHandle responseHandle) {
+        String url = Constants.SERVER_IVIP + "v0.1/user/member_card/" + id + "/history?page=" + page + "&pagesize=" + 10;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getHistoryTransaction", "url " + url + "  session " + session);
+        requestServer.getApi(url, session, responseHandle);
+    }
+
     public void getListVoucher(int page, ResponseHandle responseHandle){
         String url = Constants.SERVER_IVIP + "v0.1/user/vouchers?page=" + page + "&pagesize=" + 10;
         String session = LoginManager.getCurrentSession();
