@@ -115,7 +115,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
             public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
                 member_card_position = adapterPosition;
 
-                MemberObj obj = listMember.get(adapterPosition);
+//                MemberObj obj = listMember.get(adapterPosition);
 
                 slideProgressView.setValue(10000, 5000);
                 getHistoryAgain();
