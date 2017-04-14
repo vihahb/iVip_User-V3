@@ -47,6 +47,12 @@ public class FragmentNavMemberCardPresenter {
         this.view = view;
     }
 
+    /**
+    * Kiểm tra người dùng đã đăng nhập chưa
+    * Kiểm tra kết nối internet
+    * Kiểm tra lấy dữ liệu từ đầu hay tiếp tục
+    * Bắt đầu lấy dữ liệu từ server
+    */
     public void getMemberCard(boolean isClear) {
         if (session == null) {
             view.onNotLogged();
@@ -62,48 +68,5 @@ public class FragmentNavMemberCardPresenter {
             PAGE = 1;
 
         iCmd.execute();
-//        if (session != null) {
-//            if (!NetWorkInfo.isOnline(view.getActivity())) {
-//                view.onNetworkDisable();
-//            } else {
-//                HomeModel.getInstance().getMemberCard(url_member_card, session, new ResponseHandle<RESP_ListMember>(RESP_ListMember.class) {
-//                    @Override
-//                    public void onSuccess(RESP_ListMember obj) {
-//                        view.onGetMemberCardSuccess(obj.getData());
-//                    }
-//
-//                    @Override
-//                    public void onError(Error error) {
-//                        if (error != null) {
-//                            int code = error.getCode();
-//                            if (String.valueOf(code) != null) {
-//                                if (code == 2) {
-//                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-//                                        @Override
-//                                        public void onSuccess(RESP_Login success) {
-//                                            getMemberCard(page, pagesize);
-//                                        }
-//
-//                                        @Override
-//                                        public void onError(Error error) {
-//                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-//                                            view.startActivityAndFinish(LoginActivity.class);
-//                                        }
-//                                    });
-//                                } else {
-//                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-//                                }
-//
-//                            } else {
-//                                Log.e(TAG, "Err " + JsonHelper.toJson(error));
-//                            }
-//                        }
-//                    }
-//                });
-//            }
-//        } else {
-//            view.startActivityAndFinish(LoginActivity.class);
-//            view.showShortToast(view.getActivity().getString(R.string.need_login_to_action));
-//        }
     }
 }

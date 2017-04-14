@@ -222,40 +222,40 @@ public class HomePresenter {
 //        }
 //    }
 
-    private String parseMessage(int code) {
-        String mess = JsonParse.getCodeMessage(view.getActivity(), code, "");
-        return mess;
-    }
-
-    private void saveData2Share(
-            String full_name,
-            int gender,
-            long birth_day,
-            String email,
-            String phone_number,
-            String address,
-            String avatar,
-            String qr_code,
-            String bar_code,
-            int status,
-            int general_point,
-            String level,
-            long joint_date) {
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_FULL_NAME, full_name);
-        SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_GENDER, gender);
-        SharedPreferencesUtils.getInstance().putLongValue(Constants.PROFILE_BIRTH_DAY, birth_day);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_EMAIL, email);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_PHONE_NUM, phone_number);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_ADDRESS, address);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_AVATAR, avatar);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_QR_CODE, qr_code);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_BAR_CODE, bar_code);
-        SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_STATUS, status);
-        SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_GENERAL_POINT, general_point);
-        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_LEVEL, level);
-        SharedPreferencesUtils.getInstance().putLongValue(Constants.PROFILE_JOINT_DATE, joint_date);
-        Log.e(TAG + " share", full_name);
-    }
+//    private String parseMessage(int code) {
+//        String mess = JsonParse.getCodeMessage(view.getActivity(), code, "");
+//        return mess;
+//    }
+//
+//    private void saveData2Share(
+//            String full_name,
+//            int gender,
+//            long birth_day,
+//            String email,
+//            String phone_number,
+//            String address,
+//            String avatar,
+//            String qr_code,
+//            String bar_code,
+//            int status,
+//            int general_point,
+//            String level,
+//            long joint_date) {
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_FULL_NAME, full_name);
+//        SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_GENDER, gender);
+//        SharedPreferencesUtils.getInstance().putLongValue(Constants.PROFILE_BIRTH_DAY, birth_day);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_EMAIL, email);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_PHONE_NUM, phone_number);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_ADDRESS, address);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_AVATAR, avatar);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_QR_CODE, qr_code);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_BAR_CODE, bar_code);
+//        SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_STATUS, status);
+//        SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_GENERAL_POINT, general_point);
+//        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_LEVEL, level);
+//        SharedPreferencesUtils.getInstance().putLongValue(Constants.PROFILE_JOINT_DATE, joint_date);
+//        Log.e(TAG + " share", full_name);
+//    }
 
 //    public void showQrCode(String url_qr) {
 //        if (url_qr != null) {

@@ -185,7 +185,10 @@
     
     <!-- Title -->
     <string name="title.list_voucher">Danh sách thẻ giảm giá</string>
-    
+    <string name="title.list_member_card">Danh sách thẻ thành viên</string>
+    <string name="title.list_favorite">Danh sách thẻ yêu thích</string>
+    <string name="title.profile">Thôn tin tài khoản</string>
+
     <!-- Menu -->
     <string name="nav_news_category">Danh mục bản tin</string>
     <string name="nav_latest_news">Bản tin mới nhất</string>

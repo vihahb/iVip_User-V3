@@ -207,6 +207,23 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
+    <style name="TextView">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:drawablePadding">@dimen/size_8</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextView.White_Normal">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <style name="TextView.White_Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/font_16</item>
+    </style>
+
     <style name="tv_item_news">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>

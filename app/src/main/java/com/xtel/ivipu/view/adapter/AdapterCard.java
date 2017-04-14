@@ -42,6 +42,9 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (position == arrayList.size())
+            view.onLoadMore();
+
         if (holder instanceof ViewHolder) {
             MemberObj memberObj = arrayList.get(position);
             Log.e("Adapter card", JsonHelper.toJson(arrayList));

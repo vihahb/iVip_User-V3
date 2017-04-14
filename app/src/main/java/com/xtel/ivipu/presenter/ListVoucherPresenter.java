@@ -47,6 +47,12 @@ public class ListVoucherPresenter {
         this.view = view;
     }
 
+    /**
+    * Kiểm tra người dùng đã đăng nhập chưa
+    * Kiểm tra kết nối internet
+    * Kiểm tra lấy dữ liệu từ đầu hay tiếp tục
+    * Bắt đầu lấy dữ liệu từ server
+    */
     public void getVoucher(boolean isClear) {
         if (session == null) {
             view.onNotLogged();

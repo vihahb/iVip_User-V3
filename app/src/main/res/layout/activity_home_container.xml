@@ -6,22 +6,12 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/colorPrimary">-->
-
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--android:alpha="0.5"-->
-    <!--android:background="@color/colorPrimary" />-->
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/home.toolbar"
@@ -29,7 +19,8 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
@@ -43,6 +34,18 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_3"
         android:background="@drawable/shadow_on_top" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_56"
+        app:tabBackground="@android:color/white"
+        app:tabTextColor="@color/bottom_navigatin_default"
+        app:tabSelectedTextColor="@color/bottom_navigatin_selected"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="3dp"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/home.bottom_navigation"

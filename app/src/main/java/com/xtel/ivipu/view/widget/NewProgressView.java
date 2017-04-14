@@ -116,4 +116,8 @@ public class NewProgressView {
     public void disableSwipe() {
         swipeRefreshLayout.setEnabled(false);
     }
+
+    public boolean isRefreshing() {
+        return swipeRefreshLayout.isRefreshing();
+    }
 }
