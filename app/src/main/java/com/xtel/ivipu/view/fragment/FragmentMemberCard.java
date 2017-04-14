@@ -53,8 +53,6 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     protected HistoryTransactionAdapter historyAdapter;
     protected NewProgressView progressView;
 
-    protected TextView txt_total_point, txt_now_point;
-
     protected boolean isClearMember = false, isClearHistory = false;
     protected int member_card_position = -1;
 
