@@ -206,4 +206,12 @@
         <item name="android:src">@mipmap/ivip_logo</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
+    <style name="tv_item_news">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/color_black_transparent</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 </resources>

@@ -20,13 +20,7 @@ import android.view.MenuItem;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
-import com.xtel.ivipu.view.fragment.FragmentHomeFashionMakeUp;
-import com.xtel.ivipu.view.fragment.FragmentHomeFood;
-import com.xtel.ivipu.view.fragment.FragmentHomeHealth;
-import com.xtel.ivipu.view.fragment.FragmentHomeNewsForMe;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
-import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
-import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.ListVoucherFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
@@ -54,7 +48,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
         initNavigation();
         initBottomNavigation();
-        replaceListNews();
+        replaceDefault();
 
         presenter.postFCMKey();
     }
@@ -170,28 +164,39 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         actionBar.setTitle(getString(StringResource));
     }
 
-    private void replaceListNews() {
+    private void replaceDefault() {
         replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(), "LATEST_NEW");
         renameToolbar(R.string.nav_new_list);
     }
 
+    private void replaceListNews() {
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(1);
+        renameToolbar(R.string.nav_new_list);
+    }
+
     private void replaceCuisine() {
-        replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");
+//        replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(2);
         renameToolbar(R.string.nav_cuisine_and_eating);
     }
 
     private void replaceFashion() {
-        replaceFragment(R.id.home_frame, FragmentHomeFashionMakeUp.newInstance(), "FASHION");
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(3);
         renameToolbar(R.string.nav_fashion_and_beautify);
     }
 
     private void replaceElectronic() {
-        replaceFragment(R.id.home_frame, FragmentHomeTechnology.newInstance(), "ELECTRONIC");
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(4);
         renameToolbar(R.string.nav_electronics_and_technology);
     }
 
     private void replaceHealth() {
-        replaceFragment(R.id.home_frame, FragmentHomeHealth.newInstance(), "HEALTH");
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(5);
         renameToolbar(R.string.nav_health_and_life);
     }
 
@@ -206,12 +211,14 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     private void replaceOtherService() {
-        replaceFragment(R.id.home_frame, FragmentHomeOtherService.newInstance(), "OTHER_SERVICE");
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(6);
         renameToolbar(R.string.nav_other_services);
     }
 
     private void replaceNewsAround() {
-        replaceFragment(R.id.home_frame, FragmentHomeNewsForMe.newInstance(), "NEWS_AROUND");
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        newsList.setType(7);
         renameToolbar(R.string.nav_news_for_me);
     }
 

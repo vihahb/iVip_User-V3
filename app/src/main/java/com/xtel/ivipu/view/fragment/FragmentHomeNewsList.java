@@ -3,7 +3,6 @@ package com.xtel.ivipu.view.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
@@ -20,8 +18,6 @@ import com.xtel.ivipu.view.activity.ActivityInfoContent;
 import com.xtel.ivipu.view.adapter.AdapterRecycleNewsList;
 import com.xtel.ivipu.view.fragment.inf.IFragmentNewsListView;
 import com.xtel.ivipu.view.widget.ProgressView;
-import com.xtel.ivipu.view.widget.RecyclerOnScrollListener;
-import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.sdk.commons.Constants;
 
 import java.util.ArrayList;
@@ -43,7 +39,6 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private int REQUEST_VIEW_NEWS_LIST = 99;
     private ProgressView progressView;
     private RecyclerView.LayoutManager layoutManager;
-    private BottomNavigationView nav_home;
 //    private LinearLayout ln_new_slider;
 
     public static FragmentHomeNewsList newInstance() {
@@ -65,9 +60,18 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
         initProgressView(view);
     }
 
+    public void setType(int type) {
+        this.type = type;
+        page = 1;
+        arrayListNewsList.clear();
+        adapter.onSetLoadMore(true);
+        getData();
+        adapter.notifyDataSetChanged();
+    }
+
     private void initProgressView(View view) {
         progressView = new ProgressView(null, view);
-        progressView.initData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#05b589"));
+        progressView.initData(R.mipmap.ic_error_network, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#696969"));
         progressView.setUpWithView(rcl_new_list);
 
         progressView.onLayoutClicked(new View.OnClickListener() {
@@ -112,40 +116,15 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 
 
     private void initRecylerView(View view) {
-        nav_home = (BottomNavigationView) getActivity().findViewById(R.id.home_bottom_navigation);
         rcl_new_list = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_new_list.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         rcl_new_list.setLayoutManager(layoutManager);
-//        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
 
         arrayListNewsList = new ArrayList<>();
         adapter = new AdapterRecycleNewsList(arrayListNewsList, this);
         rcl_new_list.setAdapter(adapter);
-//        rcl_new_list.addOnScrollListener(new RecyclerOnScrollListener((LinearLayoutManager) layoutManager) {
-//            @Override
-//            public void onScrollUp() {
-//                hideBottomNavigation();
-//            }
-//
-//            @Override
-//            public void onScrollDown() {
-//                showBottomNavigation();
-//            }
-//
-//            @Override
-//            public void onLoadMore() {
-//            }
-//        });
     }
-
-//    private void hideBottomNavigation() {
-//        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
-//    }
-
-//    private void showBottomNavigation() {
-//        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
-//    }
 
     private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {
         arrayListNewsList.addAll(newEntities);
@@ -161,15 +140,33 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             adapter.onSetLoadMore(false);
         }
         setDataRecyclerView(arrayList);
-        checkListData();
+        checkListData(type);
     }
 
-    private void checkListData() {
+    private void checkListData(int type) {
 //        progressView.disableSwipe();
         progressView.setRefreshing(false);
 
         if (arrayListNewsList.size() == 0) {
-            progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again));
+            if (type == 1) {
+                progressView.updateData(R.mipmap.ic_err_news_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 2) {
+                progressView.updateData(R.mipmap.ic_err_food_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 3) {
+                progressView.updateData(R.mipmap.ic_err_fashion_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 4) {
+                progressView.updateData(R.mipmap.ic_err_tech_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 5) {
+                progressView.updateData(R.mipmap.ic_err_health_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 6) {
+                progressView.updateData(R.mipmap.ic_err_other_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 7) {
+                progressView.updateData(R.mipmap.ic_err_near_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 8) {
+                progressView.updateData(R.mipmap.ic_err_cook_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 9) {
+                progressView.updateData(R.mipmap.ic_err_toy_empty, getString(R.string.no_news), getString(R.string.try_again));
+            }
             progressView.show();
         } else {
             rcl_new_list.getAdapter().notifyDataSetChanged();
@@ -246,7 +243,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     @Override
     public void onNetworkDisable() {
         progressView.setRefreshing(false);
-        progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_internet), getString(R.string.try_again));
+        progressView.updateData(R.mipmap.ic_error_network, getString(R.string.no_internet), getString(R.string.try_again));
         progressView.showData();
     }
 
