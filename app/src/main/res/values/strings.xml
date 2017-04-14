@@ -136,7 +136,7 @@
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="no_internet">Không có kết nối internet</string>
-    <string name="no_news">Không có bản tin</string>
+    <string name="no_news">Danh sách bản tin đang trống!</string>
     <string name="txt_store_name">Tên cửa hàng</string>
     <string name="txt_user">User</string>
     <string name="demo_address">Shop Name 1 - Address (HN City or HCM City)</string>

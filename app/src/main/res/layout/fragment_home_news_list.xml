@@ -12,8 +12,7 @@
             android:id="@+id/rcl_ivip"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="@dimen/size_175" />
+            android:clipToPadding="false" />
 
         <LinearLayout
             android:id="@+id/layout_progress_view_data"
@@ -38,7 +37,8 @@
                 android:layout_marginTop="36dp"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
+                android:textColor="#696969"
+                android:textStyle="italic" />
         </LinearLayout>
 
     </FrameLayout>
