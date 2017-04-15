@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xtel.ivipu.R;
@@ -15,6 +16,7 @@ import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.utils.SharedPreferencesUtils;
+import com.xtel.sdk.utils.ViewHolderHelper;
 
 import java.util.ArrayList;
 
@@ -23,12 +25,12 @@ import java.util.ArrayList;
  */
 
 public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private boolean isLoadMore = true;
-    private int TYPE_VIEW = 1, TYPE_LOAD = 2;
     private IFragmentMemberCard view;
     private ArrayList<MemberObj> arrayList;
     private String User_name = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_FULL_NAME);
+
+    private boolean isLoadMore = true;
+    private int TYPE_VIEW = 1, TYPE_LOAD = 2;
 
     public AdapterCard(IFragmentMemberCard view, ArrayList<MemberObj> arrayList) {
         this.view = view;
@@ -37,7 +39,12 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.pager_item, parent, false));
+        if (viewType == TYPE_VIEW) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.pager_item, parent, false));
+        } else if (viewType == TYPE_LOAD) {
+            return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history_transaction_load_more, parent, false));
+        }
+        return null;
     }
 
     @Override
@@ -57,8 +64,21 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (position == arrayList.size()) {
+            return TYPE_LOAD;
+        } else {
+            return TYPE_VIEW;
+        }
+    }
+
+    @Override
     public int getItemCount() {
-        return arrayList.size();
+        if (isLoadMore && arrayList.size() > 0) {
+            return arrayList.size() + 1;
+        } else {
+            return arrayList.size();
+        }
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,5 +92,18 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tv_user_name = (TextView) itemView.findViewById(R.id.tv_card_user_name);
             tv_create_time = (TextView) itemView.findViewById(R.id.tv_date_created);
         }
+    }
+
+    private class ViewProgressBar extends ViewHolderHelper {
+        private ProgressBar progressBar;
+
+        ViewProgressBar(View itemView) {
+            super(itemView);
+            progressBar = findProgressBar(R.id.item_history_transaction_progress_bar);
+        }
+    }
+
+    public void setLoadMore(boolean isLoadMore) {
+        this.isLoadMore = isLoadMore;
     }
 }

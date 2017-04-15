@@ -1,6 +1,9 @@
 package com.xtel.ivipu.presenter;
 
+import android.util.Log;
+
 import com.xtel.ivipu.model.HomeModel;
+import com.xtel.ivipu.model.RESP.RESP_ListHistoryTransaction;
 import com.xtel.ivipu.model.RESP.RESP_ListMember;
 import com.xtel.ivipu.view.fragment.inf.IFragmentMemberCard;
 import com.xtel.nipservicesdk.LoginManager;
@@ -17,29 +20,57 @@ public class FragmentNavMemberCardPresenter {
     private IFragmentMemberCard view;
 
     private String session = LoginManager.getCurrentSession();
-    private int PAGE = 1;
+    private int PAGE_MEMBER = 1, PAGE_HISTORY = 1;
 
     private ICmd iCmd = new ICmd() {
         @Override
-        public void execute(Object... params) {
-            HomeModel.getInstance().getMemberCard(PAGE, new ResponseHandle<RESP_ListMember>(RESP_ListMember.class) {
-                @Override
-                public void onSuccess(RESP_ListMember obj) {
-                    if (view.getFragment() != null) {
-                        PAGE++;
-                        view.onGetMemberCardSuccess(obj.getData());
-                    }
-                }
+        public void execute(final Object... params) {
+            if (params.length > 0) {
+                switch ((int) params[0]) {
+                    case 1:
+                        HomeModel.getInstance().getMemberCard(PAGE_MEMBER, new ResponseHandle<RESP_ListMember>(RESP_ListMember.class) {
+                            @Override
+                            public void onSuccess(RESP_ListMember obj) {
+                                if (view.getFragment() != null) {
+                                    PAGE_MEMBER++;
+                                    view.onGetMemberCardSuccess(obj.getData());
+                                }
+                            }
 
-                @Override
-                public void onError(Error error) {
-                    if (view.getFragment() != null)
-                        if (error.getCode() == 2)
-                            view.getNewSession(iCmd);
-                        else
-                            view.onGetMemberCardError(error);
+                            @Override
+                            public void onError(Error error) {
+                                if (view.getFragment() != null)
+                                    if (error.getCode() == 2)
+                                        view.getNewSession(iCmd, params);
+                                    else
+                                        view.onGetMemberCardError(error);
+                            }
+                        });
+                        break;
+                    case 2:
+                        HomeModel.getInstance().getHistoryTransaction((int) params[1], PAGE_HISTORY, new ResponseHandle<RESP_ListHistoryTransaction>(RESP_ListHistoryTransaction.class) {
+                            @Override
+                            public void onSuccess(RESP_ListHistoryTransaction obj) {
+                                if (view.getFragment() != null) {
+                                    PAGE_MEMBER++;
+                                    view.onGetHistorySuccess(obj.getData());
+                                }
+                            }
+
+                            @Override
+                            public void onError(Error error) {
+                                if (view.getFragment() != null)
+                                    if (error.getCode() == 2)
+                                        view.getNewSession(iCmd, params);
+                                    else
+                                        view.onGetHistoryError(error);
+                            }
+                        });
+                        break;
+                    default:
+                        break;
                 }
-            });
+            }
         }
     };
 
@@ -65,8 +96,32 @@ public class FragmentNavMemberCardPresenter {
         }
 
         if (isClear)
-            PAGE = 1;
+            PAGE_MEMBER = 1;
 
-        iCmd.execute();
+        iCmd.execute(1);
+    }
+
+    /**
+     * Kiểm tra người dùng đã đăng nhập chưa
+     * Kiểm tra kết nối internet
+     * Kiểm tra lấy dữ liệu từ đầu hay tiếp tục
+     * Bắt đầu lấy dữ liệu từ server
+     */
+    public void getHistory(boolean isClear, int id) {
+        Log.e("getHistory", "ok " + id);
+        if (session == null) {
+            view.onNotLogged();
+            return;
+        }
+
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            view.onNetworkDisable();
+            return;
+        }
+
+        if (isClear)
+            PAGE_HISTORY = 1;
+
+        iCmd.execute(2, id);
     }
 }
