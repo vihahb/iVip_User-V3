@@ -5,14 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.HistoryTransactionObj;
@@ -31,20 +28,18 @@ import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonParse;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
-import com.yarolegovich.discretescrollview.transform.Pivot;
-import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.ArrayList;
 
 /**
  * Created by vuhavi on 07/03/2017
+ * Fixed by vulcl
  */
 
-public class FragmentMemberCard extends BasicFragment implements IFragmentMemberCard, View.OnClickListener, DiscreteScrollView.ScrollListener {
+public class FragmentMemberCard extends BasicFragment implements DiscreteScrollView.ScrollListener, IFragmentMemberCard {
     protected CallbackManager callbackManager;
     protected FragmentNavMemberCardPresenter presenter;
 
-//    protected DiscreteScrollView scrollView;
     protected SlideProgressView slideProgressView;
     protected AdapterCard memberAdapter;
     protected ArrayList<MemberObj> listMember;
@@ -75,14 +70,15 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
 
         initListMember(view);
         initProgressView(view);
-//        initListMemberChangeListener();
     }
 
     /**
-     * Khởi tạo list hiển thị danh sách member card
+     * Khởi tạo ProgressView
+     * Chức năng:
+     * Hiển thị danh sách voucher
+     * Hiển thị thông báo
      */
     protected void initListMember(View view) {
-//        scrollView = (DiscreteScrollView) view.findViewById(R.id.member_card_list_member);
         listMember = new ArrayList<>();
         memberAdapter = new AdapterCard(this, listMember);
 
@@ -113,36 +109,16 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
         slideProgressView.setOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
             @Override
             public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
-                member_card_position = adapterPosition;
+                if (member_card_position != adapterPosition) {
+                    member_card_position = adapterPosition;
 
 //                MemberObj obj = listMember.get(adapterPosition);
-
-                slideProgressView.setValue(10000, 5000);
-                getHistoryAgain();
+                    slideProgressView.setValue(10000, 5000);
+                    getHistoryAgain();
+                }
             }
         });
-
-//        scrollView.setAdapter(memberAdapter);
-//        scrollView.getCurrentItem();
-//        scrollView.scrollToPosition(0);
-//        scrollView.smoothScrollToPosition(0);
-//        scrollView.setHasFixedSize(true);
-//        scrollView.setItemAnimator(new DefaultItemAnimator());
-//        scrollView.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).setMaxScale(1.05f).setPivotX(Pivot.X.CENTER).setPivotY(Pivot.Y.CENTER).build());
     }
-
-//    /**
-//     * Lắng nghe khi item member card được chọn
-//     */
-//    private void initListMemberChangeListener() {
-//        scrollView.setOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
-//            @Override
-//            public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
-//                member_card_position = adapterPosition;
-//                getHistoryAgain();
-//            }
-//        });
-//    }
 
     /**
      * Khởi tạo ProgressView
@@ -152,8 +128,8 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
      */
     protected void initProgressView(View view) {
         progressView = new NewProgressView(null, view);
-        progressView.setEnableView(false);
-        progressView.initData(R.mipmap.ic_error_voucher, getString(R.string.message_no_voucher));
+        progressView.setSwipeEnable(false);
+        progressView.updateMessage(-1, getString(R.string.message_choose_member_to_view_history));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         listHistory = new ArrayList<>();
@@ -173,13 +149,6 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
                 getHistoryAgain();
             }
         });
-
-        progressView.onSwipeLayoutPost(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
     }
 
     /**
@@ -188,8 +157,6 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
      */
     protected void getMemberAgain() {
         isClearMember = true;
-        memberAdapter.setLoadMore(false);
-        memberAdapter.notifyDataSetChanged();
         slideProgressView.setRefreshing(true);
         slideProgressView.showData();
         presenter.getMemberCard(true);
@@ -202,52 +169,51 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     protected void getHistoryAgain() {
         if (listMember.size() == 0) {
             progressView.setRefreshing(false);
+            progressView.updateMessage(-1, getString(R.string.message_choose_member_to_view_history));
+            progressView.hideData();
             return;
         }
 
         isClearHistory = true;
-        historyAdapter.setLoadMore(false);
-        historyAdapter.notifyDataSetChanged();
         progressView.setRefreshing(true);
         progressView.showData();
         presenter.getHistory(true, listMember.get(member_card_position).getId());
     }
 
     /**
-     * Kiểm tra dữ liệu có lấy từ trên server
+     * Kiểm tra dữ liệu lấy từ trên server về có hay không
      */
     protected void checkListMember() {
-        Log.e("checkListMember", "total " + listMember.size());
         slideProgressView.setRefreshing(false);
+        memberAdapter.notifyDataSetChanged();
 
         if (listMember.size() > 0) {
+            slideProgressView.setSwipeEnable(false);
             slideProgressView.showData();
-            memberAdapter.notifyDataSetChanged();
-            Log.e("checkListMember", "ok " + listMember.size());
         } else {
-            slideProgressView.updateData(-1, getString(R.string.message_no_voucher));
+            slideProgressView.updateData(R.mipmap.ic_member_empty, getString(R.string.message_member_empty));
             slideProgressView.hideData();
-            Log.e("checkListMember", "not ok " + listMember.size());
         }
     }
 
     /**
-     * Kiểm tra dữ liệu có lấy từ trên server
+     * Kiểm tra dữ liệu lấy từ trên server về có hay không
      */
     protected void checkListHistory() {
         progressView.setRefreshing(false);
+        historyAdapter.notifyDataSetChanged();
 
         if (listHistory.size() > 0) {
             progressView.showData();
-            historyAdapter.notifyDataSetChanged();
         } else {
-            progressView.updateData(-1, getString(R.string.message_no_voucher));
+            progressView.updateMessage(-1, getString(R.string.message_history_transaction_empty));
             progressView.hideData();
         }
     }
 
     /**
      * Lấy danh sách member card thành công
+     * Kiểm tra dữ liệu lấy về
      */
     @Override
     public void onGetMemberCardSuccess(final ArrayList<MemberObj> arrayList) {
@@ -266,17 +232,17 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
 
     /**
      * Lấy danh sách member card thất bại
+     * Thông báo lỗi cho người dùng
      */
     @Override
     public void onGetMemberCardError(Error error) {
-//        historyAdapter.setLoadMore(false);
-//        historyAdapter.notifyDataSetChanged();
-//
+        slideProgressView.setSwipeEnable(true);
+
         if (listMember.size() > 0)
             showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error)));
         else {
             slideProgressView.setRefreshing(false);
-            slideProgressView.updateData(-1, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
+            slideProgressView.updateData(R.mipmap.ic_error_network, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
             slideProgressView.hideData();
 
             listMember.clear();
@@ -287,6 +253,10 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
         }
     }
 
+    /**
+     * Lấy danh lịch sử tích đổi điểm thành công
+     * Kiểm tra dữ liệu lấy về
+     * */
     @Override
     public void onGetHistorySuccess(ArrayList<HistoryTransactionObj> arrayList) {
         if (isClearHistory) {
@@ -302,6 +272,10 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
         checkListHistory();
     }
 
+    /**
+     * Lấy danh lịch sử tích đổi điểm thất bại
+     * Thông báo lỗi cho người dùng
+     * */
     @Override
     public void onGetHistoryError(Error error) {
         historyAdapter.setLoadMore(false);
@@ -311,7 +285,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
             showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error)));
         else {
             progressView.setRefreshing(false);
-            progressView.updateData(-1, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
+            progressView.updateMessage(-1, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
             progressView.hideData();
 
             listHistory.clear();
@@ -343,26 +317,32 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
         });
     }
 
+    /**
+    * Thông báo khi không có kết nối mạng
+    * */
     @Override
-    public void onNetworkDisable() {
-        progressView.setRefreshing(false);
+    public void onNetworkDisable(boolean isMember) {
+        slideProgressView.setSwipeEnable(true);
 
-        if (listHistory.size() > 0)
-            showShortToast(getString(R.string.error_no_internet));
-        else {
-            progressView.updateData(-1, getString(R.string.message_no_internet_click_to_try_again));
-            progressView.hideData();
+        if (isMember) {
+            slideProgressView.setRefreshing(false);
+
+            if (listMember.size() > 0)
+                showShortToast(getString(R.string.error_no_internet));
+            else {
+                slideProgressView.updateData(R.mipmap.ic_error_network, getString(R.string.message_no_internet_click_to_try_again));
+                slideProgressView.hideData();
+            }
+        } else {
+            progressView.setRefreshing(false);
+
+            if (listHistory.size() > 0)
+                showShortToast(getString(R.string.error_no_internet));
+            else {
+                progressView.updateMessage(-1, getString(R.string.message_no_internet_click_to_try_again));
+                progressView.hideData();
+            }
         }
-    }
-
-    @Override
-    public void showShortToast(String mes) {
-        super.showShortToast(mes);
-    }
-
-    @Override
-    public void startActivityAndFinish(Class clazz) {
-        super.startActivityAndFinish(clazz);
     }
 
     @Override
@@ -372,7 +352,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
 
     @Override
     public void onLoadMoreHistory() {
-
+        presenter.getHistory(false, listMember.get(member_card_position).getId());
     }
 
     @Override
@@ -384,14 +364,6 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     @Override
     public Fragment getFragment() {
         return this;
-    }
-
-    @Override
-    public void onClick(View v) {
-//        int id = v.getId();
-//        if (id == R.id.tv_action_view_his) {
-//            startActivityForResultObject(HistoryTransactionsActivity.class, Constants.RECYCLER_MODEL, memberObj, REQUEST_VIEW_CARD);
-//        }
     }
 
     @Override

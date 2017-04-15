@@ -20,31 +20,35 @@ import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
  */
 
 public class SlideProgressView {
+    private SwipeRefreshLayout swipeRefreshLayout;
     private DiscreteScrollView scrollView;
-    private LinearLayout layout_data;
+    private TextView txt_total_point, txt_now_point;
+
+    private LinearLayout layout_message;
     private ImageView imageView;
     private TextView textView_data;
-    private SwipeRefreshLayout swipeRefreshLayout;
-
-    private TextView txt_total_point, txt_now_point;
 
     public SlideProgressView(Activity activity, View view) {
         if (view == null) {
-            layout_data = (LinearLayout) activity.findViewById(R.id.member_card_header_layout_data);
-            imageView = (ImageView) activity.findViewById(R.id.member_card_header_img_message);
-            textView_data = (TextView) activity.findViewById(R.id.member_card_header_txt_message);
             swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.member_card_swipe);
+            layout_message = (LinearLayout) activity.findViewById(R.id.member_card_header_layout_message);
+
             scrollView = (DiscreteScrollView) activity.findViewById(R.id.member_card_header_list_member);
             txt_total_point = (TextView) activity.findViewById(R.id.member_card_header_txt_total_point);
             txt_now_point = (TextView) activity.findViewById(R.id.member_card_header_txt_now_point);
+
+            imageView = (ImageView) activity.findViewById(R.id.member_card_header_img_message);
+            textView_data = (TextView) activity.findViewById(R.id.member_card_header_txt_message);
         } else {
-            layout_data = (LinearLayout) view.findViewById(R.id.member_card_header_layout_data);
-            imageView = (ImageView) view.findViewById(R.id.member_card_header_img_message);
-            textView_data = (TextView) view.findViewById(R.id.member_card_header_txt_message);
             swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.member_card_swipe);
+            layout_message = (LinearLayout) view.findViewById(R.id.member_card_header_layout_message);
+
             scrollView = (DiscreteScrollView) view.findViewById(R.id.member_card_header_list_member);
             txt_total_point = (TextView) view.findViewById(R.id.member_card_header_txt_total_point);
             txt_now_point = (TextView) view.findViewById(R.id.member_card_header_txt_now_point);
+
+            imageView = (ImageView) view.findViewById(R.id.member_card_header_img_message);
+            textView_data = (TextView) view.findViewById(R.id.member_card_header_txt_message);
         }
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimary, R.color.colorPrimary);
@@ -58,6 +62,10 @@ public class SlideProgressView {
         scrollView.setHasFixedSize(true);
         scrollView.setItemAnimator(new DefaultItemAnimator());
         scrollView.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.8f).setMaxScale(1.05f).setPivotX(Pivot.X.CENTER).setPivotY(Pivot.Y.CENTER).build());
+    }
+
+    public void scrollToPosition(int position) {
+        scrollView.scrollToPosition(position);
     }
 
     public void setOnItemChangedListener(DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> onScrollListener) {
@@ -98,24 +106,27 @@ public class SlideProgressView {
     public void showData() {
         if (scrollView.getVisibility() == View.GONE)
             scrollView.setVisibility(View.VISIBLE);
-        if (layout_data.getVisibility() == View.VISIBLE)
-            layout_data.setVisibility(View.GONE);
+        if (txt_total_point.getVisibility() == View.GONE)
+            txt_total_point.setVisibility(View.VISIBLE);
+        if (txt_now_point.getVisibility() == View.GONE)
+            txt_now_point.setVisibility(View.VISIBLE);
+        if (layout_message.getVisibility() == View.VISIBLE)
+            layout_message.setVisibility(View.GONE);
     }
 
     public void hideData() {
         if (scrollView.getVisibility() == View.VISIBLE)
-            scrollView.setVisibility(View.GONE);
-        if (layout_data.getVisibility() == View.GONE)
-            layout_data.setVisibility(View.VISIBLE);
-    }
-
-    public void setEnableView(boolean isEnable) {
-        swipeRefreshLayout.setEnabled(false);
-        layout_data.setEnabled(isEnable);
+            scrollView.setVisibility(View.INVISIBLE);
+        if (txt_total_point.getVisibility() == View.VISIBLE)
+            txt_total_point.setVisibility(View.INVISIBLE);
+        if (txt_now_point.getVisibility() == View.VISIBLE)
+            txt_now_point.setVisibility(View.INVISIBLE);
+        if (layout_message.getVisibility() == View.GONE)
+            layout_message.setVisibility(View.VISIBLE);
     }
 
     public void onLayoutClicked(View.OnClickListener onClickListener) {
-        layout_data.setOnClickListener(onClickListener);
+        layout_message.setOnClickListener(onClickListener);
     }
 
     public void onRefreshListener(SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
@@ -130,8 +141,8 @@ public class SlideProgressView {
         swipeRefreshLayout.post(runnable);
     }
 
-    public void disableSwipe() {
-        swipeRefreshLayout.setEnabled(false);
+    public void setSwipeEnable(boolean isEnable) {
+        swipeRefreshLayout.setEnabled(isEnable);
     }
 
     public boolean isRefreshing() {

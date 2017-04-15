@@ -38,11 +38,12 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     protected HomePresenter presenter;
     protected BottomNavigationView nav_bottom_home;
     protected DrawerLayout drawer;
-    protected ActionBar actionBar;
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle toggle;
-    private int fragmentExists;
 
+    protected ActionBarDrawerToggle toggle;
+    protected Toolbar toolbar;
+    protected ActionBar actionBar;
+
+    protected int fragmentExists = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-//        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.home_navigationView);
         navigationView.setNavigationItemSelectedListener(this);

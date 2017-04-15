@@ -22,15 +22,14 @@ public interface IFragmentMemberCard {
     void onGetMemberCardError(Error error);
     void onGetHistorySuccess(ArrayList<HistoryTransactionObj> arrayList);
     void onGetHistoryError(Error error);
-
     void getNewSession(ICmd iCmd, Object... params);
-    void onNetworkDisable();
-    void showShortToast(String mes);
-    void startActivityAndFinish(Class clazz);
+
     void onLoadMore();
     void onLoadMoreHistory();
+
+    void onNetworkDisable(boolean isMember);
     void onNotLogged();
+
     Fragment getFragment();
     Activity getActivity();
-    Context getContext();
 }

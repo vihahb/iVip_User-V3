@@ -1,7 +1,5 @@
 package com.xtel.ivipu.presenter;
 
-import android.util.Log;
-
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_ListHistoryTransaction;
 import com.xtel.ivipu.model.RESP.RESP_ListMember;
@@ -19,7 +17,6 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class FragmentNavMemberCardPresenter {
     private IFragmentMemberCard view;
 
-    private String session = LoginManager.getCurrentSession();
     private int PAGE_MEMBER = 1, PAGE_HISTORY = 1;
 
     private ICmd iCmd = new ICmd() {
@@ -85,13 +82,13 @@ public class FragmentNavMemberCardPresenter {
     * Bắt đầu lấy dữ liệu từ server
     */
     public void getMemberCard(boolean isClear) {
-        if (session == null) {
+        if (LoginManager.getCurrentSession() == null) {
             view.onNotLogged();
             return;
         }
 
         if (!NetWorkInfo.isOnline(view.getActivity())) {
-            view.onNetworkDisable();
+            view.onNetworkDisable(true);
             return;
         }
 
@@ -108,14 +105,13 @@ public class FragmentNavMemberCardPresenter {
      * Bắt đầu lấy dữ liệu từ server
      */
     public void getHistory(boolean isClear, int id) {
-        Log.e("getHistory", "ok " + id);
-        if (session == null) {
+        if (LoginManager.getCurrentSession() == null) {
             view.onNotLogged();
             return;
         }
 
         if (!NetWorkInfo.isOnline(view.getActivity())) {
-            view.onNetworkDisable();
+            view.onNetworkDisable(false);
             return;
         }
 
