@@ -20,13 +20,7 @@ import android.view.MenuItem;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
-import com.xtel.ivipu.view.fragment.FragmentHomeFashionMakeUp;
-import com.xtel.ivipu.view.fragment.FragmentHomeFood;
-import com.xtel.ivipu.view.fragment.FragmentHomeHealth;
-import com.xtel.ivipu.view.fragment.FragmentHomeNewsForMe;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
-import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
-import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.ListVoucherFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
@@ -44,7 +38,12 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     protected HomePresenter presenter;
     protected BottomNavigationView nav_bottom_home;
     protected DrawerLayout drawer;
+
+    protected ActionBarDrawerToggle toggle;
+    protected Toolbar toolbar;
     protected ActionBar actionBar;
+
+    protected int fragmentExists = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +53,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
         initNavigation();
         initBottomNavigation();
-        replaceDefault();
+        replaceListNews();
 
         presenter.postFCMKey();
     }
@@ -74,7 +73,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-//        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.home_navigationView);
         navigationView.setNavigationItemSelectedListener(this);
@@ -170,7 +168,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         actionBar.setTitle(getString(StringResource));
     }
 
-    private void replaceDefault() {
     /**
      * Khóa navigationview
      */
@@ -199,11 +196,11 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         fragmentExists = 1;
     }
 
-    private void replaceListNews() {
-        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(1);
-        renameToolbar(R.string.nav_new_list);
-    }
+//    private void replaceListNews() {
+//        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+//        newsList.setType(1);
+//        renameToolbar(R.string.nav_new_list);
+//    }
 
     private void replaceCuisine() {
 //        replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");

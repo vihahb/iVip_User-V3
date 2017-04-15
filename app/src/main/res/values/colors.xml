@@ -37,7 +37,9 @@
     <color name="his_checkin_header">#014240</color>
     <color name="his_checkin_item">#03aaa2 </color>
     <color name="nav_bottom">#004f31</color>
+
     <color name="black_40">#66000000</color>
+    <color name="black_55">#8C000000</color>
 
     <!-- Dialog theme color -->
     <color name="color_accent_button_clicked">#02a8a3</color>

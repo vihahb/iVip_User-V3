@@ -15,31 +15,27 @@ import com.xtel.ivipu.R;
  */
 
 public class NewProgressView {
-    private RecyclerView recyclerView;
-    private LinearLayout layout_data;
-    private ImageView imageView;
-    private TextView textView_data;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private LinearLayout layout_message;
+    private ImageView img_message;
+    private TextView txt_message;
 
     public NewProgressView(Activity activity, View view) {
         if (view == null) {
-            layout_data = (LinearLayout) activity.findViewById(R.id.layout_progress_view_data);
-            imageView = (ImageView) activity.findViewById(R.id.img_progress_view_data);
-            textView_data = (TextView) activity.findViewById(R.id.txt_progress_view_data);
-            swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_progress_view);
-            recyclerView = (RecyclerView) activity.findViewById(R.id.recyclerview_progress_view);
+            swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.progressview_swipe);
+            recyclerView = (RecyclerView) activity.findViewById(R.id.progressview_recyclerview);
+            layout_message = (LinearLayout) activity.findViewById(R.id.progressview_layout_message);
+            img_message = (ImageView) activity.findViewById(R.id.progressview_img_message);
+            txt_message = (TextView) activity.findViewById(R.id.progressview_txt_message);
         } else {
-            layout_data = (LinearLayout) view.findViewById(R.id.layout_progress_view_data);
-            imageView = (ImageView) view.findViewById(R.id.img_progress_view_data);
-            textView_data = (TextView) view.findViewById(R.id.txt_progress_view_data);
-            swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_progress_view);
-            recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_progress_view);
+            swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.progressview_swipe);
+            recyclerView = (RecyclerView) view.findViewById(R.id.progressview_recyclerview);
+            layout_message = (LinearLayout) view.findViewById(R.id.progressview_layout_message);
+            img_message = (ImageView) view.findViewById(R.id.progressview_img_message);
+            txt_message = (TextView) view.findViewById(R.id.progressview_txt_message);
         }
 
-        setUpSwipeLayout();
-    }
-
-    private void setUpSwipeLayout() {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimary, R.color.colorPrimary);
     }
 
@@ -52,53 +48,35 @@ public class NewProgressView {
         recyclerView.addOnScrollListener(onScrollListener);
     }
 
-    public void initData(int imageView, String textViewData) {
+    public void updateMessage(int imageView, String textView) {
         if (imageView == -1)
-            this.imageView.setVisibility(View.GONE);
+            this.img_message.setVisibility(View.GONE);
         else
-            this.imageView.setImageResource(imageView);
-
-        if (textViewData == null)
-            this.textView_data.setVisibility(View.GONE);
-        else {
-            this.textView_data.setText(textViewData);
-        }
-    }
-
-    public void updateData(int imageView, String textView) {
-        if (imageView == -1)
-            this.imageView.setVisibility(View.GONE);
-        else
-            this.imageView.setImageResource(imageView);
+            this.img_message.setImageResource(imageView);
 
         if (textView == null)
-            this.textView_data.setVisibility(View.GONE);
+            this.txt_message.setVisibility(View.GONE);
         else {
-            this.textView_data.setText(textView);
+            this.txt_message.setText(textView);
         }
     }
 
     public void showData() {
         if (recyclerView.getVisibility() == View.GONE)
             recyclerView.setVisibility(View.VISIBLE);
-        if (layout_data.getVisibility() == View.VISIBLE)
-            layout_data.setVisibility(View.GONE);
+        if (layout_message.getVisibility() == View.VISIBLE)
+            layout_message.setVisibility(View.GONE);
     }
 
     public void hideData() {
         if (recyclerView.getVisibility() == View.VISIBLE)
             recyclerView.setVisibility(View.GONE);
-        if (layout_data.getVisibility() == View.GONE)
-            layout_data.setVisibility(View.VISIBLE);
-    }
-
-    public void setEnableView(boolean isEnable) {
-        swipeRefreshLayout.setEnabled(false);
-        layout_data.setEnabled(isEnable);
+        if (layout_message.getVisibility() == View.GONE)
+            layout_message.setVisibility(View.VISIBLE);
     }
 
     public void onLayoutClicked(View.OnClickListener onClickListener) {
-        layout_data.setOnClickListener(onClickListener);
+        layout_message.setOnClickListener(onClickListener);
     }
 
     public void onRefreshListener(SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
@@ -113,8 +91,8 @@ public class NewProgressView {
         swipeRefreshLayout.post(runnable);
     }
 
-    public void disableSwipe() {
-        swipeRefreshLayout.setEnabled(false);
+    public void setSwipeEnable(boolean isEnable) {
+        swipeRefreshLayout.setEnabled(isEnable);
     }
 
     public boolean isRefreshing() {

@@ -206,11 +206,14 @@
     <string name="nav_member">Thành viên</string>
     <string name="nav_favorite">Yêu thích</string>
     <string name="nav_account">Tài khoản</string>
-    
+
     <!-- Message -->
     <string name="message_no_internet_click_to_try_again">Kết nối mạng của bạn không ổn định\nchạm vào để thử lại</string>
     <string name="message_no_voucher">Danh sách thẻ giảm giá của bạn đang trống\nBạn có thể lấy thẻ giảm giá từ các bản tin cho phép lấy mã giảm giá</string>
     <string name="message_no_have_desc">Không có mô tả giao dịch</string>
+    <string name="message_member_empty">Danh sách thành viên của bạn đang trống.\nVui lòng đến các cửa hàng liên kết với hệ thống để tích điểm tạo thẻ.</string>
+    <string name="message_choose_member_to_view_history">Bạn chưa chọn thẻ thành viên nào.\nVui lòng chọn 1 thẻ thành viên để xem lịch sử tích đổi điểm.</string>
+    <string name="message_history_transaction_empty">Bạn không có lịch sử tích đổi điểm nào</string>
 
     <!-- Layout -->
     <string name="total">Tổng:</string>

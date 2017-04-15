@@ -1,6 +1,7 @@
 package com.xtel.ivipu.presenter;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.xtel.ivipu.model.HomeModel;
@@ -29,7 +30,6 @@ import com.xtel.sdk.utils.SharedPreferencesUtils;
  */
 
 public class HomePresenter {
-    String session = LoginManager.getCurrentSession();
     private IHome view;
     private String TAG = "Home presenter";
 
@@ -38,7 +38,9 @@ public class HomePresenter {
     }
 
     public void postFCMKey() {
-        if (session != null) {
+        String session = LoginManager.getCurrentSession();
+
+        if (!TextUtils.isEmpty(session)) {
             Log.e("session ", session);
             String url_fcm_key = Constants.SERVER_IVIP + Constants.REG_FCM_KEY;
             Log.e(TAG + "url", url_fcm_key);

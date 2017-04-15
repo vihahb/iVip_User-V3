@@ -66,7 +66,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
     * */
     protected void initProgressView(View view) {
         progressView = new NewProgressView(null, view);
-        progressView.initData(R.mipmap.ic_error_voucher, getString(R.string.message_no_voucher));
+        progressView.updateMessage(R.mipmap.ic_voucher_empty, getString(R.string.message_no_voucher));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         listData = new ArrayList<>();
@@ -118,7 +118,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
             progressView.showData();
             adapter.notifyDataSetChanged();
         } else {
-            progressView.updateData(R.mipmap.ic_error_voucher, getString(R.string.message_no_voucher));
+            progressView.updateMessage(R.mipmap.ic_voucher_empty, getString(R.string.message_no_voucher));
             progressView.hideData();
         }
     }
@@ -163,7 +163,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
             showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error)));
         else {
             progressView.setRefreshing(false);
-            progressView.updateData(R.mipmap.ic_error_network, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
+            progressView.updateMessage(R.mipmap.ic_error_network, JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.error_touch_to_try_again)));
             progressView.hideData();
 
             listData.clear();
@@ -184,7 +184,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
         if (listData.size() > 0)
             showShortToast(getString(R.string.error_no_internet));
         else {
-            progressView.updateData(R.mipmap.ic_error_network, getString(R.string.message_no_internet_click_to_try_again));
+            progressView.updateMessage(R.mipmap.ic_error_network, getString(R.string.message_no_internet_click_to_try_again));
             progressView.hideData();
         }
     }
