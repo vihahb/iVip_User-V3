@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 /**
  * Created by vuhavi on 07/03/2017
+ * Fixed by vulcl
  */
 
 public class FragmentMemberCard extends BasicFragment implements DiscreteScrollView.ScrollListener, IFragmentMemberCard {
