@@ -41,8 +41,12 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private RecyclerView.LayoutManager layoutManager;
 //    private LinearLayout ln_new_slider;
 
-    public static FragmentHomeNewsList newInstance() {
-        return new FragmentHomeNewsList();
+    public static FragmentHomeNewsList newInstance(int type) {
+        FragmentHomeNewsList newsList = new FragmentHomeNewsList();
+        Bundle bundle = new Bundle();
+        bundle.putInt("Key", type);
+        newsList.setArguments(bundle);
+        return newsList;
     }
 
     @Nullable
@@ -56,8 +60,17 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
         super.onViewCreated(view, savedInstanceState);
         presenter = new FragmentNewsListPresenter(this);
 //        initArrayList();
+        getBundle();
         initRecylerView(view);
         initProgressView(view);
+    }
+
+    private void getBundle() {
+        try {
+            type = getArguments().getInt("Key");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setType(int type) {
@@ -99,6 +112,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             public void run() {
                 getData();
                 adapter.notifyDataSetChanged();
+                progressView.hideData();
             }
         });
     }

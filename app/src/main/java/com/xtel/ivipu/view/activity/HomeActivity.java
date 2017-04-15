@@ -8,6 +8,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,13 +21,7 @@ import android.view.MenuItem;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
-import com.xtel.ivipu.view.fragment.FragmentHomeFashionMakeUp;
-import com.xtel.ivipu.view.fragment.FragmentHomeFood;
-import com.xtel.ivipu.view.fragment.FragmentHomeHealth;
-import com.xtel.ivipu.view.fragment.FragmentHomeNewsForMe;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
-import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
-import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.ListVoucherFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
@@ -45,6 +40,10 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     protected BottomNavigationView nav_bottom_home;
     protected DrawerLayout drawer;
     protected ActionBar actionBar;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private int fragmentExists;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -198,7 +197,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         actionBar.setTitle(getString(StringResource));
     }
 
-    private void replaceDefault() {
     /**
      * Khóa navigationview
      */
@@ -217,46 +215,62 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
 
-
-
-
-    private void replaceListNews() {
-        replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(), "LATEST_NEW");
+    private void replaceDefault() {
+        replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(1), "LATEST_NEW");
         renameToolbar(R.string.nav_new_list);
         fragmentExists = 1;
     }
 
     private void replaceListNews() {
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(1);
+        if (newsList != null) {
+            newsList.setType(1);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(1), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_new_list);
     }
 
     private void replaceCuisine() {
-//        replaceFragment(R.id.home_frame, FragmentHomeFood.newInstance(), "CUISINE");
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(2);
+        if (newsList != null) {
+            newsList.setType(2);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(2), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_cuisine_and_eating);
         fragmentExists = 2;
     }
 
     private void replaceFashion() {
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(3);
+        if (newsList != null) {
+            newsList.setType(3);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(3), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_fashion_and_beautify);
         fragmentExists = 3;
     }
 
     private void replaceElectronic() {
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(4);
+        if (newsList != null) {
+            newsList.setType(4);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(4), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_electronics_and_technology);
         fragmentExists = 4;
     }
 
     private void replaceHealth() {
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(5);
+        if (newsList != null) {
+            newsList.setType(5);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(5), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_health_and_life);
         fragmentExists = 5;
     }
@@ -275,14 +289,22 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
     private void replaceOtherService() {
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(6);
+        if (newsList != null) {
+            newsList.setType(6);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(6), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_other_services);
         fragmentExists = 8;
     }
 
     private void replaceNewsAround() {
         FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
-        newsList.setType(7);
+        if (newsList != null) {
+            newsList.setType(7);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(7), "LATEST_NEW");
+        }
         renameToolbar(R.string.nav_news_for_me);
         fragmentExists = 9;
     }
