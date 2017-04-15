@@ -75,11 +75,18 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 
     public void setType(int type) {
         this.type = type;
-        page = 1;
-        arrayListNewsList.clear();
-        adapter.onSetLoadMore(true);
-        getData();
-        adapter.notifyDataSetChanged();
+        if (this.type == 10) {
+            arrayListNewsList.clear();
+            adapter.onSetLoadMore(true);
+            getFavorite();
+            adapter.notifyDataSetChanged();
+        } else {
+            page = 1;
+            arrayListNewsList.clear();
+            adapter.onSetLoadMore(true);
+            getData();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void initProgressView(View view) {
@@ -91,28 +98,47 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             @Override
             public void onClick(View v) {
 //                adapter.onSetLoadMore(true);
-                adapter.notifyDataSetChanged();
-                getData();
+                if (type == 10) {
+                    adapter.notifyDataSetChanged();
+                    getFavorite();
+                } else {
+                    adapter.notifyDataSetChanged();
+                    getData();
+                }
             }
         });
 
         progressView.onRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                page = 1;
-                arrayListNewsList.clear();
-                adapter.onSetLoadMore(true);
-                getData();
-                adapter.notifyDataSetChanged();
+                if (type == 10) {
+                    page = 1;
+                    arrayListNewsList.clear();
+                    adapter.onSetLoadMore(true);
+                    getFavorite();
+                    adapter.notifyDataSetChanged();
+                } else {
+                    page = 1;
+                    arrayListNewsList.clear();
+                    adapter.onSetLoadMore(true);
+                    getData();
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
         progressView.onSwipeLayoutPost(new Runnable() {
             @Override
             public void run() {
-                getData();
-                adapter.notifyDataSetChanged();
-                progressView.hideData();
+                if (type == 10) {
+                    getFavorite();
+                    adapter.notifyDataSetChanged();
+                    progressView.hideData();
+                } else {
+                    getData();
+                    adapter.notifyDataSetChanged();
+                    progressView.hideData();
+                }
             }
         });
     }
@@ -122,6 +148,11 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
         progressView.setRefreshing(true);
 //        adapter.onSetLoadMore(true);
         initDataNews();
+    }
+
+    private void getFavorite() {
+        progressView.setRefreshing(true);
+        presenter.getFavorite(page, pagesize);
     }
 
     private void initDataNews() {
@@ -143,18 +174,6 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {
         arrayListNewsList.addAll(newEntities);
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onGetNewsListSuccess(ArrayList<RESP_NewEntity> arrayList) {
-//        progressView.setRefreshing(false);
-        Log.e("arr news entity", arrayList.toString());
-        Log.e("arr size", String.valueOf(arrayList.size()));
-        if (arrayList.size() < 10) {
-            adapter.onSetLoadMore(false);
-        }
-        setDataRecyclerView(arrayList);
-        checkListData(type);
     }
 
     private void checkListData(int type) {
@@ -180,6 +199,8 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
                 progressView.updateData(R.mipmap.ic_err_cook_empty, getString(R.string.no_news), getString(R.string.try_again));
             } else if (type == 9) {
                 progressView.updateData(R.mipmap.ic_err_toy_empty, getString(R.string.no_news), getString(R.string.try_again));
+            } else if (type == 10) {
+                progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again));
             }
             progressView.show();
         } else {
@@ -188,6 +209,36 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             progressView.hide();
         }
     }
+
+
+    /**
+     * Method in INF
+     */
+
+    @Override
+    public void onGetNewsListSuccess(ArrayList<RESP_NewEntity> arrayList) {
+//        progressView.setRefreshing(false);
+        Log.e("arr news entity", arrayList.toString());
+        Log.e("arr size", String.valueOf(arrayList.size()));
+        if (arrayList.size() < 10) {
+            adapter.onSetLoadMore(false);
+        }
+        setDataRecyclerView(arrayList);
+        checkListData(type);
+    }
+
+    @Override
+    public void onGetFavoriteSuccess(ArrayList<RESP_NewEntity> data) {
+        Log.e("arr favorite", data.toString());
+        Log.e("arr size", String.valueOf(data.size()));
+
+        if (data.size() < 10) {
+            adapter.onSetLoadMore(false);
+        }
+        setDataRecyclerView(data);
+        checkListData(type);
+    }
+
 
     @Override
     public void onGetNewsListErr() {
@@ -260,6 +311,11 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
         progressView.updateData(R.mipmap.ic_error_network, getString(R.string.no_internet), getString(R.string.try_again));
         progressView.showData();
     }
+
+    /**
+     * !End Method in INF
+     */
+
 
     @Override
     public void onResume() {

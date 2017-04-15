@@ -3,13 +3,16 @@ package com.xtel.ivipu.presenter;
 import android.os.Handler;
 import android.util.Log;
 
+import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_ListNews;
 import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.fragment.inf.IFragmentNewsListView;
 import com.xtel.nipservicesdk.CallbackManager;
+import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
@@ -22,6 +25,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 
 public class FragmentNewsListPresenter {
 
+    String session = LoginManager.getCurrentSession();
     private IFragmentNewsListView view;
     private String TAG = "NewsList Pre";
     public FragmentNewsListPresenter(IFragmentNewsListView view) {
@@ -48,7 +52,7 @@ public class FragmentNewsListPresenter {
                 }
 
                 @Override
-                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                public void onError(Error error) {
                     int code = error.getCode();
                     if (String.valueOf(code) != null) {
                         if (code == 2) {
@@ -74,6 +78,61 @@ public class FragmentNewsListPresenter {
                     }
                 }
             });
+        }
+    }
+
+    public void getFavorite(final int page, final int pagesize) {
+
+        if (session != null) {
+            if (!NetWorkInfo.isOnline(view.getActivity())) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.onNetworkDisable();
+                    }
+                }, 500);
+                return;
+            } else {
+                String url_favorite = Constants.SERVER_IVIP + "v0.1/user/like? page=" + page + "&pagesize=" + pagesize;
+                HomeModel.getInstance().getFavorite(url_favorite, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
+                    @Override
+                    public void onSuccess(RESP_ListNews obj) {
+                        view.onGetFavoriteSuccess(obj.getData());
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        if (error != null) {
+                            int code = error.getCode();
+                            if (String.valueOf(code) != null) {
+                                if (code == 2) {
+                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                        @Override
+                                        public void onSuccess(RESP_Login success) {
+                                            getFavorite(page, pagesize);
+                                        }
+
+                                        @Override
+                                        public void onError(Error error) {
+                                            view.startActivityAndFinish(LoginActivity.class);
+                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                        }
+                                    });
+                                } else {
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                                }
+                            } else {
+                                Log.e(TAG, "err " + JsonHelper.toJson(error));
+                                view.showShortToast("Co loi");
+                            }
+
+                        }
+                    }
+                });
+            }
+        } else {
+            view.startActivityAndFinish(LoginActivity.class);
+            view.showShortToast(view.getActivity().getString(R.string.need_login_to_action));
         }
     }
 
