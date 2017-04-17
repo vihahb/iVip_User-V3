@@ -347,7 +347,7 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
 
     /**
      * Load page tiếp theo của danh sách thành viên
-     * */
+     */
     @Override
     public void onLoadMore() {
         presenter.getMemberCard(false);
@@ -355,10 +355,20 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
 
     /**
      * Load page tiếp theo của danh sách lịch sử
-     * */
+     */
     @Override
     public void onLoadMoreHistory() {
         presenter.getHistory(false, listMember.get(member_card_position).getId());
+    }
+
+    /**
+     *
+     * */
+    @Override
+    public void onMemberItemClicked(int position) {
+        member_card_position = position;
+        slideProgressView.scrollToPosition(position);
+        getHistoryAgain();
     }
 
     /**

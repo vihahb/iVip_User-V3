@@ -12,11 +12,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.yarolegovich.discretescrollview.DiscreteScrollView
-            android:id="@+id/member_card.header.list_member"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_160"
-            app:dsv_orientation="horizontal" />
+            android:layout_height="wrap_content">
+
+            <com.xtel.ivipu.view.widget.RectangleLayoutHeight
+                android:id="@+id/member_card.header.rec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
+                android:id="@+id/member_card.header.list_member"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_160"
+                android:layout_alignBottom="@+id/member_card.header.rec"
+                android:layout_alignEnd="@+id/member_card.header.rec"
+                android:layout_alignLeft="@+id/member_card.header.rec"
+                android:layout_alignRight="@+id/member_card.header.rec"
+                android:layout_alignStart="@+id/member_card.header.rec"
+                android:layout_alignTop="@+id/member_card.header.rec"
+                app:dsv_orientation="horizontal" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

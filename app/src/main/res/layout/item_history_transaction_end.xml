@@ -40,9 +40,9 @@
 
         <View
             android:id="@+id/item.history_transaction_end.status_end"
-            android:layout_width="@dimen/size_18"
-            android:layout_height="@dimen/size_18"
-            android:background="@drawable/circle_addition" />
+            android:layout_width="@dimen/size_9"
+            android:layout_height="@dimen/size_9"
+            android:background="@drawable/circle_gray_fill" />
     </LinearLayout>
 
     <LinearLayout

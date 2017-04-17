@@ -112,7 +112,8 @@ public class HistoryTransactionAdapter extends RecyclerView.Adapter<RecyclerView
 
     private class ViewHolderHistoryEnd extends ViewHolderHelper {
         private TextView txt_date, txt_point, txt_content;
-        private View view, view_end;
+        private View view;
+//        view_end;
 
         ViewHolderHistoryEnd(View itemView) {
             super(itemView);
@@ -121,7 +122,7 @@ public class HistoryTransactionAdapter extends RecyclerView.Adapter<RecyclerView
             txt_point = findTextView(R.id.item_history_transaction_end_point);
             txt_content = findTextView(R.id.item_history_transaction_end_content);
             view = findView(R.id.item_history_transaction_end_status);
-            view_end = findView(R.id.item_history_transaction_end_status);
+//            view_end = findView(R.id.item_history_transaction_end_status);
         }
 
         public void setData(HistoryTransactionObj obj) {
@@ -133,12 +134,12 @@ public class HistoryTransactionAdapter extends RecyclerView.Adapter<RecyclerView
                 txt_date.setTextColor(_view.getActivity().getResources().getColor(R.color.history_green));
                 txt_point.setTextColor(_view.getActivity().getResources().getColor(R.color.history_green));
                 WidgetHelper.getInstance().setViewBackgroundDrawable(view, R.drawable.circle_addition);
-                WidgetHelper.getInstance().setViewBackgroundDrawable(view_end, R.drawable.circle_addition);
+//                WidgetHelper.getInstance().setViewBackgroundDrawable(view_end, R.drawable.circle_addition);
             } else {
                 txt_date.setTextColor(_view.getActivity().getResources().getColor(R.color.history_orange));
                 txt_point.setTextColor(_view.getActivity().getResources().getColor(R.color.history_orange));
                 WidgetHelper.getInstance().setViewBackgroundDrawable(view, R.drawable.circle_subtraction);
-                WidgetHelper.getInstance().setViewBackgroundDrawable(view_end, R.drawable.circle_subtraction);
+//                WidgetHelper.getInstance().setViewBackgroundDrawable(view_end, R.drawable.circle_subtraction);
             }
         }
     }

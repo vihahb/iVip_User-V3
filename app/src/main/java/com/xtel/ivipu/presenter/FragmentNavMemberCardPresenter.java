@@ -49,7 +49,7 @@ public class FragmentNavMemberCardPresenter {
                             @Override
                             public void onSuccess(RESP_ListHistoryTransaction obj) {
                                 if (view.getFragment() != null) {
-                                    PAGE_MEMBER++;
+                                    PAGE_HISTORY++;
                                     view.onGetHistorySuccess(obj.getData());
                                 }
                             }

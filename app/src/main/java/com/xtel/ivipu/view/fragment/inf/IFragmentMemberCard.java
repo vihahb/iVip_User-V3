@@ -26,6 +26,7 @@ public interface IFragmentMemberCard {
 
     void onLoadMore();
     void onLoadMoreHistory();
+    void onMemberItemClicked(int position);
 
     void onNetworkDisable(boolean isMember);
     void onNotLogged();

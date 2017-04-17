@@ -1,7 +1,6 @@
 package com.xtel.ivipu.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,15 +47,14 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (position == arrayList.size())
             view.onLoadMore();
-
-        Log.e("AdapterCard", "null k: " + User_name);
 
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.setData(arrayList.get(position));
+            viewHolder.setItemClick(position);
         } else if (holder instanceof ViewProgressBar) {
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
             //noinspection deprecation
@@ -93,10 +91,19 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tv_create_time = (TextView) itemView.findViewById(R.id.tv_date_created);
         }
 
-        public void setData(MemberObj memberObj) {
+        void setData(MemberObj memberObj) {
             WidgetHelper.getInstance().setAvatarImageURL(img_Card, memberObj.getMember_card());
             WidgetHelper.getInstance().setTextViewWithResult(tv_user_name, User_name, view.getActivity().getString(R.string.message_not_update_full_name));
             WidgetHelper.getInstance().setTextViewDate(tv_create_time, view.getActivity().getString(R.string.date_create) + ": ", memberObj.getCreate_time());
+        }
+
+        void setItemClick(final int position) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view.onMemberItemClicked(position);
+                }
+            });
         }
     }
 
