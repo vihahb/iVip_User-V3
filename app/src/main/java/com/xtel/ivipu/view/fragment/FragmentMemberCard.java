@@ -200,9 +200,6 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
      * Kiểm tra dữ liệu lấy từ trên server về có hay không
      */
     protected void checkListHistory() {
-        progressView.setRefreshing(false);
-        historyAdapter.notifyDataSetChanged();
-
         if (listHistory.size() > 0) {
             progressView.showData();
             historyAdapter.notifyItemChanged(0);
@@ -210,6 +207,9 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
             progressView.updateMessage(-1, getString(R.string.message_history_transaction_empty));
             progressView.hideData();
         }
+
+        progressView.setRefreshing(false);
+        historyAdapter.notifyDataSetChanged();
     }
 
     /**
