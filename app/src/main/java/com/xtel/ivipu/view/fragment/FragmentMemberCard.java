@@ -366,9 +366,11 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
      * */
     @Override
     public void onMemberItemClicked(int position) {
-        member_card_position = position;
-        slideProgressView.scrollToPosition(position);
-        getHistoryAgain();
+        if (member_card_position != position) {
+            member_card_position = position;
+            slideProgressView.scrollToPosition(position);
+            getHistoryAgain();
+        }
     }
 
     /**
