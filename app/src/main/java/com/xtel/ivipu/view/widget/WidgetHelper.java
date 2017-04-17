@@ -266,6 +266,13 @@ public class WidgetHelper {
             view.setText(content);
     }
 
+    public void setPointHistory(TextView view, int type, int point) {
+        if (type == 2)
+            view.setText(("+ " + point));
+        else
+            view.setText(("- " + point));
+    }
+
     public String convertLong2Time(long time) {
 //        long time_set = time * 10000;
 //        Date date = new Timestamp(time_set);

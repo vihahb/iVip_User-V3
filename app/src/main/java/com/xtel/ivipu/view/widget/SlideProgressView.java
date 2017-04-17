@@ -74,7 +74,7 @@ public class SlideProgressView {
 
     public void setValue(int totalPoint, int nowPoint) {
         WidgetHelper.getInstance().setTextViewHtml(txt_total_point, MyApplication.context.getString(R.string.total) + " <b>" + totalPoint + "</b> " + MyApplication.context.getString(R.string.point));
-        WidgetHelper.getInstance().setTextViewHtml(txt_now_point, MyApplication.context.getString(R.string.total) + " <b>" + nowPoint + "</b> " + MyApplication.context.getString(R.string.point));
+        WidgetHelper.getInstance().setTextViewHtml(txt_now_point, MyApplication.context.getString(R.string.total) + " <b><font color=\"#18C000\">" + nowPoint + "</font></b> " + MyApplication.context.getString(R.string.point));
     }
 
     public void initData(int imageView, String textViewData) {

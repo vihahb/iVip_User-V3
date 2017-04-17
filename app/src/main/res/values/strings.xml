@@ -214,10 +214,12 @@
     <string name="message_member_empty">Danh sách thành viên của bạn đang trống.\nVui lòng đến các cửa hàng liên kết với hệ thống để tích điểm tạo thẻ.</string>
     <string name="message_choose_member_to_view_history">Bạn chưa chọn thẻ thành viên nào.\nVui lòng chọn 1 thẻ thành viên để xem lịch sử tích đổi điểm.</string>
     <string name="message_history_transaction_empty">Bạn không có lịch sử tích đổi điểm nào</string>
+    <string name="message_not_update_full_name">Chưa cập nhật tên</string>
 
     <!-- Layout -->
     <string name="total">Tổng:</string>
     <string name="point">điểm</string>
+    <string name="date_create">Ngày tạo</string>
 
     <!-- Error -->
     <string name="error_try_again">Có lỗi xảy ra, vui lòng thử lại</string>

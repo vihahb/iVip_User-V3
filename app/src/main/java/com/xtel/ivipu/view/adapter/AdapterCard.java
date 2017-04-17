@@ -13,7 +13,6 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.MemberObj;
 import com.xtel.ivipu.view.fragment.inf.IFragmentMemberCard;
 import com.xtel.ivipu.view.widget.WidgetHelper;
-import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.utils.SharedPreferencesUtils;
 import com.xtel.sdk.utils.ViewHolderHelper;
@@ -21,13 +20,13 @@ import com.xtel.sdk.utils.ViewHolderHelper;
 import java.util.ArrayList;
 
 /**
- * Created by vivhp on 4/5/2017.
+ * Created by vivhp on 4/5/2017
  */
 
 public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private IFragmentMemberCard view;
     private ArrayList<MemberObj> arrayList;
-    private String User_name = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_FULL_NAME);
+    private String User_name;
 
     private boolean isLoadMore = true;
     private int TYPE_VIEW = 1, TYPE_LOAD = 2;
@@ -35,14 +34,15 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public AdapterCard(IFragmentMemberCard view, ArrayList<MemberObj> arrayList) {
         this.view = view;
         this.arrayList = arrayList;
+        User_name = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_FULL_NAME);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_VIEW) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.pager_item, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_member_card, parent, false));
         } else if (viewType == TYPE_LOAD) {
-            return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history_transaction_load_more, parent, false));
+            return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_member_card_load_more, parent, false));
         }
         return null;
     }
@@ -52,14 +52,15 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (position == arrayList.size())
             view.onLoadMore();
 
-        if (holder instanceof ViewHolder) {
-            MemberObj memberObj = arrayList.get(position);
-            Log.e("Adapter card", JsonHelper.toJson(arrayList));
+        Log.e("AdapterCard", "null k: " + User_name);
 
+        if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_Card, memberObj.getMember_card());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_user_name, User_name);
-            WidgetHelper.getInstance().setTextViewDate(viewHolder.tv_create_time, "Ngày tạo: ", memberObj.getCreate_time());
+            viewHolder.setData(arrayList.get(position));
+        } else if (holder instanceof ViewProgressBar) {
+            ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
+            //noinspection deprecation
+            viewProgressBar.progressBar.getIndeterminateDrawable().setColorFilter(view.getActivity().getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
         }
     }
 
@@ -82,7 +83,6 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
-
         private ImageView img_Card;
         private TextView tv_user_name, tv_create_time;
 
@@ -91,6 +91,12 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             img_Card = (ImageView) itemView.findViewById(R.id.img_card_type);
             tv_user_name = (TextView) itemView.findViewById(R.id.tv_card_user_name);
             tv_create_time = (TextView) itemView.findViewById(R.id.tv_date_created);
+        }
+
+        public void setData(MemberObj memberObj) {
+            WidgetHelper.getInstance().setAvatarImageURL(img_Card, memberObj.getMember_card());
+            WidgetHelper.getInstance().setTextViewWithResult(tv_user_name, User_name, view.getActivity().getString(R.string.message_not_update_full_name));
+            WidgetHelper.getInstance().setTextViewDate(tv_create_time, view.getActivity().getString(R.string.date_create) + ": ", memberObj.getCreate_time());
         }
     }
 

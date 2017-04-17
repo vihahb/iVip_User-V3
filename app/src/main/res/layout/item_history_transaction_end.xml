@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/size_16">
 
     <TextView
-        android:id="@+id/item.history_transaction.date"
+        android:id="@+id/item.history_transaction_end.date"
         style="@style/TextView.Black_Normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,41 +16,48 @@
         android:text="@string/app_name" />
 
     <LinearLayout
-        android:id="@+id/item.history_transaction.layout_center"
+        android:id="@+id/item.history_transaction_end.layout_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/item.history_transaction.layout_end"
-        android:layout_alignTop="@+id/item.history_transaction.layout_end"
-        android:layout_toEndOf="@+id/item.history_transaction.date"
-        android:layout_toRightOf="@+id/item.history_transaction.date"
+        android:layout_alignBottom="@+id/item.history_transaction_end.layout_end"
+        android:layout_alignTop="@+id/item.history_transaction_end.layout_end"
+        android:layout_toEndOf="@+id/item.history_transaction_end.date"
+        android:layout_toRightOf="@+id/item.history_transaction_end.date"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <View
-            android:id="@+id/item.history_transaction.status"
+            android:id="@+id/item.history_transaction_end.status"
             android:layout_width="@dimen/size_18"
             android:layout_height="@dimen/size_18"
             android:background="@drawable/circle_addition" />
 
         <View
             android:layout_width="@dimen/size_2"
-            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
             android:background="@android:color/darker_gray" />
+
+        <View
+            android:id="@+id/item.history_transaction_end.status_end"
+            android:layout_width="@dimen/size_18"
+            android:layout_height="@dimen/size_18"
+            android:background="@drawable/circle_addition" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/item.history_transaction.layout_end"
+        android:id="@+id/item.history_transaction_end.layout_end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/item.history_transaction.layout_center"
-        android:layout_toRightOf="@+id/item.history_transaction.layout_center"
+        android:layout_toEndOf="@+id/item.history_transaction_end.layout_center"
+        android:layout_toRightOf="@+id/item.history_transaction_end.layout_center"
         android:orientation="vertical"
         android:paddingBottom="@dimen/size_16"
         android:paddingLeft="@dimen/size_36"
         android:paddingStart="@dimen/size_36">
 
         <TextView
-            android:id="@+id/item.history_transaction.point"
+            android:id="@+id/item.history_transaction_end.point"
             style="@style/TextView.Black_Normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +67,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/item.history_transaction.content"
+            android:id="@+id/item.history_transaction_end.content"
             style="@style/TextView.Black_Normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

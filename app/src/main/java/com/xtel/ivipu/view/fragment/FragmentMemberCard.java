@@ -65,7 +65,6 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         callbackManager = CallbackManager.create(getActivity());
-
         presenter = new FragmentNavMemberCardPresenter(this);
 
         initListMember(view);
@@ -112,8 +111,9 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
                 if (member_card_position != adapterPosition) {
                     member_card_position = adapterPosition;
 
-//                MemberObj obj = listMember.get(adapterPosition);
-                    slideProgressView.setValue(10000, 5000);
+                    MemberObj obj = listMember.get(adapterPosition);
+
+                    slideProgressView.setValue(obj.getTotal_point(), obj.getCurrent_point());
                     getHistoryAgain();
                 }
             }
@@ -256,7 +256,7 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
     /**
      * Lấy danh lịch sử tích đổi điểm thành công
      * Kiểm tra dữ liệu lấy về
-     * */
+     */
     @Override
     public void onGetHistorySuccess(ArrayList<HistoryTransactionObj> arrayList) {
         if (isClearHistory) {
@@ -275,7 +275,7 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
     /**
      * Lấy danh lịch sử tích đổi điểm thất bại
      * Thông báo lỗi cho người dùng
-     * */
+     */
     @Override
     public void onGetHistoryError(Error error) {
         historyAdapter.setLoadMore(false);
@@ -318,8 +318,8 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
     }
 
     /**
-    * Thông báo khi không có kết nối mạng
-    * */
+     * Thông báo khi không có kết nối mạng
+     */
     @Override
     public void onNetworkDisable(boolean isMember) {
         slideProgressView.setSwipeEnable(true);
@@ -345,16 +345,26 @@ public class FragmentMemberCard extends BasicFragment implements DiscreteScrollV
         }
     }
 
+    /**
+     * Load page tiếp theo của danh sách thành viên
+     * */
     @Override
     public void onLoadMore() {
         presenter.getMemberCard(false);
     }
 
+    /**
+     * Load page tiếp theo của danh sách lịch sử
+     * */
     @Override
     public void onLoadMoreHistory() {
         presenter.getHistory(false, listMember.get(member_card_position).getId());
     }
 
+    /**
+     * Sự kiện khi tài khoản chưa đăng nhập
+     * Thông báo và yêu cầu người dùng đăng nhập
+     */
     @Override
     public void onNotLogged() {
         showShortToast(getString(R.string.need_login_to_action));
