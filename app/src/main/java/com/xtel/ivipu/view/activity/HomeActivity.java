@@ -8,7 +8,6 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -295,7 +294,12 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     }
 
     private void replaceFavorite() {
-
+        FragmentHomeNewsList newsList = (FragmentHomeNewsList) getSupportFragmentManager().findFragmentByTag("LATEST_NEW");
+        if (newsList != null) {
+            newsList.setType(10);
+        } else {
+            replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(10), "LATEST_NEW");
+        }
         renameToolbar(R.string.title_list_favorite);
         lockDrawer();
     }

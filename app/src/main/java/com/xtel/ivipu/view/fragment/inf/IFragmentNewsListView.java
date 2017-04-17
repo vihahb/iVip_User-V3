@@ -15,8 +15,9 @@ public interface IFragmentNewsListView {
 
     void onGetNewsListSuccess(ArrayList<RESP_NewEntity> arrayList);
 
-    void onGetNewsListErr();
+    void onGetFavoriteSuccess(ArrayList<RESP_NewEntity> data);
 
+    void onGetNewsListErr();
 
     void startActivityAndFinish(Class clazz);
 
