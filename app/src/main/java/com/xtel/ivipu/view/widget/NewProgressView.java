@@ -35,7 +35,7 @@ public class NewProgressView {
             img_message = (ImageView) view.findViewById(R.id.progressview_img_message);
             txt_message = (TextView) view.findViewById(R.id.progressview_txt_message);
         }
-
+        recyclerView.setHasFixedSize(true);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimary, R.color.colorPrimary);
     }
 
@@ -46,6 +46,10 @@ public class NewProgressView {
 
     public void onScrollRecyclerview(RecyclerOnScrollListener onScrollListener) {
         recyclerView.addOnScrollListener(onScrollListener);
+    }
+
+    public void refreshList() {
+        recyclerView.refreshDrawableState();
     }
 
     public void updateMessage(int imageView, String textView) {
@@ -97,5 +101,9 @@ public class NewProgressView {
 
     public boolean isRefreshing() {
         return swipeRefreshLayout.isRefreshing();
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
     }
 }
