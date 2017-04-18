@@ -102,7 +102,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                         replaceFavorite();
                         break;
                     case R.id.nav_home_account:
-                        replaceProfile();
+                        replaceUser();
 //                        removeBadgeCount();
                         break;
                     default:
