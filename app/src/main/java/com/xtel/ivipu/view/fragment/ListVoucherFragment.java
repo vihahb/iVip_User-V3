@@ -14,7 +14,7 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.VoucherListObj;
 import com.xtel.ivipu.presenter.ListVoucherPresenter;
 import com.xtel.ivipu.view.activity.LoginActivity;
-import com.xtel.ivipu.view.adapter.AdapterVoucherList;
+import com.xtel.ivipu.view.adapter.ListVoucherAdapter;
 import com.xtel.ivipu.view.fragment.inf.IListVoucherView;
 import com.xtel.ivipu.view.widget.NewProgressView;
 import com.xtel.nipservicesdk.CallbackManager;
@@ -34,7 +34,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
     protected CallbackManager callbackManager;
     protected ListVoucherPresenter presenter;
 
-    protected AdapterVoucherList adapter;
+    protected ListVoucherAdapter adapter;
     protected ArrayList<VoucherListObj> listData;
     protected NewProgressView progressView;
     protected boolean isClearData = false;
@@ -70,7 +70,7 @@ public class ListVoucherFragment extends BasicFragment implements IListVoucherVi
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         listData = new ArrayList<>();
-        adapter = new AdapterVoucherList(listData, this);
+        adapter = new ListVoucherAdapter(listData, this);
         progressView.setUpRecyclerView(layoutManager, adapter);
 
         progressView.onLayoutClicked(new View.OnClickListener() {

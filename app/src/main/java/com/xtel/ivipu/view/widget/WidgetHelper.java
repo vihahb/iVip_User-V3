@@ -222,7 +222,7 @@ public class WidgetHelper {
 
     public void setTextViewHtml(TextView view, String content) {
         //noinspection deprecation
-        view.setText(Html.fromHtml(content));
+        view.setText(Html.fromHtml(content, new PicassoImageGetter(view), null));
     }
 
     public void setTextViewFromHtmlWithImage(TextView view, String content) {
@@ -264,6 +264,14 @@ public class WidgetHelper {
             view.setText(result);
         else
             view.setText(content);
+    }
+
+    public void setTextViewNumber(TextView view, int number) {
+        view.setText(String.valueOf(number));
+    }
+
+    public void setTextViewNumber(TextView view, double number) {
+        view.setText(String.valueOf(number));
     }
 
     public void setPointHistory(TextView view, int type, int point) {

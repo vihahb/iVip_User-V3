@@ -27,6 +27,14 @@ public class HomeModel extends Model {
         requestServer.getApi(url_news_info, session, responseHandle);
     }
 
+    public void getNewsInfo(int news_id, ResponseHandle<RESP_NewsObject> responseHandle) {
+        String url = Constants.SERVER_IVIP + Constants.NEWS_INFO + news_id;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getNewsInfo", "url " + url + "  session " + session);
+        requestServer.getApi(url, session, responseHandle);
+    }
+
     public void postNewsAction(String url_new_action, String action_object, String session, ResponseHandle responseHandle) {
         requestServer.postApi(url_new_action, action_object, session, responseHandle);
     }

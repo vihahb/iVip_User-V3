@@ -90,7 +90,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                 switch (tabId) {
                     case R.id.nav_home_home:
                         replaceHome();
-                        setBadgeCount(5);
+//                        setBadgeCount(5);
                         break;
                     case R.id.nav_home_voucher:
                         replaceListVoucher();
@@ -103,7 +103,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                         break;
                     case R.id.nav_home_account:
                         replaceProfile();
-                        removeBadgeCount();
+//                        removeBadgeCount();
                         break;
                     default:
                         break;
@@ -301,13 +301,13 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
     private void replaceMember() {
         replaceFragment(R.id.home_frame, FragmentMemberCard.newInstance(), "MEMBER");
-        renameToolbar(R.string.title_list_member_card);
+        renameToolbar(R.string.title_activity_list_member_card);
         lockDrawer();
     }
 
     private void replaceListVoucher() {
         replaceFragment(R.id.home_frame, ListVoucherFragment.newInstance(), "LIST_VOUCHER");
-        renameToolbar(R.string.title_list_voucher);
+        renameToolbar(R.string.title_activity_list_voucher);
         lockDrawer();
     }
 
@@ -318,13 +318,13 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         } else {
             replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(10), "LATEST_NEW");
         }
-        renameToolbar(R.string.title_list_favorite);
+        renameToolbar(R.string.title_activity_list_favorite);
         lockDrawer();
     }
 
     private void replaceProfile() {
         replaceFragment(R.id.home_frame, ProfileFragment.newInstance(), "PROFILE");
-        renameToolbar(R.string.title_profile);
+        renameToolbar(R.string.title_activity_profile);
         lockDrawer();
     }
 

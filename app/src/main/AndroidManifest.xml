@@ -156,6 +156,11 @@
             android:name="com.xtel.sdk.fcm.NotificationManagerAction"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/Theme_Activity_Transparent" />
+        <activity
+            android:name=".view.activity.NewsInfoActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title.activity.news_info"
+            android:theme="@style/AppTheme" />
 
         <uses-library
             android:name="com.sec.android.app.multiwindow"
@@ -187,7 +192,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

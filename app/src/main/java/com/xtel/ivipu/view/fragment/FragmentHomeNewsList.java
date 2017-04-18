@@ -15,6 +15,7 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.presenter.FragmentNewsListPresenter;
 import com.xtel.ivipu.view.activity.ActivityInfoContent;
+import com.xtel.ivipu.view.activity.NewsInfoActivity;
 import com.xtel.ivipu.view.adapter.AdapterRecycleNewsList;
 import com.xtel.ivipu.view.fragment.inf.IFragmentNewsListView;
 import com.xtel.ivipu.view.widget.ProgressView;
@@ -301,7 +302,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 //            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1, p2, p3, p4);
 //            ActivityCompat.startActivityForResultObject(getActivity(), intent, REQUEST_VIEW_NEWS_LIST, options.toBundle());
 //        } else {
-        startActivityForResultObject(ActivityInfoContent.class, Constants.RECYCLER_MODEL, testRecycle, REQUEST_VIEW_NEWS_LIST);
+        startActivityForResultObject(NewsInfoActivity.class, Constants.MODEL, testRecycle, REQUEST_VIEW_NEWS_LIST);
 //        }
     }
 

@@ -123,4 +123,6 @@ public class Constants {
         }
         return dateTime;
     }
+
+    public static final String MODEL = "model";
 }

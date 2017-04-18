@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_60"
         app:bb_activeTabColor="@color/bottom_navigatin_selected"
-        app:bb_badgesHideWhenActive="true"
+        app:bb_badgesHideWhenActive="false"
+        app:bb_badgeBackgroundColor="@android:color/holo_red_dark"
         app:bb_tabXmlResource="@xml/nav_bottom_navigation"
         app:bb_titleTextAppearance="@style/MyTextAppearance_Small" />
 

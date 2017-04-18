@@ -19,14 +19,14 @@ import java.util.ArrayList;
  * Created by vivhp on 4/5/2017
  */
 
-public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListVoucherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private IListVoucherView view;
     private ArrayList<VoucherListObj> arrayList;
     private boolean isLoadMore = false;
     private int TYPE_VIEW = 1, TYPE_LOAD = 2;
 
-    public AdapterVoucherList(ArrayList<VoucherListObj> arrayList, IListVoucherView view) {
+    public ListVoucherAdapter(ArrayList<VoucherListObj> arrayList, IListVoucherView view) {
         this.arrayList = arrayList;
         this.view = view;
     }
@@ -51,24 +51,18 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
             ViewHolder viewHolder = (ViewHolder) holder;
 
             VoucherListObj obj = arrayList.get(position);
-            Log.e("Arr voucher adapter", arrayList.toString());
+            viewHolder.setData(obj);
 
-            if (obj.getState() == 0) {
-                WidgetHelper.getInstance().setViewBackgroundDrawable(viewHolder.ln_state, R.drawable.background_color_unused);
-            } else if (obj.getState() == 1) {
-                WidgetHelper.getInstance().setViewBackgroundDrawable(viewHolder.ln_state, R.drawable.background_color_used);
-            } else if (obj.getState() == 2) {
-                WidgetHelper.getInstance().setViewBackgroundDrawable(viewHolder.ln_state, R.drawable.background_color_expired);
-            }
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            WidgetHelper.getInstance().setImageURL(viewHolder.img_voucher_banner, obj.getBanner());
+                }
+            });
         } else {
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
-            viewProgressBar.progressBar.getIndeterminateDrawable()
-                    .setColorFilter(
-                            view.getActivity().getResources().getColor(R.color.colorPrimary),
-                            android.graphics.PorterDuff.Mode.MULTIPLY
-                    );
+            //noinspection deprecation
+            viewProgressBar.progressBar.getIndeterminateDrawable().setColorFilter(view.getActivity().getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
         }
     }
 
@@ -98,6 +92,18 @@ public class AdapterVoucherList extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
             img_voucher_banner = (ImageView) itemView.findViewById(R.id.img_voucher_banner);
             ln_state = itemView.findViewById(R.id.ln_state);
+        }
+
+        public void setData(VoucherListObj obj) {
+            if (obj.getState() == 0) {
+                WidgetHelper.getInstance().setViewBackgroundDrawable(ln_state, R.drawable.background_color_unused);
+            } else if (obj.getState() == 1) {
+                WidgetHelper.getInstance().setViewBackgroundDrawable(ln_state, R.drawable.background_color_used);
+            } else if (obj.getState() == 2) {
+                WidgetHelper.getInstance().setViewBackgroundDrawable(ln_state, R.drawable.background_color_expired);
+            }
+
+            WidgetHelper.getInstance().setImageURL(img_voucher_banner, obj.getBanner());
         }
     }
 

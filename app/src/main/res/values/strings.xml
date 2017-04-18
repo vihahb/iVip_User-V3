@@ -182,12 +182,13 @@
     <string name="phone">Số điện thoại</string>
 
     <!-- Lê Công Long Vũ -->
-    
+
     <!-- Title -->
-    <string name="title.list_voucher">Danh sách thẻ giảm giá</string>
-    <string name="title.list_member_card">Danh sách thẻ thành viên</string>
-    <string name="title.list_favorite">Danh sách thẻ yêu thích</string>
-    <string name="title.profile">Thôn tin tài khoản</string>
+    <string name="title.activity.list_voucher">Danh sách thẻ giảm giá</string>
+    <string name="title.activity.list_member_card">Danh sách thẻ thành viên</string>
+    <string name="title.activity.list_favorite">Danh sách thẻ yêu thích</string>
+    <string name="title.activity.profile">Thôn tin tài khoản</string>
+    <string name="title.activity.news_info">Chi tiết bản tin</string>
 
     <!-- Menu -->
     <string name="nav_news_category">Danh mục bản tin</string>
@@ -206,6 +207,9 @@
     <string name="nav_member">Thành viên</string>
     <string name="nav_favorite">Yêu thích</string>
     <string name="nav_account">Tài khoản</string>
+    
+    <!-- Doing -->
+    <string name="doing_load_data">Đang tải dữ liệu…</string>
 
     <!-- Message -->
     <string name="message_no_internet_click_to_try_again">Kết nối mạng của bạn không ổn định\nchạm vào để thử lại</string>
@@ -215,11 +219,18 @@
     <string name="message_choose_member_to_view_history">Bạn chưa chọn thẻ thành viên nào.\nVui lòng chọn 1 thẻ thành viên để xem lịch sử tích đổi điểm.</string>
     <string name="message_history_transaction_empty">Bạn không có lịch sử tích đổi điểm nào</string>
     <string name="message_not_update_full_name">Chưa cập nhật tên</string>
+    <string name="message_not_update_store_name">Chưa cập nhật tên cửa hàng</string>
+    <string name="message_can_not_get_data">Không thể tải dữ liệu</string>
+    <string name="message_ok">OK</string>
 
     <!-- Layout -->
     <string name="total">Tổng:</string>
     <string name="point">điểm</string>
     <string name="date_create">Ngày tạo</string>
+    <string name="layout_zero">0</string>
+    <string name="layout_rate">Đánh giá</string>
+    <string name="layout_had">Đã có</string>
+    <string name="layout_comment">nhận xét</string>
 
     <!-- Error -->
     <string name="error_try_again">Có lỗi xảy ra, vui lòng thử lại</string>

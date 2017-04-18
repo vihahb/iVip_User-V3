@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xtel.ivipu.view.widget.RectangleLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.xtel.ivipu.view.widget.RectangleLayoutCenter xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,7 +10,6 @@
         android:layout_height="match_parent" />
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item.member_card.rec"
@@ -19,10 +18,8 @@
         android:layout_alignRight="@+id/item.member_card.rec"
         android:layout_alignStart="@+id/item.member_card.rec"
         android:layout_alignTop="@+id/item.member_card.rec"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
-        app:cardCornerRadius="@dimen/size_3"
-        app:cardElevation="@dimen/size_4">
+        card_view:cardCornerRadius="@dimen/size_3"
+        card_view:cardElevation="@dimen/size_4">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -60,4 +57,4 @@
             </LinearLayout>
         </FrameLayout>
     </android.support.v7.widget.CardView>
-</com.xtel.ivipu.view.widget.RectangleLayout>
+</com.xtel.ivipu.view.widget.RectangleLayoutCenter>

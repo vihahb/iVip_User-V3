@@ -73,4 +73,7 @@
     <!-- History -->
     <color name="history_green">#18C000</color>
     <color name="history_orange">#FF8A00</color>
+
+    <!-- Bản tin -->
+    <color name="news_info_title">#9627AA</color>
 </resources>
