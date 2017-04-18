@@ -152,6 +152,10 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/Theme_Activity_Transparent" />
 
+        <activity
+            android:name=".view.activity.UserProfileActivity"
+            android:theme="@style/AppTheme" />
+
         <uses-library
             android:name="com.sec.android.app.multiwindow"
             android:required="false" />

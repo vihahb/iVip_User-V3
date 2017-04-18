@@ -169,6 +169,33 @@ public class WidgetHelper {
                 });
     }
 
+    public void setAvatarRoundImageURL(ImageView view, String url) {
+        if (url == null || url.isEmpty())
+            return;
+
+        final String finalUrl = url.replace("https", "http").replace("9191", "9190");
+
+        Picasso.with(MyApplication.context)
+                .load(finalUrl)
+                .noPlaceholder()
+                .error(R.mipmap.ic_user)
+                .fit()
+                .centerCrop()
+                .transform(new CircleTransform())
+                .into(view, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.e("WidgetHelper", "load ok " + finalUrl);
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.e("WidgetHelper", "load error " + finalUrl);
+                    }
+                });
+    }
+
+
     public void setImageResource(ImageView view, int resource) {
         view.setImageResource(resource);
     }

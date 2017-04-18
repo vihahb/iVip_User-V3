@@ -188,6 +188,7 @@
     <string name="title.list_member_card">Danh sách thẻ thành viên</string>
     <string name="title.list_favorite">Danh sách thẻ yêu thích</string>
     <string name="title.profile">Thôn tin tài khoản</string>
+    <string name="title.user">Tài khoản</string>
 
     <!-- Menu -->
     <string name="nav_news_category">Danh mục bản tin</string>
@@ -231,4 +232,12 @@
     <string name="active">Kích hoạt</string>
     <string name="cancel_action">Hủy</string>
     <string name="cancel_active">Hủy kích hoạt</string>
+    <string name="user_history_checkin">Lịch sử check in</string>
+    <string name="user_action_qr">Mã tài khoản</string>
+    <string name="user_history_view">Các bản tin đã xem</string>
+    <string name="user_privacy">Điều khoản sử dụng</string>
+    <string name="user_about">Thông tin về ứng dụng</string>
+
+    <string name="tv_test">Tổng \n 100000</string>
+    <string name="tv_now">Hiện tại \n 100000</string>
 </resources>

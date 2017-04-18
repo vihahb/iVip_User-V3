@@ -18,7 +18,6 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.entity.UserInfo;
 import com.xtel.ivipu.view.activity.inf.IProfileActivityView;
-import com.xtel.ivipu.view.fragment.FavoriteFragment;
 import com.xtel.ivipu.view.fragment.HistoryFragment;
 import com.xtel.ivipu.view.fragment.NotifyFragment;
 import com.xtel.ivipu.view.fragment.ProfileFragment;
@@ -89,7 +88,7 @@ public class ProfileActivity extends BasicActivity implements IProfileActivityVi
                         menu.getItem(1).setVisible(false);
                         break;
                     case R.id.nav_profile_favorite:
-                        replaceFragment(R.id.detail_frame, new FavoriteFragment(), "FAVORITE");
+//                        replaceFragment(R.id.detail_frame, new FavoriteFragment(), "FAVORITE");
                         renameToolbar(R.string.nav_favorite);
                         showShortToast("Favorite");
                         menu.getItem(0).setVisible(false);

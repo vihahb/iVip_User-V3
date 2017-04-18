@@ -21,9 +21,9 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
+import com.xtel.ivipu.view.fragment.FragmentHomeUser;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.ListVoucherFragment;
-import com.xtel.ivipu.view.fragment.ProfileFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
 import java.lang.reflect.Field;
@@ -104,7 +104,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                                 replaceFavorite();
                                 break;
                             case R.id.nav_home_account:
-                                replaceProfile();
+                                replaceUser();
                                 break;
                             default:
                                 break;
@@ -304,9 +304,9 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         lockDrawer();
     }
 
-    private void replaceProfile() {
-        replaceFragment(R.id.home_frame, ProfileFragment.newInstance(), "PROFILE");
-        renameToolbar(R.string.title_profile);
+    private void replaceUser() {
+        replaceFragment(R.id.home_frame, FragmentHomeUser.newInstance(), "USER");
+        renameToolbar(R.string.title_user);
         lockDrawer();
     }
 

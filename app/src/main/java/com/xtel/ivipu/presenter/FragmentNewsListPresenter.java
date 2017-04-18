@@ -40,7 +40,6 @@ public class FragmentNewsListPresenter {
                     view.onNetworkDisable();
                 }
             }, 500);
-            return;
         } else {
             String url_shop = Constants.SERVER_IVIP + "v0.1/news?type=" + type + "&page=" + page + "&pagesize=" + pagesize;
             Log.e("Url request arr news", url_shop);
@@ -54,27 +53,22 @@ public class FragmentNewsListPresenter {
                 @Override
                 public void onError(Error error) {
                     int code = error.getCode();
-                    if (String.valueOf(code) != null) {
-                        if (code == 2) {
-                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                @Override
-                                public void onSuccess(RESP_Login success) {
-                                    getNewsList(type, page, pagesize);
-                                }
+                    if (code == 2) {
+                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                            @Override
+                            public void onSuccess(RESP_Login success) {
+                                getNewsList(type, page, pagesize);
+                            }
 
-                                @Override
-                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityAndFinish(LoginActivity.class);
-                                }
-                            });
-                        } else {
-                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                            Log.e("Code err shop", String.valueOf(code));
-                        }
+                            @Override
+                            public void onError(Error error) {
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                view.startActivityAndFinish(LoginActivity.class);
+                            }
+                        });
                     } else {
-                        Log.e(TAG, "Err " + JsonHelper.toJson(error));
-                        view.showShortToast("Co loi");
+                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                        Log.e("Code err shop", String.valueOf(code));
                     }
                 }
             });
@@ -91,7 +85,6 @@ public class FragmentNewsListPresenter {
                         view.onNetworkDisable();
                     }
                 }, 500);
-                return;
             } else {
                 String url_favorite = Constants.SERVER_IVIP + "v0.1/user/like? page=" + page + "&pagesize=" + pagesize;
                 HomeModel.getInstance().getFavorite(url_favorite, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
@@ -104,26 +97,21 @@ public class FragmentNewsListPresenter {
                     public void onError(Error error) {
                         if (error != null) {
                             int code = error.getCode();
-                            if (String.valueOf(code) != null) {
-                                if (code == 2) {
-                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                        @Override
-                                        public void onSuccess(RESP_Login success) {
-                                            getFavorite(page, pagesize);
-                                        }
+                            if (code == 2) {
+                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                    @Override
+                                    public void onSuccess(RESP_Login success) {
+                                        getFavorite(page, pagesize);
+                                    }
 
-                                        @Override
-                                        public void onError(Error error) {
-                                            view.startActivityAndFinish(LoginActivity.class);
-                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                        }
-                                    });
-                                } else {
-                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                                }
+                                    @Override
+                                    public void onError(Error error) {
+                                        view.startActivityAndFinish(LoginActivity.class);
+                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                    }
+                                });
                             } else {
-                                Log.e(TAG, "err " + JsonHelper.toJson(error));
-                                view.showShortToast("Co loi");
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
                             }
 
                         }
