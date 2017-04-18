@@ -25,7 +25,7 @@ import com.xtel.sdk.dialog.DialogNotification;
 import java.io.Serializable;
 
 /**
- * Created by vivhp on 12/29/2016.
+ * Created by vivhp on 12/29/2016
  */
 
 public class BasicActivity extends AppCompatActivity {
