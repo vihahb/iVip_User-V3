@@ -2,21 +2,21 @@ package com.xtel.ivipu.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
@@ -26,8 +26,6 @@ import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.ListVoucherFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
-import java.lang.reflect.Field;
-
 /**
  * Created by vivhp on 12/29/2016
  */
@@ -35,13 +33,14 @@ import java.lang.reflect.Field;
 public class HomeActivity extends IActivity implements NavigationView.OnNavigationItemSelectedListener, IHome {
     protected final String TAG = "HomeActivity";
 
-    protected HomePresenter presenter;
-    protected BottomNavigationView nav_bottom_home;
-    protected DrawerLayout drawer;
-
     protected ActionBarDrawerToggle toggle;
     protected Toolbar toolbar;
     protected ActionBar actionBar;
+
+    protected HomePresenter presenter;
+    //    protected BottomNavigationView nav_bottom_home;
+    protected DrawerLayout drawer;
+    protected BottomBarTab item_home;
 
     protected int fragmentExists = 1;
 
@@ -54,6 +53,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         initNavigation();
         initBottomNavigation();
         replaceDefault();
+        setBadgeCount(8);
 
         presenter.postFCMKey();
     }
@@ -83,59 +83,76 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
      * Lắng nghe sự kiện khi item cửa tab được chọn
      */
     public void initBottomNavigation() {
-        nav_bottom_home = (BottomNavigationView) findViewById(R.id.home_bottom_navigation);
-        removeShiftMode();
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.home_bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.nav_home_home:
+                        replaceHome();
+                        setBadgeCount(5);
+                        break;
+                    case R.id.nav_home_voucher:
+                        replaceListVoucher();
+                        break;
+                    case R.id.nav_home_member:
+                        replaceMember();
+                        break;
+                    case R.id.nav_home_favorite:
+                        replaceFavorite();
+                        break;
+                    case R.id.nav_home_account:
+                        replaceProfile();
+                        removeBadgeCount();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
-        nav_bottom_home.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.nav_home_home:
-                                replaceHome();
-                                break;
-                            case R.id.nav_home_voucher:
-                                replaceListVoucher();
-                                break;
-                            case R.id.nav_home_member:
-                                replaceMember();
-                                break;
-                            case R.id.nav_home_favorite:
-                                replaceFavorite();
-                                break;
-                            case R.id.nav_home_account:
-                                replaceUser();
-                                break;
-                            default:
-                                break;
-                        }
-                        return true;
-                    }
-                });
+        item_home = bottomBar.getTabWithId(R.id.nav_home_account);
     }
 
     /**
-    * Loại bỏ animation của bottom navigation view
-    * */
-    private void removeShiftMode() {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) nav_bottom_home.getChildAt(0);
-        try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                item.setShiftingMode(false);
-                // set once again checked value, so view will be updated
-                item.setChecked(item.getItemData().isChecked());
-            }
-        } catch (NoSuchFieldException e) {
-            Log.e(TAG, "Unable to get shift mode field");
-        } catch (IllegalAccessException e) {
-            Log.e(TAG, "Unable to change value of shift mode");
-        }
+     * Hiển thị badge trên bottom tab
+     * @param count int - số muốn hiển thị
+     */
+    private void setBadgeCount(int count) {
+        if (item_home != null)
+            item_home.setBadgeCount(count);
     }
+
+    /**
+     * Xóa bỏ Badge
+     * */
+    private void removeBadgeCount() {
+        if (item_home != null)
+            item_home.removeBadge();
+    }
+
+//    /**
+//    * Loại bỏ animation của bottom navigation view
+//    * */
+//    private void removeShiftMode() {
+//        BottomNavigationMenuView menuView = (BottomNavigationMenuView) nav_bottom_home.getChildAt(0);
+//        try {
+//            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+//            shiftingMode.setAccessible(true);
+//            shiftingMode.setBoolean(menuView, false);
+//            shiftingMode.setAccessible(false);
+//            for (int i = 0; i < menuView.getChildCount(); i++) {
+//                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+//                item.setShiftingMode(false);
+//                // set once again checked value, so view will be updated
+//                item.setChecked(item.getItemData().isChecked());
+//            }
+//        } catch (NoSuchFieldException e) {
+//            Log.e(TAG, "Unable to get shift mode field");
+//        } catch (IllegalAccessException e) {
+//            Log.e(TAG, "Unable to change value of shift mode");
+//        }
+//    }
 
 //    /**
 //     * Kiểm tra dữ liệu truyền vào
@@ -162,6 +179,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
     /**
      * Đổi tiêu đề của toolbar
+     *
      * @param StringResource id of string
      */
     private void renameToolbar(int StringResource) {

@@ -40,12 +40,17 @@ public class NewProgressView {
     }
 
     public void setUpRecyclerView(RecyclerView.LayoutManager layoutManager, RecyclerView.Adapter adapter) {
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
     public void onScrollRecyclerview(RecyclerOnScrollListener onScrollListener) {
         recyclerView.addOnScrollListener(onScrollListener);
+    }
+
+    public void refreshList() {
+        recyclerView.refreshDrawableState();
     }
 
     public void updateMessage(int imageView, String textView) {
@@ -97,5 +102,9 @@ public class NewProgressView {
 
     public boolean isRefreshing() {
         return swipeRefreshLayout.isRefreshing();
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/nav.home.home"
+        icon="@mipmap/ic_tab_home"
+        title="@string/nav_home"/>
+
+    <tab
+        id="@+id/nav.home.voucher"
+        icon="@mipmap/ic_tab_voucher"
+        title="@string/nav_voucher"/>
+
+    <tab
+        id="@+id/nav.home.member"
+        icon="@mipmap/ic_tab_member_card"
+        title="@string/nav_member"/>
+
+    <tab
+        id="@+id/nav.home.favorite"
+        icon="@mipmap/ic_tab_favorite"
+        title="@string/nav_favorite"/>
+
+    <tab
+        id="@+id/nav.home.account"
+        icon="@mipmap/ic_tab_user"
+        title="@string/nav_account"/>
+</tabs>

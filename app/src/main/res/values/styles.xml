@@ -266,4 +266,8 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+
+    <style name="MyTextAppearance_Small">
+        <item name="android:textSize">@dimen/font_12</item>
+    </style>
 </resources>

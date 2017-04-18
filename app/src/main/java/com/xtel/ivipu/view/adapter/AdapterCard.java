@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.adapter;
 
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private IFragmentMemberCard view;
     private ArrayList<MemberObj> arrayList;
     private String User_name;
+    private Typeface typeface;
 
     private boolean isLoadMore = true;
     private int TYPE_VIEW = 1, TYPE_LOAD = 2;
@@ -33,6 +35,8 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public AdapterCard(IFragmentMemberCard view, ArrayList<MemberObj> arrayList) {
         this.view = view;
         this.arrayList = arrayList;
+
+        typeface = Typeface.createFromAsset(view.getActivity().getAssets(), "font/halter.ttf");
         User_name = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_FULL_NAME);
     }
 
@@ -46,6 +50,7 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return null;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (position == arrayList.size())
@@ -57,7 +62,6 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             viewHolder.setItemClick(position);
         } else if (holder instanceof ViewProgressBar) {
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
-            //noinspection deprecation
             viewProgressBar.progressBar.getIndeterminateDrawable().setColorFilter(view.getActivity().getResources().getColor(R.color.colorPrimary), android.graphics.PorterDuff.Mode.MULTIPLY);
         }
     }
@@ -92,6 +96,8 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         void setData(MemberObj memberObj) {
+            tv_user_name.setTypeface(typeface);
+
             WidgetHelper.getInstance().setAvatarImageURL(img_Card, memberObj.getMember_card());
             WidgetHelper.getInstance().setTextViewWithResult(tv_user_name, User_name, view.getActivity().getString(R.string.message_not_update_full_name));
             WidgetHelper.getInstance().setTextViewDate(tv_create_time, view.getActivity().getString(R.string.date_create) + ": ", memberObj.getCreate_time());
