@@ -21,9 +21,9 @@ import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
+import com.xtel.ivipu.view.fragment.FragmentHomeUser;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.ListVoucherFragment;
-import com.xtel.ivipu.view.fragment.ProfileFragment;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
 /**
@@ -301,13 +301,13 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
 
     private void replaceMember() {
         replaceFragment(R.id.home_frame, FragmentMemberCard.newInstance(), "MEMBER");
-        renameToolbar(R.string.title_activity_list_member_card);
+        renameToolbar(R.string.title_list_member_card);
         lockDrawer();
     }
 
     private void replaceListVoucher() {
         replaceFragment(R.id.home_frame, ListVoucherFragment.newInstance(), "LIST_VOUCHER");
-        renameToolbar(R.string.title_activity_list_voucher);
+        renameToolbar(R.string.title_list_voucher);
         lockDrawer();
     }
 
@@ -318,13 +318,13 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         } else {
             replaceFragment(R.id.home_frame, FragmentHomeNewsList.newInstance(10), "LATEST_NEW");
         }
-        renameToolbar(R.string.title_activity_list_favorite);
+        renameToolbar(R.string.title_list_favorite);
         lockDrawer();
     }
 
-    private void replaceProfile() {
-        replaceFragment(R.id.home_frame, ProfileFragment.newInstance(), "PROFILE");
-        renameToolbar(R.string.title_activity_profile);
+    private void replaceUser() {
+        replaceFragment(R.id.home_frame, FragmentHomeUser.newInstance(), "USER");
+        renameToolbar(R.string.title_user);
         lockDrawer();
     }
 

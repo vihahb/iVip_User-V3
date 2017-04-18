@@ -21,6 +21,7 @@ import com.xtel.ivipu.view.MyApplication;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.fcm.inf.NotifyInterface;
+import com.xtel.sdk.utils.SharedPreferencesUtils;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -58,24 +59,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
             checkNotify(messageObj);
             Log.e("Data fcm", JsonHelper.toJson(messageObj));
         }
-//        // Check if message contains a notification payload.
-//        if (remoteMessage.getData() != null){
-//            Log.e(TAG, "Message data payload: " + remoteMessage.getData());
-//
-//        }
-
-
-//        if (remoteMessage.getNotification() != null) {
-//            Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-//
-//            MessageObj message = JsonHelper.getObjectNoException(remoteMessage.getNotification().getBody(), MessageObj.class);
-//            Log.e(TAG, String.valueOf(message));
-//            if (message != null) {
-//                toggleNotifications(message, 1);
-//            }
-////                sendNotification(message, 1);
-//        }
-//        Log.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
     }
 
     private void checkNotify(MessageObj messageObj) {
@@ -245,5 +228,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
     public void getNotifySuccess(int notify) {
         Log.e("Notify count...", String.valueOf(notify));
         ShortcutBadger.applyCount(getBaseContext(), notify);
+        SharedPreferencesUtils.getInstance().putIntValue(Constants.NOTIFY_VALUE, notify);
     }
 }

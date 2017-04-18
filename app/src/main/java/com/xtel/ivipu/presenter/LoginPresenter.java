@@ -11,14 +11,20 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.xtel.ivipu.model.LoginModel;
+import com.xtel.ivipu.model.RESP.RESP_Short;
 import com.xtel.ivipu.view.activity.HomeActivity;
+import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.activity.inf.ILoginView;
 import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.commons.Constants;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.nipservicesdk.utils.SharedUtils;
 import com.xtel.sdk.commons.NetWorkInfo;
+import com.xtel.sdk.utils.SharedPreferencesUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -130,7 +136,7 @@ public class LoginPresenter {
                     String sesion = success.getSession();
                     Log.d(TAG + "session", sesion);
                     SharedUtils.getInstance().putStringValue(Constants.SESSION, sesion);
-                    view.startActivityAndFinish(HomeActivity.class);
+                    onGetShortUser(sesion);
                 }
 
                 @Override
@@ -138,6 +144,65 @@ public class LoginPresenter {
                     view.showShortToast("Login Exception. Error code: " + error.getCode());
                 }
             });
+        }
+    }
+
+    public void onGetShortUser(final String session) {
+
+        if (session != null) {
+            if (!NetWorkInfo.isOnline(view.getActivity())) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.onNetworkDisable();
+                    }
+                }, 500);
+                return;
+            } else {
+
+                String url_profile = com.xtel.sdk.commons.Constants.SERVER_IVIP + com.xtel.sdk.commons.Constants.GET_USER_IVIP_SORT;
+                Log.e(TAG + "url", url_profile);
+
+                LoginModel.getInstance().getUser(url_profile, session, new ResponseHandle<RESP_Short>(RESP_Short.class) {
+                    @Override
+                    public void onSuccess(RESP_Short obj) {
+                        int notification = obj.getNew_notify();
+                        String full_name = obj.getFullname();
+                        String avatar = obj.getAvatar();
+                        Log.e("New notification", String.valueOf(notification));
+                        SharedPreferencesUtils.getInstance().putIntValue(com.xtel.sdk.commons.Constants.NOTIFY_VALUE, notification);
+                        SharedPreferencesUtils.getInstance().putStringValue(com.xtel.sdk.commons.Constants.SORT_AVA, avatar);
+                        SharedPreferencesUtils.getInstance().putStringValue(com.xtel.sdk.commons.Constants.PROFILE_FULL_NAME, full_name);
+                        view.startActivityAndFinish(HomeActivity.class);
+                    }
+
+                    @Override
+                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                        if (error != null) {
+                            int code_err = error.getCode();
+                            if (code_err == 2) {
+                                com.xtel.nipservicesdk.CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                    @Override
+                                    public void onSuccess(RESP_Login success) {
+                                        onGetShortUser(session);
+                                    }
+
+                                    @Override
+                                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                        int code = error.getCode();
+                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                                        view.startActivitys(LoginActivity.class);
+                                    }
+                                });
+                            } else {
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code_err, null));
+                            }
+                        }
+                    }
+                });
+            }
+        } else {
+            return;
         }
     }
 

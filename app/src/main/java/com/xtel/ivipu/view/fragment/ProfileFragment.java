@@ -56,7 +56,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -65,14 +64,13 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class ProfileFragment extends BasicFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, IProfileActivityView {
-    protected CallbackManager callbackManager;
-    public static final String TAG = "Profile frag ";
+    public static final String TAG = "Profile frag";
     public static String[] gender_spinner;
     private final int CAMERA_REQUEST_CODE = 1002;
     public UserInfo userInfo;
+    protected CallbackManager callbackManager;
     String[] permission = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     ProfilePresenter presenter;
-    String time_set;
     long birth_day_set = 0;
     String session = com.xtel.nipservicesdk.LoginManager.getCurrentSession();
     private TextView tv_name, tv_date_reg, tv_score, tv_rank;
@@ -85,7 +83,7 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private Spinner sp_gender;
     private ArrayAdapter<String> arr_gender;
     private DatePickerDialog pickerDialog;
-    private String time_get;
+    private String time_get, time_set;
     private Date date;
     private String gender_set;
 
@@ -196,19 +194,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
         } else if (id == R.id.btn_Login) {
             startActivity(LoginActivity.class);
         }
-    }
-
-    private String convertLong2Time(long time) {
-//        long time_set = time * 10000;
-//        Date date = new Timestamp(time_set);
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
-//        String formatTime = dateFormat.format(date);
-        Date date = new Date(time * 1000);
-        SimpleDateFormat formatTime = new SimpleDateFormat("dd-MM-yyyy");
-        formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        String formattedDate = formatTime.format(date);
-        return formattedDate;
     }
 
     @Override
@@ -436,15 +421,13 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     private void setJointDate(UserInfo userInfo) {
-        String date_reg = convertLong2Time(userInfo.getJoin_date());
-        Log.e("Time joint: ", date_reg);
-        if (date_reg != null) {
+        long time_joint = userInfo.getJoin_date();
+        if (time_joint != 0 && time_joint > 0) {
 //            tv_date_reg.setText("Ngày đăng ký: " + date_reg);
-            WidgetHelper.getInstance().setTextViewDate(tv_date_reg, "Ngày đăng ký: ", userInfo.getJoin_date());
+            WidgetHelper.getInstance().setTextViewDate(tv_date_reg, "Ngày đăng ký: ", time_joint);
         } else {
-            date_reg = "Ngày đăng ký: Chưa có thông tin";
 //            tv_date_reg.setText(date_reg);
-            WidgetHelper.getInstance().setTextViewNoResult(tv_date_reg, date_reg);
+            WidgetHelper.getInstance().setTextViewNoResult(tv_date_reg, "Ngày đăng ký: Chưa có thông tin");
         }
     }
 
@@ -458,16 +441,15 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 
     private void setBirthDay(UserInfo userInfo) {
         long date_time = userInfo.getBirthday();
-        String date_birth = convertLong2Time(userInfo.getBirthday());
-        if (date_time != 0) {
+        String date_birth;
+        if (date_time != 0 && date_time > 0) {
 //            edt_birth.setText(date_birth);
             WidgetHelper.getInstance().setEditTextDate(edt_birth, date_time);
         } else {
             date_birth = getActivity().getResources().getString(R.string.no_birth_day);
             edt_birth.setHint(date_birth);
         }
-        Log.e("birth day: ", date_birth);
-        time_get = date_birth;
+        time_get = WidgetHelper.getInstance().convertLong2Time(date_time);
     }
 
     private void setGender(UserInfo userInfo) {
@@ -482,7 +464,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private void setAddress(UserInfo userInfo) {
         String address = userInfo.getAddress();
         if (address != null) {
-//            edt_address.setText(address);
             WidgetHelper.getInstance().setEditTextNoResult(edt_address, address);
         } else {
             address = getActivity().getResources().getString(R.string.no_address);
@@ -493,7 +474,6 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     private void setPhone(UserInfo userInfo) {
         String phone_number = userInfo.getPhonenumber();
         if (phone_number != null) {
-//            edt_phone.setText(phone_number);
             WidgetHelper.getInstance().setEditTextNoResult(edt_phone, phone_number);
         } else {
             phone_number = getActivity().getResources().getString(R.string.no_phone);
@@ -503,12 +483,13 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
 
     private void setName(UserInfo userInfo) {
         String full_name = userInfo.getFullname();
-        if (full_name == null || full_name.equals("")) {
-            full_name = "Chưa có thông tin";
-            edt_name.setHint(full_name);
+
+        if (full_name != null && !full_name.isEmpty()) {
+            WidgetHelper.getInstance().setEditTextNoResult(edt_name, full_name);
             WidgetHelper.getInstance().setTextViewNoResult(tv_name, full_name);
         } else {
-            WidgetHelper.getInstance().setEditTextNoResult(edt_name, full_name);
+            full_name = "Chưa có thông tin";
+            edt_name.setHint(full_name);
             WidgetHelper.getInstance().setTextViewNoResult(tv_name, full_name);
         }
     }
@@ -574,30 +555,30 @@ public class ProfileFragment extends BasicFragment implements View.OnClickListen
     }
 
     public void onGetUpdate() {
-            UserInfo userInfo = new UserInfo();
-            time_set = edt_birth.getText().toString();
-            birth_day_set = convertTime2Unix(time_set);
-            String full_name = edt_name.getText().toString();
-            String phone_number = edt_phone.getText().toString();
-            String address = edt_address.getText().toString();
+        UserInfo userInfo = new UserInfo();
+        time_set = edt_birth.getText().toString();
+        birth_day_set = convertTime2Unix(time_set);
+        String full_name = edt_name.getText().toString();
+        String phone_number = edt_phone.getText().toString();
+        String address = edt_address.getText().toString();
 
-            int gender;
-            if (gender_set.equals("Nữ")) {
-                gender = 1;
-            } else if (gender_set.equals("Nam")) {
-                gender = 2;
-            } else {
-                gender = 3;
-            }
+        int gender;
+        if (gender_set.equals("Nữ")) {
+            gender = 1;
+        } else if (gender_set.equals("Nam")) {
+            gender = 2;
+        } else {
+            gender = 3;
+        }
 
-            userInfo.setBirthday(birth_day_set);
-            userInfo.setFullname(full_name);
-            userInfo.setPhonenumber(phone_number);
-            userInfo.setAddress(address);
-            userInfo.setGender(gender);
-            Log.e("Test object request", userInfo.toString());
-            presenter.setData(userInfo);
-            setDataProfile(userInfo);
+        userInfo.setBirthday(birth_day_set);
+        userInfo.setFullname(full_name);
+        userInfo.setPhonenumber(phone_number);
+        userInfo.setAddress(address);
+        userInfo.setGender(gender);
+        Log.e("Test object request", userInfo.toString());
+        presenter.setData(userInfo);
+        setDataProfile(userInfo);
     }
 
     private void onUpdateAvatar(String server_path) {

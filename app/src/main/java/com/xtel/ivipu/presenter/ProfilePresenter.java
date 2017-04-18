@@ -2,7 +2,6 @@ package com.xtel.ivipu.presenter;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.xtel.ivipu.model.LoginModel;
@@ -72,13 +71,13 @@ public class ProfilePresenter {
             if (!NetWorkInfo.isOnline(view.getActivity())) {
                 view.onNetworkDisable();
             } else {
-                UserInfo userInfo = LoginModel.getInstance().getUserInfo();
+//                UserInfo userInfo = LoginModel.getInstance().getUserInfo();
 
-                if (TextUtils.isEmpty(userInfo.getFullname())) {
+//                if (TextUtils.isEmpty(userInfo.getFullname())) {
                     iCmd.execute(1);
-                } else {
-                    view.setProfileSuccess(userInfo);
-                }
+//                } else {
+//                    view.setProfileSuccess(userInfo);
+//                }
             }
         }
     }
@@ -149,7 +148,8 @@ public class ProfilePresenter {
                     @Override
                     public void onSuccess(com.xtel.nipservicesdk.model.entity.RESP_None obj) {
                         Log.e("respond success", "ádasdaweawe");
-                        view.updateProfileSucc();
+//                        view.updateProfileSucc();
+                        getProfileData();
                     }
 
                     @Override

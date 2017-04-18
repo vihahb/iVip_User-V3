@@ -40,7 +40,6 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private int REQUEST_VIEW_NEWS_LIST = 99;
     private ProgressView progressView;
     private RecyclerView.LayoutManager layoutManager;
-//    private LinearLayout ln_new_slider;
 
     public static FragmentHomeNewsList newInstance(int type) {
         FragmentHomeNewsList newsList = new FragmentHomeNewsList();
@@ -148,18 +147,13 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 //        progressView.hideData();
         progressView.setRefreshing(true);
 //        adapter.onSetLoadMore(true);
-        initDataNews();
+        presenter.getNewsList(type, page, pagesize);
     }
 
     private void getFavorite() {
         progressView.setRefreshing(true);
         presenter.getFavorite(page, pagesize);
     }
-
-    private void initDataNews() {
-        presenter.getNewsList(type, page, pagesize);
-    }
-
 
     private void initRecylerView(View view) {
         rcl_new_list = (RecyclerView) view.findViewById(R.id.rcl_ivip);
@@ -254,7 +248,11 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     @Override
     public void onLoadMore() {
         page++;
-        getData();
+        if (type == 10) {
+            getFavorite();
+        } else {
+            getData();
+        }
     }
 
 

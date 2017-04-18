@@ -1,3 +1,4 @@
+/*
 package com.xtel.ivipu.presenter;
 
 import android.os.Handler;
@@ -18,9 +19,11 @@ import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
 
+*/
 /**
  * Created by vivhp on 4/5/2017.
- */
+ *//*
+
 
 public class FragmentVoucherListPresenter {
 
@@ -85,3 +88,4 @@ public class FragmentVoucherListPresenter {
         }
     }
 }
+*/

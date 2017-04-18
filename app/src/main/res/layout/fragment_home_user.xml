@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ln_action_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/size_8"
+        android:paddingLeft="8dp"
+        android:paddingTop="@dimen/size_8">
+
+        <ImageView
+            android:id="@+id/img_user_avatar"
+            android:layout_width="@dimen/size_36"
+            android:layout_height="@dimen/size_36"
+            android:src="@drawable/ic_user_fragment" />
+
+        <TextView
+            android:id="@+id/tv_action_user"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_action_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/size_12"
+            android:text="@string/action_login"
+            android:textSize="@dimen/font_15"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+    <TextView
+        android:id="@+id/tv_action_qr"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_action_qr"
+        android:drawablePadding="@dimen/size_16"
+        android:drawableRight="@drawable/ic_action_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/size_8"
+        android:text="@string/user_action_qr"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+    <LinearLayout
+        android:id="@+id/ln_action_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/size_8"
+        android:paddingLeft="8dp"
+        android:paddingTop="@dimen/size_8">
+
+        <RelativeLayout
+            android:layout_width="@dimen/size_36"
+            android:layout_height="@dimen/size_36">
+
+            <ImageView
+                android:layout_width="@dimen/size_36"
+                android:layout_height="@dimen/size_36"
+                android:padding="@dimen/size_1"
+                android:src="@drawable/ic_action_notify" />
+
+            <TextView
+                android:id="@+id/badge_notification"
+                android:layout_width="@dimen/size_18"
+                android:layout_height="@dimen/size_18"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/badge_item_count"
+                android:gravity="center"
+                android:textColor="#FFF"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_action_notify"
+            style="@style/TextView.User"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableRight="@drawable/ic_action_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/size_12"
+            android:text="Thông báo của bạn"
+            android:textSize="@dimen/font_15"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+    <TextView
+        android:id="@+id/tv_action_history"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_user_history_view"
+        android:drawablePadding="@dimen/size_16"
+        android:drawableRight="@drawable/ic_action_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/size_8"
+        android:text="@string/user_history_view"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+    <TextView
+        android:id="@+id/tv_action_history_checkin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_user_history_checkin"
+        android:drawablePadding="@dimen/size_16"
+        android:drawableRight="@drawable/ic_action_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/size_8"
+        android:text="@string/user_history_checkin"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+    <TextView
+        android:id="@+id/tv_action_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_user_privacy"
+        android:drawablePadding="@dimen/size_16"
+        android:drawableRight="@drawable/ic_action_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/size_8"
+        android:text="@string/user_privacy"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+    <TextView
+        android:id="@+id/tv_action_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@drawable/layout_action_state"
+        android:clickable="true"
+        android:drawableLeft="@drawable/ic_user_about"
+        android:drawablePadding="@dimen/size_16"
+        android:drawableRight="@drawable/ic_action_right"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/size_8"
+        android:text="@string/user_about"
+        tools:ignore="RtlSymmetry" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1"
+        android:background="@color/divider_news_item_v2" />
+
+</LinearLayout>

@@ -132,11 +132,13 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
 
     @Override
     public void onBackPressed() {
-        if (isDisable) {
-            startActivityFinish(HomeActivity.class);
-        } else {
-            super.onBackPressed();
-        }
+//        if (isDisable) {
+//            startActivityFinish(HomeActivity.class);
+//        } else {
+//            super.onBackPressed();
+//        }
+        super.onBackPressed();
+
     }
 
     public void getData() {
