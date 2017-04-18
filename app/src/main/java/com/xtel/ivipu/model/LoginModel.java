@@ -46,6 +46,7 @@ public class LoginModel extends Model {
         SharedPreferencesUtils.getInstance().putIntValue(Constants.PROFILE_GENERAL_POINT, obj.getGeneral_point());
         SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_LEVEL, obj.getLevel());
         SharedPreferencesUtils.getInstance().putLongValue(Constants.PROFILE_JOINT_DATE, obj.getJoin_date());
+        SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_AREA_CODE, obj.getArea_code());
     }
 
     public UserInfo getUserInfo() {
@@ -64,7 +65,7 @@ public class LoginModel extends Model {
         userInfo.setGeneral_point(SharedPreferencesUtils.getInstance().getIntValue(Constants.PROFILE_GENERAL_POINT));
         userInfo.setLevel(SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_LEVEL));
         userInfo.setJoin_date(SharedPreferencesUtils.getInstance().getLongValue(Constants.PROFILE_JOINT_DATE));
-
+        userInfo.setArea_code(SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_AREA_CODE));
         return userInfo;
     }
 

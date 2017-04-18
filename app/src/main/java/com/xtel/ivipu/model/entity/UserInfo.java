@@ -35,6 +35,11 @@ public class UserInfo {
     private long join_date;
     @Expose
     private String fullname;
+    @Expose
+    private String area_code;
+
+    public UserInfo() {
+    }
 
     public String getCode() {
         return code;
@@ -148,6 +153,14 @@ public class UserInfo {
         this.fullname = fullname;
     }
 
+    public String getArea_code() {
+        return area_code;
+    }
+
+    public void setArea_code(String area_code) {
+        this.area_code = area_code;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -165,6 +178,7 @@ public class UserInfo {
                 ", level='" + level + '\'' +
                 ", join_date=" + join_date +
                 ", fullname='" + fullname + '\'' +
+                ", area_code='" + area_code + '\'' +
                 '}';
     }
 }

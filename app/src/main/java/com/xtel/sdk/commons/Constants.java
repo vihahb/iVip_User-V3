@@ -50,6 +50,7 @@ public class Constants {
     /**
      * Profile Infomations
      **/
+    public static final String PROFILE_AREA_CODE = "profile_area_code";
     public static final String PROFILE_FULL_NAME = "profile_full_name";
     public static final String PROFILE_GENDER = "profile_gender";
     public static final String PROFILE_BIRTH_DAY = "profile_birth_day";

@@ -148,7 +148,7 @@ public class ProfilePresenter {
                     @Override
                     public void onSuccess(com.xtel.nipservicesdk.model.entity.RESP_None obj) {
                         Log.e("respond success", "ádasdaweawe");
-//                        view.updateProfileSucc();
+                        view.updateProfileSucc();
                         getProfileData();
                     }
 
