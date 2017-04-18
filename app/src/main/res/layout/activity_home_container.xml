@@ -35,16 +35,24 @@
         android:layout_height="@dimen/size_3"
         android:background="@drawable/shadow_on_top" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/home.bottom_navigation"
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/home.bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_56"
-        android:background="@android:color/white"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:itemIconTint="@drawable/bottom_navigation_item"
-        app:itemTextAppearance="?android:attr/textAppearanceSmall"
-        app:itemTextColor="@drawable/bottom_navigation_item"
-        app:menu="@menu/nav_bottom_navigation" />
+        android:layout_height="@dimen/size_60"
+        app:bb_activeTabColor="@color/bottom_navigatin_selected"
+        app:bb_inActiveTabColor="@color/bottom_navigatin_default"
+        app:bb_tabXmlResource="@xml/nav_bottom_navigation" />
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/home.bottom_navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/size_56"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay"-->
+        <!--app:itemIconTint="@drawable/bottom_navigation_item"-->
+        <!--app:itemTextAppearance="?android:attr/textAppearanceSmall"-->
+        <!--app:itemTextColor="@drawable/bottom_navigation_item"-->
+        <!--app:menu="@menu/nav_bottom_navigation" />-->
 
     <!--</FrameLayout>-->
     <!--/>-->

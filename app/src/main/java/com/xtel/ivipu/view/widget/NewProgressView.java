@@ -35,11 +35,12 @@ public class NewProgressView {
             img_message = (ImageView) view.findViewById(R.id.progressview_img_message);
             txt_message = (TextView) view.findViewById(R.id.progressview_txt_message);
         }
-        recyclerView.setHasFixedSize(true);
+
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorPrimary, R.color.colorPrimary);
     }
 
     public void setUpRecyclerView(RecyclerView.LayoutManager layoutManager, RecyclerView.Adapter adapter) {
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
