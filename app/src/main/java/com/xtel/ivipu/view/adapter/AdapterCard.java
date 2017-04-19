@@ -99,7 +99,7 @@ public class AdapterCard extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tv_user_name.setTypeface(typeface);
 
             WidgetHelper.getInstance().setAvatarImageURL(img_Card, memberObj.getMember_card());
-            WidgetHelper.getInstance().setTextViewWithResult(tv_user_name, User_name, view.getActivity().getString(R.string.message_not_update_full_name));
+            WidgetHelper.getInstance().setTextViewWithResult(tv_user_name, Constants.unicodeToKoDau(User_name), view.getActivity().getString(R.string.message_not_update_full_name));
             WidgetHelper.getInstance().setTextViewDate(tv_create_time, view.getActivity().getString(R.string.date_create) + ": ", memberObj.getCreate_time());
         }
 

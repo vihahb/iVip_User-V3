@@ -8,6 +8,7 @@ import com.xtel.nipservicesdk.model.entity.RESP_Basic;
  */
 
 public class RESP_Voucher extends RESP_Basic {
+
     @Expose
     private String code;
     @Expose

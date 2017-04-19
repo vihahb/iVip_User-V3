@@ -160,6 +160,7 @@
             android:name=".view.activity.NewsInfoActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title.activity.news_info"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity

@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 /**
  * Created by vivhp on 2/14/2017.
  */
+
 public class VoucherObj {
 
     @Expose
@@ -14,9 +15,9 @@ public class VoucherObj {
     @Expose
     private String bar_code;
     @Expose
-    private long create_time;
+    private Long create_time;
     @Expose
-    private long expired_time;
+    private Long expired_time;
     @Expose
     private Integer status;
 
@@ -47,19 +48,19 @@ public class VoucherObj {
         this.bar_code = bar_code;
     }
 
-    public long getCreate_time() {
+    public Long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(long create_time) {
+    public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
 
-    public long getExpired_time() {
+    public Long getExpired_time() {
         return expired_time;
     }
 
-    public void setExpired_time(long expired_time) {
+    public void setExpired_time(Long expired_time) {
         this.expired_time = expired_time;
     }
 

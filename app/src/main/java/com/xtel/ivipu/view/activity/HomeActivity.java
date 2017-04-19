@@ -38,7 +38,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     protected ActionBar actionBar;
 
     protected HomePresenter presenter;
-    //    protected BottomNavigationView nav_bottom_home;
     protected DrawerLayout drawer;
     protected BottomBarTab item_home;
 
@@ -90,7 +89,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                 switch (tabId) {
                     case R.id.nav_home_home:
                         replaceHome();
-//                        setBadgeCount(5);
                         break;
                     case R.id.nav_home_voucher:
                         replaceListVoucher();
@@ -103,7 +101,6 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                         break;
                     case R.id.nav_home_account:
                         replaceUser();
-//                        removeBadgeCount();
                         break;
                     default:
                         break;
