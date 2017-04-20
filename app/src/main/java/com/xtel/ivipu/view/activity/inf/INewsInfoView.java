@@ -13,6 +13,8 @@ import com.xtel.nipservicesdk.model.entity.Error;
 
 public interface INewsInfoView {
 
+    void startActivity(Class clazz, String key, Object object);
+
     void showProgressBar(String message);
     void onGetDataaSuccess(RESP_News obj);
     void onGetDataError(String message);

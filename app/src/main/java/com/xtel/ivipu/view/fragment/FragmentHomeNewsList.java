@@ -300,7 +300,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
 //            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1, p2, p3, p4);
 //            ActivityCompat.startActivityForResultObject(getActivity(), intent, REQUEST_VIEW_NEWS_LIST, options.toBundle());
 //        } else {
-        startActivityForResultObject(NewsInfoActivity.class, Constants.MODEL, testRecycle, REQUEST_VIEW_NEWS_LIST);
+        startActivityForResultObject(NewsInfoActivity.class, Constants.OBJECT, testRecycle, REQUEST_VIEW_NEWS_LIST);
 //        }
     }
 

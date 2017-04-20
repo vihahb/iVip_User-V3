@@ -118,6 +118,7 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
     protected void initListener() {
         header_img_share.setOnClickListener(this);
         header_img_like.setOnClickListener(this);
+        header_txt_store_name.setOnClickListener(this);
         header_txt_get_voucher.setOnClickListener(this);
 
         content_btn_rate.setOnClickListener(this);
@@ -135,7 +136,7 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
         WidgetHelper.getInstance().setTextViewNumber(header_txt_rate, obj.getRate());
         WidgetHelper.getInstance().setTextViewNumber(header_txt_like, obj.getLike());
         WidgetHelper.getInstance().setTextViewWithResult(header_txt_store_name, obj.getStore_name(), getString(R.string.message_not_update_store_name));
-        WidgetHelper.getInstance().setTextViewCircleLogo(header_txt_store_name, obj.getLogo());
+        WidgetHelper.getInstance().setTextViewCircleLogo(header_txt_store_name, obj.getLogo(), true);
         WidgetHelper.getInstance().setImageButtonLike(header_img_like, obj.getFavorite());
 
 //        Content
@@ -215,6 +216,11 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
             content_txt_current_rate.setVisibility(View.GONE);
             content_layout_current_rate.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void startActivity(Class clazz, String key, Object object) {
+        super.startActivity(clazz, key, object);
     }
 
     /**
@@ -345,6 +351,9 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.news_info_header_img_like:
                 presenter.likeNews();
+                break;
+            case R.id.news_info_header_txt_store_name:
+                presenter.viewStoreInfo();
                 break;
             case R.id.news_info_header_txt_voucher:
                 presenter.getVoucher();

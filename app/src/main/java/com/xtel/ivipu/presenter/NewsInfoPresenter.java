@@ -5,6 +5,7 @@ import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.RESP.RESP_News;
 import com.xtel.ivipu.model.RESP.RESP_Voucher;
+import com.xtel.ivipu.view.activity.StoreInfoActivity;
 import com.xtel.ivipu.view.activity.inf.INewsInfoView;
 import com.xtel.nipservicesdk.callback.ICmd;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
@@ -12,6 +13,8 @@ import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_None;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
+
+import java.security.PublicKey;
 
 /**
  * Created by Vulcl on 4/18/2017
@@ -113,7 +116,7 @@ public class NewsInfoPresenter {
         RESP_NewEntity resp_newEntity = null;
 
         try {
-            resp_newEntity = (RESP_NewEntity) view.getActivity().getIntent().getSerializableExtra(Constants.MODEL);
+            resp_newEntity = (RESP_NewEntity) view.getActivity().getIntent().getSerializableExtra(Constants.OBJECT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,6 +136,15 @@ public class NewsInfoPresenter {
 
         view.showProgressBar(view.getActivity().getString(R.string.doing_do));
         iCmd.execute(3);
+    }
+
+    public void viewStoreInfo() {
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            view.onNoInternet();
+            return;
+        }
+
+        view.startActivity(StoreInfoActivity.class, Constants.OBJECT, resp_newsObject);
     }
 
     public void getVoucher() {

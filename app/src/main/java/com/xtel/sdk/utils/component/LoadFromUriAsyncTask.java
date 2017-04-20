@@ -4,16 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 
 /**
- * Created by vivhp on 4/3/2017.
+ * Created by vivhp on 4/3/2017
  */
 
 public class LoadFromUriAsyncTask extends AsyncTask<Uri, Void, Bitmap> {
@@ -60,11 +58,15 @@ public class LoadFromUriAsyncTask extends AsyncTask<Uri, Void, Bitmap> {
             width = (int) (result.getWidth() / persent);
             height = (int) (result.getHeight() / persent);
         } else {
-            float persent = ((float) textView.getWidth()) / ((float) result.getWidth());
-
-            width = (int) (result.getWidth() * persent);
-            height = (int) (result.getHeight() * persent);
+            width = result.getWidth();
+            height = result.getHeight();
         }
+//        else {
+//            float persent = ((float) textView.getWidth()) / ((float) result.getWidth());
+//
+//            width = (int) (result.getWidth() * persent);
+//            height = (int) (result.getHeight() * persent);
+//        }
 
         mUrlDrawable.setBounds(0, 0, width, height);
         mUrlDrawable.mDrawable.setBounds(0, 0, width, height);

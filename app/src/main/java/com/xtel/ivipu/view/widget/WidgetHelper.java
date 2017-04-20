@@ -82,7 +82,7 @@ public class WidgetHelper {
             imageButton.setImageResource(R.mipmap.ic_favorite_gray_36);
     }
 
-    public void setTextViewCircleLogo(final TextView textView, String url) {
+    public void setTextViewCircleLogo(final TextView textView, String url, final boolean showArrow) {
         final ImageView imageView = new ImageButton(MyApplication.context);
         imageView.setVisibility(View.GONE);
         url = url.replace("https", "http").replace("9191", "9190");
@@ -95,8 +95,13 @@ public class WidgetHelper {
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        Drawable drawable = new BitmapDrawable(MyApplication.context.getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(), dpToPx(38), dpToPx(38), true));
-                        textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, MyApplication.context.getResources().getDrawable(R.mipmap.ic_arrow_right_black_24), null);
+                        Drawable drawable = new BitmapDrawable(MyApplication.context.getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(), dpToPx(36), dpToPx(36), true));
+
+                        if (showArrow)
+                            textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, MyApplication.context.getResources().getDrawable(R.mipmap.ic_arrow_right_black_24), null);
+                        else
+                            textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+
                         imageView.destroyDrawingCache();
                     }
 

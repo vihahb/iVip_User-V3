@@ -1,13 +1,16 @@
 package com.xtel.ivipu.model.RESP;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.xtel.nipservicesdk.model.entity.RESP_Basic;
 
+import java.io.Serializable;
+
 /**
- * Created by vivhp on 2/14/2017.
+ * Created by Vulcl on 4/19/2017
  */
 
-public class RESP_News extends RESP_Basic {
+public class RESP_News extends RESP_Basic implements Serializable {
 
     @Expose
     private int id;
@@ -36,9 +39,9 @@ public class RESP_News extends RESP_Basic {
     @Expose
     private RESP_Voucher voucher;
     @Expose
-    private int store_id;
+    private Integer store_id;
     @Expose
-    private int chain_store_id;
+    private Integer chain_store_id;
     @Expose
     private int favorite;
     @Expose
@@ -150,19 +153,19 @@ public class RESP_News extends RESP_Basic {
         this.voucher = voucher;
     }
 
-    public int getStore_id() {
+    public Integer getStore_id() {
         return store_id;
     }
 
-    public void setStore_id(int store_id) {
+    public void setStore_id(Integer store_id) {
         this.store_id = store_id;
     }
 
-    public int getChain_store_id() {
+    public Integer getChain_store_id() {
         return chain_store_id;
     }
 
-    public void setChain_store_id(int chain_store_id) {
+    public void setChain_store_id(Integer chain_store_id) {
         this.chain_store_id = chain_store_id;
     }
 

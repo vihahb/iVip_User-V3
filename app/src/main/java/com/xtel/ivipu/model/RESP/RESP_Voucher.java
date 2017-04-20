@@ -3,11 +3,13 @@ package com.xtel.ivipu.model.RESP;
 import com.google.gson.annotations.Expose;
 import com.xtel.nipservicesdk.model.entity.RESP_Basic;
 
+import java.io.Serializable;
+
 /**
  * Created by vivhp on 2/24/2017.
  */
 
-public class RESP_Voucher extends RESP_Basic {
+public class RESP_Voucher extends RESP_Basic implements Serializable {
 
     @Expose
     private String code;

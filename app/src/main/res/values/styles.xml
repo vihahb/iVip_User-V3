@@ -210,7 +210,7 @@
     <style name="TextView">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:drawablePadding">@dimen/size_8</item>
+        <item name="android:drawablePadding">@dimen/size_16</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
@@ -236,7 +236,13 @@
 
     <style name="TextView.Black_Title">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">@dimen/font_18</item>
+        <item name="android:textSize">@dimen/font_15</item>
+    </style>
+
+    <style name="ThemeButton" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/news_info_title</item>
+        <item name="colorControlActivated">@color/news_info_title</item>
+        <item name="colorControlHighlight">@color/news_info_title</item>
     </style>
 
     <style name="tv_item_news">

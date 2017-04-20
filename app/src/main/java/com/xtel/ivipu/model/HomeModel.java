@@ -2,11 +2,13 @@ package com.xtel.ivipu.model;
 
 import android.util.Log;
 
+import com.xtel.ivipu.model.RESP.RESP_News;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 import com.xtel.ivipu.model.entity.NewsActionEntity;
 import com.xtel.ivipu.model.entity.RateObject;
 import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.sdk.commons.Constants;
 
@@ -64,6 +66,33 @@ public class HomeModel extends Model {
     }
 
     public void getNewsComment(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getStoreInfo(RESP_News resp_news, ResponseHandle responseHandle) {
+        Integer id = null;
+        String type = null;
+
+        if (resp_news.getChain_store_id() != null)
+            id = resp_news.getChain_store_id();
+        else if (resp_news.getStore_id() != null)
+            id = resp_news.getStore_id();
+
+        if (resp_news.getChain_store_id() != null)
+            type = "Chain";
+        else if (resp_news.getStore_id() != null)
+            type = "Store";
+
+        if (id == null || type == null) {
+            Log.e("getStoreInfo", " null ");
+            responseHandle.onError(new Error(-1, "ERROR_PARSER_RESPONSE", "HAVE_ERROR"));
+            return;
+        }
+
+        String url = Constants.SERVER_IVIP + STORE_INFO_ID + id + STORE_INFO_TYPE + type;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getStoreInfo", "url " + url + "  session " + session);
         requestServer.getApi(url, session, responseHandle);
     }
 

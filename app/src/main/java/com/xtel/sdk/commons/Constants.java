@@ -139,5 +139,5 @@ public class Constants {
         return pattern.matcher(nfdNormalizedString).replaceAll("").replaceAll("\u0111", "d").replaceAll("\u0110", "D");
     }
 
-    public static final String MODEL = "model";
+    public static final String OBJECT = "object";
 }

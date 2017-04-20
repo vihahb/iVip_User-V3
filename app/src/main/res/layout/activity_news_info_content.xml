@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/news_info.content.txt_current_rate"
-            style="@style/TextView.Black_Normal"
+            style="@style/TextView.Black_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_8"
@@ -71,7 +71,7 @@
             android:drawableRight="@mipmap/ic_arrow_right_black_24"
             android:drawableStart="@mipmap/ic_star_black_36"
             android:foreground="?android:attr/selectableItemBackground"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <View
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
 
         <TextView
             android:id="@+id/news_info.content.txt_comment"
-            style="@style/TextView.Black_Normal"
+            style="@style/TextView.Black_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_8"
@@ -101,7 +101,7 @@
 
         <TextView
             android:id="@+id/news_info.content.txt_more_news"
-            style="@style/TextView.Black_Normal"
+            style="@style/TextView.Black_Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_8"
