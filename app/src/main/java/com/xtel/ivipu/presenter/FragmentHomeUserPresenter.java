@@ -13,4 +13,10 @@ public class FragmentHomeUserPresenter {
     public FragmentHomeUserPresenter(IFragmentHomeUser view) {
         this.view = view;
     }
+
+    public void showQrCode(String url_qr) {
+        if (url_qr != null) {
+            view.onShowQrCode(url_qr);
+        }
+    }
 }

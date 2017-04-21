@@ -100,7 +100,8 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                         replaceFavorite();
                         break;
                     case R.id.nav_home_account:
-                        replaceUser();
+                        replaceProfile();
+//                        removeBadgeCount();
                         break;
                     default:
                         break;
@@ -109,6 +110,10 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         });
 
         item_home = bottomBar.getTabWithId(R.id.nav_home_account);
+    }
+
+    private void replaceProfile() {
+        replaceFragment(R.id.home_frame, FragmentHomeUser.newInstance(), "USER");
     }
 
     /**

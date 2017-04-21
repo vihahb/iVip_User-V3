@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/size_38">
+    <TextView
+        android:id="@+id/tv_area_code"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/tv_area_name"
+        style="@style/Spinner_Item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_38"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/size_16"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/text_style"
+        android:textSize="@dimen/font_15" />
+</LinearLayout>

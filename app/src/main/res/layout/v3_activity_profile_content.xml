@@ -2,200 +2,239 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
 
-    <LinearLayout
-        style="layout_profile_horizontal"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
-
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_profile_name" />
-
-        <View style="@style/View_style_veticle" />
-
-        <EditText
-            android:id="@+id/edit_name"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginLeft="@dimen/size_48"
+            android:layout_width="0.5dp"
+            android:layout_height="339dp"
+            android:background="#7c7b7b" />
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:hint="@string/error_user_name_already"
-            android:paddingLeft="@dimen/size_16"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/edit_text_style"
-            android:textColorHint="@color/edit_text_style" />
-    </LinearLayout>
-
-    <View style="@style/View_style_horizontal" />
-
-    <LinearLayout
-        style="layout_profile_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
-
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_user_gender" />
-
-        <View style="@style/View_style_veticle" />
-
-        <Spinner
-            android:id="@+id/sp_profile_gender"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <View style="@style/View_style_horizontal" />
-
-    <LinearLayout
-        style="layout_profile_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
-
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_user_birth_day" />
-
-        <View style="@style/View_style_veticle" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/edit_profile_date"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                style="layout_profile_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="@string/no_reg_date"
-                android:paddingLeft="@dimen/size_16"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/edit_text_style"
-                android:textColorHint="@color/edit_text_style"
-                tools:ignore="RtlHardcoded" />
+                android:layout_height="@dimen/size_48">
 
-            <ImageView
-                android:id="@+id/img_action_change_date"
-                android:layout_width="@dimen/size_48"
-                android:layout_height="@dimen/size_48"
-                android:layout_gravity="right"
-                android:padding="@dimen/size_4"
-                android:src="@drawable/ic_user_birth_day" />
-        </FrameLayout>
-    </LinearLayout>
+                <ImageView
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:padding="@dimen/size_4"
+                    android:src="@drawable/ic_profile_name" />
 
-    <View style="@style/View_style_horizontal" />
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/name_null"
+                    android:paddingLeft="@dimen/size_16"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/edit_text_style"
+                    android:textColorHint="@color/edit_text_style" />
+            </LinearLayout>
 
-    <LinearLayout
-        style="layout_profile_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
+            <View style="@style/View_style_horizontal" />
 
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_user_phone" />
+            <LinearLayout
+                style="layout_profile_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48">
 
-        <View style="@style/View_style_veticle" />
+                <ImageView
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:padding="@dimen/size_4"
+                    android:src="@drawable/ic_user_gender" />
 
-        <EditText
-            android:id="@+id/edit_profile_phone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:hint="@string/error_user_name_already"
-            android:inputType="phone"
-            android:paddingLeft="@dimen/size_16"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/edit_text_style"
-            android:textColorHint="@color/edit_text_style" />
-    </LinearLayout>
+                <Spinner
+                    android:enabled="false"
+                    android:id="@+id/sp_profile_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
 
-    <View style="@style/View_style_horizontal" />
+            <View style="@style/View_style_horizontal" />
 
-    <LinearLayout
-        style="layout_profile_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
+            <LinearLayout
+                style="layout_profile_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48">
 
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_user_city" />
+                <ImageView
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:padding="@dimen/size_4"
+                    android:src="@drawable/ic_user_birth_day" />
 
-        <View style="@style/View_style_veticle" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <Spinner
-            android:id="@+id/sp_profile_city"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+                    <EditText
+                        android:enabled="false"
+                        android:id="@+id/edit_profile_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/no_birth_day"
+                        android:paddingLeft="@dimen/size_16"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/edit_text_style"
+                        android:textColorHint="@color/edit_text_style"
+                        tools:ignore="RtlHardcoded" />
 
-    <View style="@style/View_style_horizontal" />
+                    <ImageView
+                        android:id="@+id/img_action_change_date"
+                        android:layout_width="@dimen/size_48"
+                        android:layout_height="@dimen/size_48"
+                        android:layout_gravity="right"
+                        android:padding="@dimen/size_4"
+                        android:src="@drawable/ic_user_birth_day" />
+                </FrameLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        style="layout_profile_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
+            <View style="@style/View_style_horizontal" />
 
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_user_address" />
+            <LinearLayout
+                style="layout_profile_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48">
 
-        <View style="@style/View_style_veticle" />
+                <ImageView
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:padding="@dimen/size_4"
+                    android:src="@drawable/ic_user_phone" />
 
-        <EditText
-            android:id="@+id/edit_profile_address"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:hint="@string/no_address"
-            android:paddingLeft="@dimen/size_16"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/edit_text_style"
-            android:textColorHint="@color/edit_text_style" />
-    </LinearLayout>
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/edit_profile_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/no_phone"
+                    android:inputType="phone"
+                    android:paddingLeft="@dimen/size_16"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/edit_text_style"
+                    android:textColorHint="@color/edit_text_style" />
+            </LinearLayout>
 
-    <View style="@style/View_style_horizontal" />
+            <View style="@style/View_style_horizontal" />
 
-    <LinearLayout
-        style="layout_profile_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_48">
+            <LinearLayout
+                style="layout_profile_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48">
 
-        <ImageView
-            android:layout_width="@dimen/size_48"
-            android:layout_height="@dimen/size_48"
-            android:padding="@dimen/size_4"
-            android:src="@drawable/ic_user_save" />
+                <ImageView
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:padding="@dimen/size_4"
+                    android:src="@drawable/ic_user_city" />
 
-        <View style="@style/View_style_veticle" />
+                <Spinner
+                    android:enabled="false"
+                    android:id="@+id/sp_profile_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_more_action"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/size_16"
-            android:text="@string/btn_logout"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/edit_text_style"
-            android:textColorHint="@color/edit_text_style" />
-    </LinearLayout>
+            <View style="@style/View_style_horizontal" />
 
-    <View style="@style/View_style_horizontal" />
+            <LinearLayout
+                style="layout_profile_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48">
+
+                <ImageView
+                    android:layout_width="@dimen/size_48"
+                    android:layout_height="@dimen/size_48"
+                    android:padding="@dimen/size_4"
+                    android:src="@drawable/ic_user_address" />
+
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/edit_profile_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/no_address"
+                    android:paddingLeft="@dimen/size_16"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/edit_text_style"
+                    android:textColorHint="@color/edit_text_style" />
+            </LinearLayout>
+
+            <View style="@style/View_style_horizontal" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48">
+                <LinearLayout
+                    android:id="@+id/ln_logout"
+                    style="layout_profile_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_48"
+                        android:layout_height="@dimen/size_48"
+                        android:padding="@dimen/size_4"
+                        android:src="@drawable/ic_user_logout" />
+
+                    <Button
+                        android:id="@+id/btn_action_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_profile"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="@dimen/size_16"
+                        android:text="@string/btn_logout"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/edit_text_style"
+                        android:textColorHint="@color/edit_text_style" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_update"
+                    android:visibility="gone"
+                    style="layout_profile_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_48"
+                        android:layout_height="@dimen/size_48"
+                        android:padding="@dimen/size_4"
+                        android:src="@drawable/ic_user_save" />
+
+                    <Button
+                        android:id="@+id/btn_action_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_profile"
+                        android:gravity="left|center_vertical"
+                        android:paddingLeft="@dimen/size_16"
+                        android:text="@string/action_update"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/edit_text_style"
+                        android:textColorHint="@color/edit_text_style"
+                        tools:ignore="RtlHardcoded" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <View style="@style/View_style_horizontal" />
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp"
-        tools:targetApi="lollipop">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_user"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:elevation="@dimen/size_6"
-            android:minHeight="?attr/actionBarSize"
-            android:padding="0dp"
-            app:popupTheme="@style/AppTheme.AppBarOverlay" />
-    </android.support.design.widget.AppBarLayout>
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -36,13 +20,12 @@
             android:id="@+id/img_cover_avatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/img_demo" />
+            android:scaleType="centerCrop" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#73000000"></FrameLayout>
+            android:background="#73000000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,21 +41,36 @@
                 android:paddingLeft="@dimen/size_16">
 
                 <FrameLayout
+                    android:id="@+id/fr_avatar"
                     android:layout_width="@dimen/size_60"
-                    android:layout_height="@dimen/size_60"
-                    android:background="@drawable/layout_circle">
+                    android:layout_height="@dimen/size_60">
 
                     <com.xtel.ivipu.view.widget.RoundImage
                         android:id="@+id/img_user_avatar"
                         android:layout_width="@dimen/size_56"
                         android:layout_height="@dimen/size_56"
+                        android:layout_gravity="center" />
+
+                    <LinearLayout
+                        android:id="@+id/ln_change_avatar"
+                        android:visibility="gone"
                         android:layout_gravity="center"
-                        android:background="@drawable/layout_circle"
-                        android:src="@mipmap/user_demo" />
+                        android:layout_width="@dimen/size_56"
+                        android:layout_height="@dimen/size_56"
+                        android:background="@drawable/layout_circle_black_transparent">
+                        <TextView
+                            android:id="@+id/tv_change_avatar"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:text="Sửa"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
                 </FrameLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -86,7 +84,6 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:text="Nguyễn Thiên Ân"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/font_15" />
 
@@ -96,17 +93,28 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:text="Time joint"
                         android:textColor="@android:color/white"
+                        android:layout_marginBottom="@dimen/size_26"
                         android:textSize="@dimen/font_12" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/img_action_edit"
-                    android:layout_width="@dimen/size_24"
-                    android:layout_height="@dimen/size_24"
+                <FrameLayout
                     android:layout_marginRight="@dimen/size_16"
-                    android:src="@drawable/ic_action_edit" />
+                    android:layout_marginBottom="@dimen/size_20"
+                    android:layout_width="@dimen/size_24"
+                    android:layout_height="@dimen/size_24">
+                    <ImageView
+                        android:id="@+id/img_action_edit"
+                        android:layout_width="@dimen/size_24"
+                        android:layout_height="@dimen/size_24"
+                        android:src="@drawable/ic_action_edit"/>
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/img_user_cancel"
+                        android:layout_width="@dimen/size_24"
+                        android:layout_height="@dimen/size_24"
+                        android:src="@drawable/ic_user_cancel"/>
+                </FrameLayout>
             </LinearLayout>
 
             <View
@@ -131,7 +139,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/tv_test"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/size_12" />
                 </LinearLayout>
@@ -152,7 +159,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="@string/tv_now"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/size_12" />
                 </LinearLayout>

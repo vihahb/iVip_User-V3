@@ -84,6 +84,7 @@
     <string name="action_reactive">Xác thực lại</string>
     <string name="action_reset">Đổi mật khẩu</string>
     <string name="action_reg">Đăng ký</string>
+    <string name="action_update">Cập nhật</string>
     <string name="try_again">Chạm để thử lại</string>
     <string name="loading_data">Đang tải dữ liệu</string>
     <string name="updated_data">Cập nhật thành công</string>
@@ -173,6 +174,74 @@
         <item>Nam</item>
         <item>Khác</item>
     </array>
+
+    <array name="city_profile">
+        <item>An Giang</item>
+        <item>Bà Rịa-Vũng Tàu</item>
+        <item>Bạc Liêu</item>
+        <item>Bắc Kạn</item>
+        <item>Bắc Giang</item>
+        <item>Bắc Ninh</item>
+        <item>Bến Tre</item>
+        <item>Bình Dương</item>
+        <item>Bình Định</item>
+        <item>Bình Phước</item>
+        <item>Bình Thuận</item>
+        <item>Cà Mau</item>
+        <item>Cao Bằng</item>
+        <item>Cần Thơ</item>
+        <item>Đà Nẵng</item>
+        <item>Đắk Lắk</item>
+        <item>Đắk Nông</item>
+        <item>Điện Biên</item>
+        <item>Đồng Nai</item>
+        <item>Đồng Tháp</item>
+        <item>Gia Lai</item>
+        <item>Hà Giang</item>
+        <item>Hà Nam</item>
+        <item>Hà Nội</item>
+        <item>Hà Tây</item>
+        <item>Hà Tĩnh</item>
+        <item>Hải Dương</item>
+        <item>Hải Phòng</item>
+        <item>Hòa Bình</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+        <item>An Giang</item>
+    </array>
+
 
     <!-- Status -->
     <string name="check_ok">Done</string>

@@ -36,6 +36,8 @@ public class RESP_Profile extends com.xtel.nipservicesdk.model.entity.RESP_Basic
     private long join_date;
     @Expose
     private String fullname;
+    @Expose
+    private String area_code;
 
     public String getCode() {
         return code;
@@ -147,6 +149,14 @@ public class RESP_Profile extends com.xtel.nipservicesdk.model.entity.RESP_Basic
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getArea_code() {
+        return area_code;
+    }
+
+    public void setArea_code(String area_code) {
+        this.area_code = area_code;
     }
 
     @Override

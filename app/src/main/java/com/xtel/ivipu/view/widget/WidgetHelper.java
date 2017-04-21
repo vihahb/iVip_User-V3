@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.widget;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,6 +36,7 @@ import com.xtel.sdk.utils.PicassoImageGetter;
 import com.xtel.sdk.utils.TimeUtil;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -41,7 +44,7 @@ import java.util.TimeZone;
 import jp.wasabeef.blurry.Blurry;
 
 /**
- * Created by vivhp on 2/28/2017
+ * Created by vivhp on 2/28/2017.
  */
 
 public class WidgetHelper {
@@ -52,7 +55,7 @@ public class WidgetHelper {
     private String TAG = "Widget Helper";
 
     /*
-    * Cấn sửa lại
+    * Cần sửa lại
     * tất cả các error của picasso thành ảnh ( không được set màu )
     * */
 
@@ -69,11 +72,11 @@ public class WidgetHelper {
         }
     }
 
-    public static void main(String[] args) {
-        String test = "Hlxkgxyc&nbsp;<br><img src=\"http://124.158.5.112:9190/upload/store/files/2017/03/28/1490697533902@aVnXlthyg6.png\" alt=\"iVipBusiness\"><br>";
-        String content = test.replaceAll("\\\"", "\"");
-        System.out.print(content);
-    }
+//    public static void main(String[] args) {
+//        String test = "Hlxkgxyc&nbsp;<br><img src=\"http://124.158.5.112:9190/upload/store/files/2017/03/28/1490697533902@aVnXlthyg6.png\" alt=\"iVipBusiness\"><br>";
+//        String content = test.replaceAll("\\\"", "\"");
+//        System.out.print(content);
+//    }
 
     public void setImageButtonLike(ImageButton imageButton, int favorite) {
         if (favorite == 1)
@@ -400,6 +403,19 @@ public class WidgetHelper {
         SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         return formatTime.format(date);
+    }
+
+    public long convertTime2Unix(String date_time) {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+          date = dateFormat.parse(date_time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long unixTime = (date.getTime()) / 1000;
+        Log.e("Time Unix ", String.valueOf(unixTime));
+        return unixTime;
     }
 
     public void showAlertNetwork(Context context) {
