@@ -1,5 +1,7 @@
 package com.xtel.ivipu.presenter;
 
+import android.text.TextUtils;
+
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
@@ -7,14 +9,13 @@ import com.xtel.ivipu.model.RESP.RESP_News;
 import com.xtel.ivipu.model.RESP.RESP_Voucher;
 import com.xtel.ivipu.view.activity.StoreInfoActivity;
 import com.xtel.ivipu.view.activity.inf.INewsInfoView;
+import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.ICmd;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_None;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
-
-import java.security.PublicKey;
 
 /**
  * Created by Vulcl on 4/18/2017
@@ -23,6 +24,7 @@ import java.security.PublicKey;
 public class NewsInfoPresenter {
     private INewsInfoView view;
     private RESP_News  resp_newsObject;
+    private String session = LoginManager.getCurrentSession();
 
     private ICmd iCmd = new ICmd() {
         @Override
@@ -129,6 +131,11 @@ public class NewsInfoPresenter {
     }
 
     public void likeNews() {
+        if (TextUtils.isEmpty(session)) {
+            view.onNotLogged();
+            return;
+        }
+
         if (!NetWorkInfo.isOnline(view.getActivity())) {
             view.onNoInternet();
             return;
@@ -148,6 +155,11 @@ public class NewsInfoPresenter {
     }
 
     public void getVoucher() {
+        if (TextUtils.isEmpty(session)) {
+            view.onNotLogged();
+            return;
+        }
+
         if (!NetWorkInfo.isOnline(view.getActivity())) {
             view.onNoInternet();
             return;
@@ -158,6 +170,11 @@ public class NewsInfoPresenter {
     }
 
     public void rateNews(double rate_value) {
+        if (TextUtils.isEmpty(session)) {
+            view.onNotLogged();
+            return;
+        }
+
         if (!NetWorkInfo.isOnline(view.getActivity())) {
             view.onNoInternet();
             return;

@@ -205,11 +205,13 @@
     <string name="title.activity.profile">Thôn tin tài khoản</string>
     <string name="title.activity.news_info">Chi tiết bản tin</string>
     <string name="title.activity.store_info">Chi tiết cửa hàng</string>
+    <string name="title.activity.view_store_on_map">Địa chỉ cửa hàng</string>
     <string name="title.list_voucher">Danh sách thẻ giảm giá</string>
     <string name="title.list_member_card">Danh sách thẻ thành viên</string>
     <string name="title.list_favorite">Danh sách thẻ yêu thích</string>
     <string name="title.profile">Thôn tin tài khoản</string>
     <string name="title.user">Tài khoản</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- Menu -->
     <string name="nav_news_category">Danh mục bản tin</string>
@@ -247,6 +249,8 @@
     <string name="message_can_not_get_data">Không thể tải dữ liệu</string>
     <string name="message_ok">OK</string>
     <string name="message_please_choose_star">Vui lòng chọn số sao</string>
+    <string name="message_please_turn_on_the_gps">Không thể lấy vị trí. Vui lòng bật GPS.</string>
+    <string name="message_can_not_get_location">Không thể tìm vị trí hiện tại</string>
 
     <!-- Layout -->
     <string name="total">Tổng:</string>
@@ -263,6 +267,8 @@
     <string name="layout_rated">Bạn đã đánh giá:</string>
     <string name="layout_star">sao.</string>
     <string name="layout_ok">OK</string>
+    <string name="layout_agree">Đồng ý</string>
+    <string name="layout_cancel">Hủy bỏ</string>
     <string name="layout_address">Địa chỉ</string>
 
     <!-- Error -->
@@ -270,4 +276,6 @@
     <string name="error_touch_to_try_again">Có lỗi xảy ra\nChạm vào để thử lại</string>
     <string name="error_no_internet">Không có kết nối mạng</string>
     <string name="error_end_of_session">Bạn đã hết phiên làm việc</string>
+    <string name="error_can_not_direction">Không thể chỉ đường</string>
+    <string name="error_can_not_get_location">Không thể lấy vị trí</string>
 </resources>

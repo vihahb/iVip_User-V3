@@ -1,5 +1,7 @@
 package com.xtel.ivipu.view.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,20 +9,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.model.entity.Address;
+import com.xtel.ivipu.model.RESP.RESP_StoreInfo;
+import com.xtel.ivipu.view.activity.StoreOnMapActivity;
+import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.utils.ViewHolderHelper;
-
-import java.util.ArrayList;
 
 /**
  * Created by Vulcl on 4/20/2017
  */
 
 public class StoreInfoAddressAdapter extends RecyclerView.Adapter<StoreInfoAddressAdapter.ViewHolder> {
-    protected ArrayList<Address> arrayList;
+    protected Activity activity;
+    protected RESP_StoreInfo resp_storeInfo;
+//    protected ArrayList<Address> arrayList;
 
-    public StoreInfoAddressAdapter(ArrayList<Address> arrayList) {
-        this.arrayList = arrayList;
+    public StoreInfoAddressAdapter(Activity activity, RESP_StoreInfo resp_storeInfo) {
+        this.activity = activity;
+        this.resp_storeInfo = resp_storeInfo;
+//        this.arrayList = arrayList;
     }
 
     @Override
@@ -30,12 +36,21 @@ public class StoreInfoAddressAdapter extends RecyclerView.Adapter<StoreInfoAddre
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.txt_address.setText(arrayList.get(position).getAddress());
+        holder.txt_address.setText(resp_storeInfo.getAddress().get(position).getAddress());
+
+        holder.txt_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, StoreOnMapActivity.class);
+                intent.putExtra(Constants.OBJECT, resp_storeInfo);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return resp_storeInfo.getAddress().size();
     }
 
     public class ViewHolder extends ViewHolderHelper {

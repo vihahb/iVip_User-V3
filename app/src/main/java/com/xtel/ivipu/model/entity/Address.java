@@ -2,11 +2,13 @@ package com.xtel.ivipu.model.entity;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
+
 /**
  * Created by Vulcl on 4/20/2017
  */
 
-public class Address {
+public class Address implements Serializable {
     @Expose
     private String address;
     @Expose

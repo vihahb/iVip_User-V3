@@ -66,4 +66,13 @@ public class PermissionHelper {
         }
         return true;
     }
+
+    public static boolean checkAllow(int[] grantResults) {
+        for (int grant : grantResults) {
+            if (grant == PackageManager.PERMISSION_DENIED)
+                return false;
+        }
+
+        return true;
+    }
 }

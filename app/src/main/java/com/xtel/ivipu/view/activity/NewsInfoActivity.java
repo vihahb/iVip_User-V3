@@ -342,6 +342,13 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
     }
 
     @Override
+    public void onNotLogged() {
+        showShortToast(getString(R.string.need_login_to_action));
+        finishAffinity();
+        startActivity(LoginActivity.class);
+    }
+
+    @Override
     public Activity getActivity() {
         return this;
     }

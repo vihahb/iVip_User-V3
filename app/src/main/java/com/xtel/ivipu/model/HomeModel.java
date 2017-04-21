@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.xtel.ivipu.model.RESP.RESP_News;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
+import com.xtel.ivipu.model.RESP.RESP_StoreInfo;
 import com.xtel.ivipu.model.entity.NewsActionEntity;
 import com.xtel.ivipu.model.entity.RateObject;
 import com.xtel.nipservicesdk.LoginManager;
@@ -138,6 +139,20 @@ public class HomeModel extends Model {
     }
 
     public void getAddress(String url, String session, ResponseHandle responseHandle) {
+        requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getStoreAddress(RESP_News resp_news, ResponseHandle responseHandle) {
+        String type = null;
+        if (resp_news.getChain_store_id() != null)
+            type = "Chain";
+        else if (resp_news.getStore_id() != null)
+            type = "Store";
+
+        String url = Constants.SERVER_IVIP + ADDRESS_STORE_ID + resp_news.getId() + ADDRESS_TYPE + type;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getStoreAddress", "url " + url + "  session " + session);
         requestServer.getApi(url, session, responseHandle);
     }
 

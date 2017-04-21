@@ -10,6 +10,9 @@ public abstract class Model {
     protected final String STORE_INFO_ID = "v0.1/info/";
     protected final String STORE_INFO_TYPE = "?type=";
 
+    protected final String ADDRESS_STORE_ID = "v0.1/address/";
+    protected final String ADDRESS_TYPE = "?type=";
+
     protected RequestServer requestServer = new RequestServer();
 
 }

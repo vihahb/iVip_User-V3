@@ -27,5 +27,6 @@ public interface INewsInfoView {
     void onRequestError(int type, Error error);
     void showShortToast(String message);
     void onNoInternet();
+    void onNotLogged();
     Activity getActivity();
 }

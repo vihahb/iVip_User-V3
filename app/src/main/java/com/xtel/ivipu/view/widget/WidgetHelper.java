@@ -95,7 +95,7 @@ public class WidgetHelper {
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        Drawable drawable = new BitmapDrawable(MyApplication.context.getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(), dpToPx(36), dpToPx(36), true));
+                        Drawable drawable = new BitmapDrawable(MyApplication.context.getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(), dpToPx(34), dpToPx(34), true));
 
                         if (showArrow)
                             textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, MyApplication.context.getResources().getDrawable(R.mipmap.ic_arrow_right_black_24), null);

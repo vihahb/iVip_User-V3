@@ -16,6 +16,7 @@
         style="@style/TextView.Black_Title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_48"
+        android:background="@drawable/button_transparent"
         android:clickable="true"
         android:drawableEnd="@mipmap/ic_arrow_right_black_18"
         android:drawableRight="@mipmap/ic_arrow_right_black_18"

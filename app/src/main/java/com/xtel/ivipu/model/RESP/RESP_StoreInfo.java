@@ -4,13 +4,14 @@ import com.google.gson.annotations.Expose;
 import com.xtel.ivipu.model.entity.Address;
 import com.xtel.nipservicesdk.model.entity.RESP_Basic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Vulcl on 4/20/2017
  */
 
-public class RESP_StoreInfo extends RESP_Basic {
+public class RESP_StoreInfo extends RESP_Basic implements Serializable {
     @Expose
     private String description;
     @Expose
