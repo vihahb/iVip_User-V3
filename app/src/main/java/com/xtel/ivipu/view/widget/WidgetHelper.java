@@ -6,18 +6,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
+import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +35,7 @@ import com.xtel.sdk.callback.DialogListener;
 import com.xtel.sdk.utils.PicassoImageGetter;
 import com.xtel.sdk.utils.TimeUtil;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +53,6 @@ public class WidgetHelper {
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private final SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
     private String TAG = "Widget Helper";
-
 
     /*
     * Cần sửa lại
@@ -72,6 +77,47 @@ public class WidgetHelper {
 //        String content = test.replaceAll("\\\"", "\"");
 //        System.out.print(content);
 //    }
+
+    public void setImageButtonLike(ImageButton imageButton, int favorite) {
+        if (favorite == 1)
+            imageButton.setImageResource(R.mipmap.ic_favorite_red_36);
+        else
+            imageButton.setImageResource(R.mipmap.ic_favorite_gray_36);
+    }
+
+    public void setTextViewCircleLogo(final TextView textView, String url, final boolean showArrow) {
+        final ImageView imageView = new ImageButton(MyApplication.context);
+        imageView.setVisibility(View.GONE);
+        url = url.replace("https", "http").replace("9191", "9190");
+
+        Picasso.with(MyApplication.context)
+                .load(url)
+                .noPlaceholder()
+                .transform(new CircleTransform())
+                .error(R.mipmap.ic_logo_tool_bar)
+                .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Drawable drawable = new BitmapDrawable(MyApplication.context.getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(), dpToPx(36), dpToPx(36), true));
+
+                        if (showArrow)
+                            textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, MyApplication.context.getResources().getDrawable(R.mipmap.ic_arrow_right_black_24), null);
+                        else
+                            textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+
+                        imageView.destroyDrawingCache();
+                    }
+
+                    @Override
+                    public void onError() {
+                    }
+                });
+    }
+
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = MyApplication.context.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
 
     public void setImageURL(ImageView view, String url) {
         if (url == null || url.isEmpty())
@@ -252,12 +298,21 @@ public class WidgetHelper {
     }
 
     public void setTextViewHtml(TextView view, String content) {
-        //noinspection deprecation
-        view.setText(Html.fromHtml(content, new PicassoImageGetter(view), null));
+        String text = "";
+
+        try {
+            byte[] data = Base64.decode(content, Base64.DEFAULT);
+            text = new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        view.setText(Html.fromHtml(text, new PicassoImageGetter(view), null));
     }
 
     public void setTextViewFromHtmlWithImage(TextView view, String content) {
         String content_replace = content.replace("\\\"", "\"");
+        //noinspection deprecation
         view.setText(Html.fromHtml(content_replace, new PicassoImageGetter(view), null));
         Log.e(TAG, "asdasdasf " + content_replace);
     }
@@ -289,6 +344,20 @@ public class WidgetHelper {
 //
 //        return day + "-" + month + "-" + mYear;
 //    }
+
+    public void setTextViewWithVisibility(TextView view, String content) {
+        if (TextUtils.isEmpty(content))
+            view.setVisibility(View.GONE);
+        else
+            view.setText(content);
+    }
+
+    public void setTextViewDateWithResult(TextView view, String title, Long milliseconds) {
+        if (milliseconds == null)
+            view.setVisibility(View.GONE);
+        else
+            view.setText((title + convertLong2Time(milliseconds)));
+    }
 
     public void setTextViewWithResult(TextView view, String content, String result) {
         if (content == null || content.isEmpty())

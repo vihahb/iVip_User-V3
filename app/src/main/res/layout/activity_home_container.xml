@@ -30,14 +30,15 @@
         android:layout_weight="1"
         android:background="#e0e0e0" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_3"
-        android:background="@drawable/shadow_on_top" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/size_3"-->
+        <!--android:background="@drawable/shadow_on_top" />-->
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/home.bottomBar"
         android:layout_width="match_parent"
+        app:elevation="@dimen/size_4"
         android:layout_height="@dimen/size_60"
         app:bb_activeTabColor="@color/bottom_navigatin_selected"
         app:bb_badgesHideWhenActive="false"

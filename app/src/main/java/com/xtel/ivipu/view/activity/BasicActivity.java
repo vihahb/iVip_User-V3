@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -193,6 +194,12 @@ public class BasicActivity extends AppCompatActivity {
 
     protected void startActivity(Class clazz) {
         startActivity(new Intent(this, clazz));
+    }
+
+    protected void startActivity(Class clazz, String key, Object object) {
+        Intent intent = new Intent(this, clazz);
+        intent.putExtra(key, (Serializable) object);
+        startActivity(intent);
     }
 
     protected void startActivityFinish(Class clazz) {

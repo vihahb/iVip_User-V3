@@ -10,11 +10,10 @@ import com.xtel.sdk.utils.component.LoadFromUriAsyncTask;
 import com.xtel.sdk.utils.component.URLDrawable;
 
 /**
- * Created by vivhp on 4/3/2017.
+ * Created by vivhp on 4/3/2017
  */
 
 public class PicassoImageGetter implements Html.ImageGetter {
-
     private final TextView mTextView;
 
     /**

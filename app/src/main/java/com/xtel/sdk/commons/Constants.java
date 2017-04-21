@@ -1,15 +1,18 @@
 package com.xtel.sdk.commons;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by Vũ Hà Vi on 12/27/2016
@@ -124,5 +127,18 @@ public class Constants {
         return dateTime;
     }
 
-    public static final String MODEL = "model";
+    /*
+    * Chuy·ªÉn unicode t·ª´ c√≥ d·∫•u sang kh√¥ng gi·∫•u.
+    * */
+    public static String unicodeToKoDau(String s) {
+        if (TextUtils.isEmpty(s)) {
+            return "";
+        }
+
+        String nfdNormalizedString = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("").replaceAll("\u0111", "d").replaceAll("\u0110", "D");
+    }
+
+    public static final String OBJECT = "object";
 }
