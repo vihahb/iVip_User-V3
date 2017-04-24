@@ -7,6 +7,7 @@ import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.RESP.RESP_News;
 import com.xtel.ivipu.model.RESP.RESP_Voucher;
+import com.xtel.ivipu.view.activity.NewsOfStoreActivity;
 import com.xtel.ivipu.view.activity.StoreInfoActivity;
 import com.xtel.ivipu.view.activity.inf.INewsInfoView;
 import com.xtel.nipservicesdk.LoginManager;
@@ -38,7 +39,7 @@ public class NewsInfoPresenter {
                             @Override
                             public void onSuccess(RESP_News obj) {
                                 resp_newsObject = obj;
-                                view.onGetDataaSuccess(obj);
+                                view.onGetDataaSuccess(obj, (boolean) params[2]);
                             }
 
                             @Override
@@ -124,7 +125,7 @@ public class NewsInfoPresenter {
         }
 
         if (resp_newEntity != null) {
-            iCmd.execute(1, resp_newEntity.getId());
+            iCmd.execute(1, resp_newEntity.getId(), resp_newEntity.isFinal());
             view.showProgressBar(view.getActivity().getString(R.string.doing_load_data));
         } else
             view.onGetDataError(view.getActivity().getString(R.string.error_try_again));
@@ -187,5 +188,11 @@ public class NewsInfoPresenter {
 
         view.showProgressBar(view.getActivity().getString(R.string.doing_rate_news));
         iCmd.execute(5, rate_value);
+    }
+
+    public void viewMoreNews() {
+        int id = ((resp_newsObject.getChain_store_id() != null) ? resp_newsObject.getChain_store_id() : resp_newsObject.getStore_id());
+
+        view.startActivity(NewsOfStoreActivity.class, Constants.OBJECT, id);
     }
 }

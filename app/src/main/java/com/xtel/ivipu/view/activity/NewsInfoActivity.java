@@ -28,6 +28,7 @@ import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.callback.NewDialogListener;
 
 public class NewsInfoActivity extends IActivity implements View.OnClickListener, INewsInfoView {
     protected CallbackManager callbackManager;
@@ -218,11 +219,6 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void startActivity(Class clazz, String key, Object object) {
-        super.startActivity(clazz, key, object);
-    }
-
     /**
      * Hiển thị progress bar thông báo
      */
@@ -235,12 +231,14 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
      * Lấy dữ liệu trên server thành công
      */
     @Override
-    public void onGetDataaSuccess(RESP_News obj) {
+    public void onGetDataaSuccess(RESP_News obj, boolean isFinal) {
         closeProgressBar();
 
         setNewsInfo(obj);
         setVoucher(obj.getVoucher());
         setRate(obj.getCurrent_rate());
+
+        content_txt_more_news.setEnabled(!isFinal);
     }
 
     /**
@@ -251,19 +249,20 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
     public void onGetDataError(String message) {
         closeProgressBar();
 
-        showMaterialDialog(false, false, null, message, null, getString(R.string.message_ok), new DialogListener() {
+        showMaterialDialog(false, false, null, message, null, getString(R.string.message_ok), new NewDialogListener() {
             @Override
-            public void onClicked(Object object) {
+            public void negativeClicked() {
 
             }
 
             @Override
-            public void onCancel() {
+            public void positiveClicked() {
                 closeDialog();
                 finish();
             }
         });
     }
+
 
     /**
      * Request lấy mã khuyễn mãi thành công
@@ -349,6 +348,11 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
     }
 
     @Override
+    public void startActivity(Class clazz, String key, Object object) {
+        super.startActivity(clazz, key, object);
+    }
+
+    @Override
     public Activity getActivity() {
         return this;
     }
@@ -367,6 +371,10 @@ public class NewsInfoActivity extends IActivity implements View.OnClickListener,
                 break;
             case R.id.news_info_content_btn_rate:
                 presenter.rateNews(content_ratingBar.getRating());
+                break;
+
+            case R.id.news_info_content_txt_more_news:
+                presenter.viewMoreNews();
                 break;
             default:
                 break;

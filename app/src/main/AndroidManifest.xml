@@ -171,6 +171,10 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title.activity.view_store_on_map"
             android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.NewsOfStoreActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title.activity.news_of_store"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.UserProfileActivity"
             android:theme="@style/AppTheme" />
@@ -216,7 +220,7 @@
 
         <activity
             android:name=".view.activity.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
     </application>
 
 </manifest>

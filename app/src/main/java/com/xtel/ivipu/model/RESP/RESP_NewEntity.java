@@ -37,6 +37,8 @@ public class RESP_NewEntity implements Serializable {
     @Expose
     private int type;
 
+    private boolean isFinal = false;
+
     public int getId() {
         return id;
     }
@@ -139,6 +141,18 @@ public class RESP_NewEntity implements Serializable {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public boolean isFinal() {
+        return isFinal;
+    }
+
+    public void setFinal(boolean aFinal) {
+        isFinal = aFinal;
     }
 
     @Override

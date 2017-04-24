@@ -26,6 +26,7 @@ import com.xtel.ivipu.view.activity.inf.IActivityComment;
 import com.xtel.ivipu.view.adapter.AdapterCommentActivity;
 import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.callback.NewDialogListener;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
 
@@ -212,13 +213,15 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
 
     @Override
     public void onNetworkDisable() {
-        showMaterialDialog(true, true, "Thông báo", "Kết nối thất bai.\nVui lòng kiểm tra kết nối internet.", null, "OK", new DialogListener() {
+        showMaterialDialog(true, true, "Thông báo", "Kết nối thất bai.\nVui lòng kiểm tra kết nối internet.", null, "OK", new NewDialogListener() {
             @Override
-            public void onClicked(Object object) {
+            public void negativeClicked() {
+
             }
 
             @Override
-            public void onCancel() {
+            public void positiveClicked() {
+
             }
         });
     }

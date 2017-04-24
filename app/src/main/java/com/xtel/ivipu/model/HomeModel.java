@@ -58,6 +58,14 @@ public class HomeModel extends Model {
         requestServer.postApi(url, JsonHelper.toJson(newsAction), session, responseHandle);
     }
 
+    public void getNewsInStore(int id, int page, ResponseHandle responseHandle) {
+        String url = Constants.SERVER_IVIP + NEWS_IN_STORE_ID + id + NEWS_IN_STORE_PAGE + page + NEWS_IN_STORE_PAGESIZE;
+        String session = LoginManager.getCurrentSession();
+
+        Log.e("getNewsInStore", "url " + url + "  session " + session);
+        requestServer.getApi(url, session, responseHandle);
+    }
+
     public void postChekinAction(String url_checkin, String checkInObj, String session, ResponseHandle responseHandle) {
         requestServer.postApi(url_checkin, checkInObj, session, responseHandle);
     }

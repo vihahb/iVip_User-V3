@@ -13,11 +13,10 @@ import com.xtel.nipservicesdk.model.entity.Error;
 
 public interface INewsInfoView {
 
-    void startActivity(Class clazz, String key, Object object);
-
     void showProgressBar(String message);
-    void onGetDataaSuccess(RESP_News obj);
+    void onGetDataaSuccess(RESP_News obj, boolean isFinal);
     void onGetDataError(String message);
+
     void onGetVoucherSuccess(RESP_Voucher obj);
     void onLikeSuccess(int favorite);
     void onRateSuccess(double current_rate);
@@ -28,5 +27,6 @@ public interface INewsInfoView {
     void showShortToast(String message);
     void onNoInternet();
     void onNotLogged();
+    void startActivity(Class clazz, String key, Object object);
     Activity getActivity();
 }

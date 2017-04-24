@@ -275,6 +275,7 @@
     <string name="title.activity.news_info">Chi tiết bản tin</string>
     <string name="title.activity.store_info">Chi tiết cửa hàng</string>
     <string name="title.activity.view_store_on_map">Địa chỉ cửa hàng</string>
+    <string name="title.activity.news_of_store">Bản tin cùng cửa hàng</string>
     <string name="title.list_voucher">Danh sách thẻ giảm giá</string>
     <string name="title.list_member_card">Danh sách thẻ thành viên</string>
     <string name="title.list_favorite">Danh sách thẻ yêu thích</string>

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.xtel.ivipu.R;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.callback.NewDialogListener;
 import com.xtel.sdk.dialog.DialogNotification;
 
 import java.io.Serializable;
@@ -116,7 +117,7 @@ public class BasicActivity extends AppCompatActivity {
     }
 
     protected void showMaterialDialog(boolean isTouchOutside, boolean isCancel, String title, String message,
-                                      final String negative, String positive, final DialogListener dialogListener) {
+                                      final String negative, String positive, final NewDialogListener dialogListener) {
         dialog = new Dialog(BasicActivity.this, R.style.Theme_Transparent);
         dialog.setContentView(R.layout.dialog_material);
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -156,7 +157,7 @@ public class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                dialogListener.onClicked(null);
+                dialogListener.negativeClicked();
             }
         });
 
@@ -164,7 +165,7 @@ public class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                dialogListener.onCancel();
+                dialogListener.positiveClicked();
             }
         });
 

@@ -38,6 +38,7 @@ import com.xtel.ivipu.presenter.StoreOnMapPresenter;
 import com.xtel.ivipu.view.activity.inf.IStoreOnMapView;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.callback.NewDialogListener;
 import com.xtel.sdk.commons.NetWorkInfo;
 
 import java.io.IOException;
@@ -247,15 +248,14 @@ public class StoreOnMapActivity extends IActivity implements OnMapReadyCallback,
 
     @Override
     public void onGetDataError() {
-        showMaterialDialog(false, false, null, getString(R.string.error_try_again), null, getString(R.string.layout_ok), new DialogListener() {
+        showMaterialDialog(false, false, null, getString(R.string.error_try_again), null, getString(R.string.layout_ok), new NewDialogListener() {
             @Override
-            public void onClicked(Object object) {
-                closeDialog();
-                finish();
+            public void negativeClicked() {
+
             }
 
             @Override
-            public void onCancel() {
+            public void positiveClicked() {
                 closeDialog();
                 finish();
             }

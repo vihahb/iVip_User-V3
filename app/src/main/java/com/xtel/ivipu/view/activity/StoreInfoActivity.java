@@ -22,6 +22,7 @@ import com.xtel.nipservicesdk.callback.ICmd;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.sdk.callback.DialogListener;
+import com.xtel.sdk.callback.NewDialogListener;
 
 public class StoreInfoActivity extends IActivity implements IStoreInfoView {
     protected CallbackManager callbackManager;
@@ -101,15 +102,14 @@ public class StoreInfoActivity extends IActivity implements IStoreInfoView {
     public void getDataError() {
         closeProgressBar();
 
-        showMaterialDialog(false, false, null, getString(R.string.error_try_again), null, getString(R.string.layout_ok), new DialogListener() {
+        showMaterialDialog(false, false, null, getString(R.string.error_try_again), null, getString(R.string.layout_ok), new NewDialogListener() {
             @Override
-            public void onClicked(Object object) {
-                closeDialog();
-                finish();
+            public void negativeClicked() {
+
             }
 
             @Override
-            public void onCancel() {
+            public void positiveClicked() {
                 closeDialog();
                 finish();
             }
